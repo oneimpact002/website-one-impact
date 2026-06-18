@@ -324,10 +324,13 @@ const Capture = ({ onSubmit, onBack, initialData, answers }) => {
   const [submitting, setSubmitting] = useState(false)
 
   const validate = () => {
-    // Campos agora são opcionais - não valida nada
     const newErrors = {}
+    if (!nome.trim()) newErrors.nome = 'Nome é obrigatório'
+    const digits = whatsapp.replace(/\D/g, '')
+    if (!digits || digits.length < 10) newErrors.whatsapp = 'WhatsApp inválido'
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) newErrors.email = 'E-mail inválido'
     setErrors(newErrors)
-    return true
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e) => {
@@ -336,18 +339,15 @@ const Capture = ({ onSubmit, onBack, initialData, answers }) => {
     setSubmitting(true)
     trackEvent('capture_submitted', { hasPessoal: pessoalConfirm })
     const cleanedWhatsapp = whatsapp.replace(/\D/g, '')
-    // Envia dados mesmo se vazios (teste)
-    if (nome.trim() || whatsapp || email.trim()) {
-      await submitToRenvChat({
-        nome: nome.trim(),
-        whatsapp: cleanedWhatsapp,
-        email: email.trim(),
-        pessoalConfirm,
-        answers: answers || {},
-      })
-    }
+    await submitToRenvChat({
+      nome: nome.trim(),
+      whatsapp: cleanedWhatsapp,
+      email: email.trim(),
+      pessoalConfirm,
+      answers: answers || {},
+    })
     setSubmitting(false)
-    onSubmit({ nome: nome.trim() || 'Visitante', whatsapp: cleanedWhatsapp, email: email.trim() })
+    onSubmit({ nome: nome.trim(), whatsapp: cleanedWhatsapp, email: email.trim() })
   }
 
   return (
