@@ -5,5 +5,5 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   integrations: [react(), tailwind()],
-  output: 'server',
+  output: 'static',
 });

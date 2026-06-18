@@ -315,7 +315,7 @@ const ScoreQuestion = ({ question, step, total, value, onChange, onNext, onBack,
 }
 
 // ======================== CAPTURE ========================
-const Capture = ({ onSubmit, onBack, initialData }) => {
+const Capture = ({ onSubmit, onBack, initialData, answers }) => {
   const [nome, setNome] = useState(initialData?.nome || '')
   const [whatsapp, setWhatsapp] = useState(initialData?.whatsapp ? formatWhatsApp(initialData.whatsapp) : '')
   const [email, setEmail] = useState(initialData?.email || '')
@@ -343,6 +343,7 @@ const Capture = ({ onSubmit, onBack, initialData }) => {
         whatsapp: cleanedWhatsapp,
         email: email.trim(),
         pessoalConfirm,
+        answers: answers || {},
       })
     }
     setSubmitting(false)
@@ -1194,7 +1195,7 @@ const DiagnosticoForm = () => {
 
         {screen === 'capture' && (
           <div key="capture">
-            <Capture onSubmit={handleCaptureSubmit} onBack={goBack} initialData={userData} />
+            <Capture onSubmit={handleCaptureSubmit} onBack={goBack} initialData={userData} answers={answers} />
           </div>
         )}
 
