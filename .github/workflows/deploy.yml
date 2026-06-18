@@ -23,5 +23,7 @@ jobs:
           server: 147.93.14.207
           username: u284284720
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
           local-dir: ./dist/
           server-dir: /domains/agenciaoneimpact.com.br/public_html/
