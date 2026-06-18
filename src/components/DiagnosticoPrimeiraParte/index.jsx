@@ -610,6 +610,10 @@ const ScoreGauge = ({ score }) => {
 const Result = ({ payload, onEdit }) => {
   const { score, sinais, nome, dashboard } = payload
   const faixa = getScoreFaixa(score)
+  const waMsg = encodeURIComponent(
+    `Olá! Acabei de fazer o diagnóstico digital da One Impact.\n\nNome: ${nome}\nPontuação: ${score}/100\nPerda estimada: ${fmt(dashboard.monthlyLoss)}/mês\n\nGostaria de receber o plano de ação completo.`
+  )
+  const waLink = `https://wa.me/554188733518?text=${waMsg}`
   const [showToast, setShowToast] = useState(true)
   useEffect(() => {
     const t = setTimeout(() => setShowToast(false), 4000)
@@ -812,7 +816,7 @@ const Result = ({ payload, onEdit }) => {
                   ))}
                 </ul>
                 <a
-                  href="https://wa.me/5500000000000"
+                  href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="texto-card inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#5907DB] via-[#8539FF] to-[#677BFF] font-bold text-white shadow-[0_0_30px_rgba(133,57,255,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-transform"
@@ -844,7 +848,7 @@ const Result = ({ payload, onEdit }) => {
           <p className="text-[13px] font-bold text-white leading-tight truncate">Recupere {fmt(dashboard.monthlyLoss)}/mês</p>
         </div>
         <a
-          href="https://wa.me/5500000000000"
+          href={waLink}
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#5907DB] to-[#8539FF] text-[13px] font-bold text-white shadow-[0_0_20px_rgba(133,57,255,0.4)]"
