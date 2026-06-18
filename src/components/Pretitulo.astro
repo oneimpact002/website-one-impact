@@ -1,0 +1,35 @@
+---
+interface Props {
+  text: string;
+  variant?: 'light' | 'dark';
+  size?: string;
+  sizeDesktop?: string;
+}
+
+const { text, variant = 'dark', size = '14px', sizeDesktop = '10px' } = Astro.props;
+
+const isDark = variant === 'dark';
+const borderColor = isDark ? 'rgba(247, 250, 255, 0.25)' : 'rgba(12, 14, 16, 0.15)';
+const dotColor = isDark ? '#F7FAFF' : '#0C0E10';
+const textColor = isDark ? '#F7FAFF' : '#0C0E10';
+---
+
+<style>
+  .pretitulo-texto {
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Sora', sans-serif;
+  }
+  @media (min-width: 768px) {
+    .pretitulo-texto {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<div style={`display: inline-flex; align-items: center; gap: 8px; border: 1px solid ${borderColor}; border-radius: 100px; padding: 6px 16px 6px 10px; margin-bottom: 16px;`}>
+  <div style={`width: 6px; height: 6px; background-color: ${dotColor}; border-radius: 50%; flex-shrink: 0; align-self: center; margin-top: -1px;`}></div>
+  <span class="pretitulo-texto" style={`color: ${textColor};`}>{text}</span>
+</div>

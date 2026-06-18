@@ -1,0 +1,174 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Coluna 1 - Marca -->
+      <div>
+        <span class="footer-brand">ONE IMPACT</span>
+        <p class="footer-tagline">
+          Sites e posicionamento digital para advogados que querem ser encontrados pelos clientes certos.
+        </p>
+      </div>
+
+      <!-- Coluna 2 - Navegacao -->
+      <div>
+        <p class="footer-label">Navegacao</p>
+        <ul class="footer-list">
+          <li><a href="#inicio" class="footer-link">Inicio</a></li>
+          <li><a href="#problema" class="footer-link">O Problema</a></li>
+          <li><a href="#solucao" class="footer-link">Solucao</a></li>
+          <li><a href="#servicos" class="footer-link">Servicos</a></li>
+          <li><a href="#oferta" class="footer-link">Oferta</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3 - Contato -->
+      <div>
+        <p class="footer-label">Contato</p>
+        <ul class="footer-list">
+          <li>
+            <a href="mailto:contato@oneimpact.com.br" class="footer-link">
+              contato@oneimpact.com.br
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/oneimpact" target="_blank" rel="noopener noreferrer" class="footer-link">
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/company/oneimpact" target="_blank" rel="noopener noreferrer" class="footer-link">
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        &copy; {currentYear} One Impact. Todos os direitos reservados.
+      </p>
+      <div class="footer-legal">
+        <a href="/privacidade" class="footer-link-small">Politica de Privacidade</a>
+        <a href="/termos" class="footer-link-small">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    padding: 56px 24px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .footer-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  .footer-brand {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--text-primary);
+  }
+
+  .footer-tagline {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(247, 250, 255, 0.35);
+    margin-top: 12px;
+    max-width: 320px;
+  }
+
+  .footer-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(247, 250, 255, 0.3);
+    margin-bottom: 16px;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-link {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    color: rgba(247, 250, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--text-primary);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(247, 250, 255, 0.1);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+    }
+  }
+
+  .footer-copy {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    color: rgba(247, 250, 255, 0.25);
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-link-small {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    color: rgba(247, 250, 255, 0.25);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link-small:hover {
+    color: rgba(247, 250, 255, 0.5);
+  }
+</style>

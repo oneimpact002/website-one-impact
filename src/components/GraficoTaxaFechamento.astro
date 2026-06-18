@@ -1,0 +1,150 @@
+---
+// Componente de gráfico de barras usando SVG puro
+const data = [
+  { label: "< 5 min", taxa: 78 },
+  { label: "5-30 min", taxa: 54 },
+  { label: "30-60 min", taxa: 32 },
+  { label: "1h-4h", taxa: 17 },
+  { label: "4h-24h", taxa: 8 },
+  { label: "> 24h", taxa: 3 },
+];
+
+const maxValue = 100;
+const chartHeight = 220;
+const barWidth = 40;
+const gap = 24;
+const totalWidth = data.length * (barWidth + gap) - gap;
+---
+
+<div class="grafico-container">
+  <p class="grafico-label">Taxa de fechamento (%)</p>
+  <p class="grafico-sublabel">por tempo de resposta ao lead</p>
+
+  <div class="grafico-wrapper">
+    <svg
+      width="100%"
+      height={chartHeight + 60}
+      viewBox={`0 0 ${totalWidth + 40} ${chartHeight + 60}`}
+      preserveAspectRatio="xMidYMid meet"
+    >
+      {/* Eixo Y */}
+      <line
+        x1="30"
+        y1="10"
+        x2="30"
+        y2={chartHeight + 10}
+        stroke="#0C0E10"
+        stroke-opacity="0.1"
+        stroke-width="1"
+      />
+
+      {/* Linhas de grade */}
+      {[0, 25, 50, 75, 100].map((val) => {
+        const y = chartHeight + 10 - (val / maxValue) * chartHeight;
+        return (
+          <>
+            <line
+              x1="30"
+              y1={y}
+              x2={totalWidth + 30}
+              y2={y}
+              stroke="#0C0E10"
+              stroke-opacity="0.05"
+              stroke-width="1"
+              stroke-dasharray="4,4"
+            />
+            <text
+              x="25"
+              y={y + 4}
+              text-anchor="end"
+              font-size="10"
+              fill="#0C0E10"
+              opacity="0.4"
+            >
+              {val}%
+            </text>
+          </>
+        );
+      })}
+
+      {/* Barras */}
+      {data.map((item, i) => {
+        const barHeight = (item.taxa / maxValue) * chartHeight;
+        const x = 30 + i * (barWidth + gap);
+        const y = chartHeight + 10 - barHeight;
+        const opacity = 1 - i * 0.12;
+
+        return (
+          <>
+            <rect
+              x={x}
+              y={y}
+              width={barWidth}
+              height={barHeight}
+              fill="#0C0E10"
+              fill-opacity={opacity}
+              rx="4"
+              ry="4"
+            />
+            <text
+              x={x + barWidth / 2}
+              y={y - 8}
+              text-anchor="middle"
+              font-size="12"
+              font-weight="700"
+              fill="#0C0E10"
+            >
+              {item.taxa}%
+            </text>
+            <text
+              x={x + barWidth / 2}
+              y={chartHeight + 30}
+              text-anchor="middle"
+              font-size="10"
+              fill="#0C0E10"
+              opacity="0.5"
+            >
+              {item.label}
+            </text>
+          </>
+        );
+      })}
+    </svg>
+  </div>
+
+  <p class="grafico-source">Fonte: Harvard Business Review</p>
+</div>
+
+<style>
+  .grafico-container {
+    width: 100%;
+  }
+
+  .grafico-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0C0E10;
+    margin-bottom: 8px;
+    opacity: 0.5;
+  }
+
+  .grafico-sublabel {
+    font-size: 13px;
+    color: #0C0E10;
+    opacity: 0.35;
+    margin-bottom: 24px;
+  }
+
+  .grafico-wrapper {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .grafico-source {
+    font-size: 11px;
+    color: #0C0E10;
+    opacity: 0.25;
+    margin-top: 16px;
+  }
+</style>

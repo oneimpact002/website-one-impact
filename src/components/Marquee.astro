@@ -1,0 +1,22 @@
+---
+const { words = ['SITES ESTRATÉGICOS', 'POSICIONAMENTO DIGITAL', 'CAPTAÇÃO DE CLIENTES', 'AUTORIDADE JURÍDICA', 'CONVERSÃO REAL', 'MARKETING JURÍDICO', 'PRESENÇA ONLINE', 'GERAÇÃO DE LEADS'] } = Astro.props;
+const items = [...words, ...words, ...words, ...words];
+---
+
+<div style="width: 100%; overflow: hidden; background-color: #0C0E10; border-top: 1px solid rgba(247, 250, 255, 0.08); border-bottom: 1px solid rgba(247, 250, 255, 0.08); padding: 12px 0;">
+  <div style="display: flex; gap: 32px; width: max-content; animation: marquee-scroll 30s linear infinite;">
+    {items.map((word) => (
+      <div style="display: flex; align-items: center; gap: 32px; flex-shrink: 0;">
+        <span style="font-size: 10px; font-family: 'Sora', sans-serif; font-weight: 600; color: #F7FAFF; white-space: nowrap; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1;">{word}</span>
+        <span style="font-size: 10px; color: #F7FAFF; opacity: 0.3; flex-shrink: 0;">✦</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style is:global>
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-25%); }
+  }
+</style>

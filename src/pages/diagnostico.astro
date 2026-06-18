@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DiagnosticoForm from '../components/DiagnosticoForm/index.jsx';
+---
+
+<Layout
+  title="Diagnóstico | One Impact"
+  description="Faça seu diagnóstico gratuito"
+  bodyClass="diagnostico-page"
+>
+  <DiagnosticoForm client:load />
+</Layout>
