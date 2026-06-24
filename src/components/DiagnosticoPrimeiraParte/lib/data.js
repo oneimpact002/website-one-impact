@@ -73,11 +73,15 @@ export const QUESTIONS = [
     microfeedback: '+10 pontos: faltam 3 perguntas pra ver seu score',
     type: 'radio',
     options: [
-      { value: 'ate2000', label: 'Até R$ 2.000' },
-      { value: '2000a5000', label: 'R$ 2.000 a R$ 5.000' },
-      { value: '5000a10000', label: 'R$ 5.000 a R$ 10.000' },
-      { value: '10000a20000', label: 'R$ 10.000 a R$ 20.000' },
-      { value: 'acima20000', label: 'Acima de R$ 20.000' },
+      { value: 'ate100',      label: 'Até R$ 100' },
+      { value: '100a300',     label: 'R$ 100 – R$ 300' },
+      { value: '300a500',     label: 'R$ 300 – R$ 500' },
+      { value: '500a1000',    label: 'R$ 500 – R$ 1.000' },
+      { value: '1000a3000',   label: 'R$ 1.000 – R$ 3.000' },
+      { value: '3000a5000',   label: 'R$ 3.000 – R$ 5.000' },
+      { value: '5000a10000',  label: 'R$ 5.000 – R$ 10.000' },
+      { value: '10000a20000', label: 'R$ 10.000 – R$ 20.000' },
+      { value: 'acima20000',  label: 'Acima de R$ 20.000' },
     ],
   },
   {
@@ -148,11 +152,15 @@ export const QUESTIONS = [
 // =================================================================
 
 const VALOR_MEDIO_MAP = {
-  ate2000: 1000,
-  '2000a5000': 3500,
+  ate100:       70,
+  '100a300':    200,
+  '300a500':    400,
+  '500a1000':   750,
+  '1000a3000':  2000,
+  '3000a5000':  4000,
   '5000a10000': 7500,
   '10000a20000': 15000,
-  acima20000: 25000,
+  acima20000:   25000,
 }
 
 const RESPONSE_LOSS = {

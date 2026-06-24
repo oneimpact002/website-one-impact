@@ -387,13 +387,13 @@ const Capture = ({ onSubmit, onBack, initialData, answers }) => {
         >
           <div>
             <label className="block text-sm font-medium text-white/80 mb-2">
-              Nome completo <span className="text-[#8539FF]">*</span>
+              Como você se chama? <span className="text-[#8539FF]">*</span>
             </label>
             <input
               type="text"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              placeholder="Seu nome completo"
+              placeholder="Seu primeiro nome"
               className={`w-full px-4 py-3 rounded-xl bg-black/30 border ${
                 errors.nome ? 'border-red-400/60' : 'border-white/10'
               } text-white placeholder-white/30 focus:outline-none focus:border-[#8539FF] focus:ring-2 focus:ring-[#8539FF]/20 transition`}
