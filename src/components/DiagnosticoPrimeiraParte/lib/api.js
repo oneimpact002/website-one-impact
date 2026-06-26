@@ -1,9 +1,15 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient(
-  'https://nhbpvmfrdsttbnbdsqlo.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oYnB2bWZyZHN0dGJuYmRzcWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODQ3OTAsImV4cCI6MjA5ODA2MDc5MH0.a07JFkGNRjTKPxFtj0O0gQpY4JiW1ANH90rdBP8Ti7U'
-)
+let _supabase = null
+function getSupabase() {
+  if (!_supabase) {
+    _supabase = createClient(
+      'https://nhbpvmfrdsttbnbdsqlo.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oYnB2bWZyZHN0dGJuYmRzcWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODQ3OTAsImV4cCI6MjA5ODA2MDc5MH0.a07JFkGNRjTKPxFtj0O0gQpY4JiW1ANH90rdBP8Ti7U'
+    )
+  }
+  return _supabase
+}
 
 const LABELS = {
   segmento: { juridico: 'Advocacia / Jurídico', saude: 'Saúde', contabil: 'Contábil / Financeiro', tech: 'Tecnologia / SaaS / Agência digital', educacao: 'Educação / Cursos / Coaching / Mentoria', imobiliario: 'Imobiliário', estetica: 'Estética / Beleza / Bem-estar', construcao: 'Engenharia / Construção / Arquitetura', varejo: 'Varejo / E-commerce / Produto físico', alimentacao: 'Alimentação', industria: 'Indústria / Logística / Operacional', outro: 'Outro segmento' },
@@ -130,7 +136,7 @@ export async function submitToRenvChat(payload) {
   const utm = getUTMParams()
 
   const [supabaseResult, renvResult] = await Promise.allSettled([
-    supabase.from('leads').insert({
+    getSupabase().from('leads').insert({
       nome: payload.nome,
       whatsapp: payload.whatsapp,
       email: payload.email,
