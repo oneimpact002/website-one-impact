@@ -497,7 +497,7 @@ const Loading = () => {
   const [step, setStep] = useState(0)
   const steps = [
     'Analisando suas respostas...',
-    'Cruzando com dados do mercado jurídico...',
+    'Cruzando com dados do seu segmento...',
     'Calculando impacto financeiro...',
     'Identificando sinais de risco...',
     'Montando seu plano personalizado...',
