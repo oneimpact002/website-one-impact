@@ -80,6 +80,52 @@ export function trackEvent(event, data = {}) {
   }).catch(() => {})
 }
 
+const RENVCHAT_KEY = 'crz_jKyX6g0OSa7Bh-yvwfNpfX5J_gk6K9n0'
+const RENVCHAT_URL = 'https://app.renvchat.com.br/api/v1'
+
+function formatAnswersForRenv(answers) {
+  if (!answers || typeof answers !== 'object') return { notes: [], contactNotes: '' }
+  const labeled = toLabels(answers)
+  const lines = Object.entries(labeled)
+    .filter(([, v]) => v !== undefined && v !== null && v !== '')
+    .map(([key, value]) => {
+      const vals = Array.isArray(value) ? value.join(', ') : value
+      return `${key}: ${vals}`
+    })
+  return { notes: lines, contactNotes: lines.join('\n') }
+}
+
+async function submitToRenvChatDirect(payload) {
+  const { nome, whatsapp, email, answers } = payload
+  const { notes, contactNotes } = formatAnswersForRenv(answers)
+  const cleaned = whatsapp ? whatsapp.replace(/\D/g, '') : null
+  const phone = cleaned ? (cleaned.startsWith('55') ? cleaned : `55${cleaned}`) : null
+  if (!phone) return
+
+  const res = await fetch(`${RENVCHAT_URL}/deals/create`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${RENVCHAT_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contact: { phone, name: nome || phone, ...(email ? { email } : {}), ...(contactNotes ? { notes: contactNotes } : {}) },
+      kanban: { sector_id: '072d56e0-c26c-45f1-a100-2635415a61d3', column_id: '8cc5624f-b380-44e0-8136-19bb740468e3' },
+      deal: { lead_source: 'Diagnóstico - Site' },
+      notes,
+    }),
+  })
+
+  const data = await res.json()
+  if (!res.ok) { console.error('[RenvChat] Erro ao criar deal:', data); return }
+
+  const contactId = data.deal?.contact?.id
+  if (contactId) {
+    fetch(`${RENVCHAT_URL}/contacts/tags`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${RENVCHAT_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contact_id: contactId, tag_ids: ['e15235d7-4864-4070-bc7a-d6c2ff8c1e88'] }),
+    }).catch((e) => console.error('[RenvChat] Erro ao aplicar etiqueta:', e))
+  }
+}
+
 export async function submitToRenvChat(payload) {
   const utm = getUTMParams()
 
@@ -95,11 +141,7 @@ export async function submitToRenvChat(payload) {
       utm_campaign: utm.utm_campaign,
       utm_content: utm.utm_content,
     }),
-    fetch('/api/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }),
+    submitToRenvChatDirect(payload),
   ])
 
   if (supabaseResult.status === 'rejected' || supabaseResult.value?.error) {
