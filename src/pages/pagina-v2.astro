@@ -269,9 +269,9 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       /* MOBILE — texto no topo + imagem de fundo (teste) */
       @media (max-width: 899px) {
         .hero {
-          min-height: 120vh;
+          min-height: 105vh;
           justify-content: flex-start;
-          padding-top: 100px;
+          padding-top: 130px;
           position: relative;
           overflow: hidden;
           background: #2C1794;
@@ -358,10 +358,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           box-shadow: 0 2px 6px rgba(116, 70, 253, 0.5);
         }
 
-        .hero-floater-1 { top: 47%; left: 14px; rotate: -2deg; }
-        .hero-floater-2 { top: 52%; right: 14px; rotate: 2deg; animation-delay: -1s; }
-        .hero-floater-3 { top: 68%; left: 14px; rotate: -1.5deg; animation-delay: -2s; }
-        .hero-floater-4 { top: 79%; right: 14px; rotate: 1.5deg; animation-delay: -3s; }
+        .hero-floater-1 { top: 53%; left: 14px; rotate: -2deg; }
+        .hero-floater-2 { top: 58%; right: 14px; rotate: 2deg; animation-delay: -1s; }
+        .hero-floater-3 { top: 74%; left: 14px; rotate: -1.5deg; animation-delay: -2s; }
+        .hero-floater-4 { top: 85%; right: 14px; rotate: 1.5deg; animation-delay: -3s; }
 
         @keyframes hero-floater-float {
           0%, 100% { transform: translateY(0); }
@@ -400,7 +400,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       .title {
         font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 30px;
+        font-size: 28px;
         font-weight: 700;
         line-height: 1.15;
         color: #130F26;
@@ -408,28 +408,23 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       .title-small {
         display: block;
-        font-size: 17px;
+        font-size: 20px;
         font-weight: 500;
         opacity: 0.85;
         margin-bottom: 6px;
       }
 
       .title-highlight {
-        background: linear-gradient(90deg, #4B2FBE, #9774FE, #D9CCFF, #9774FE, #4B2FBE);
-        background-size: 300% 100%;
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-        animation: shimmer-purple 7s linear infinite;
+        color: inherit;
       }
 
       .description {
         max-width: 440px;
         font-family: 'Sora', sans-serif;
         font-size: 12px;
-        font-weight: 400;
+        font-weight: 300;
         line-height: 1.6;
-        color: #444444;
+        color: #130F26;
       }
 
       .button {
