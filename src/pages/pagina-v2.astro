@@ -266,6 +266,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         display: none;
       }
 
+      .hero-dots {
+        display: none;
+      }
+
       /* MOBILE — texto no topo + imagem de fundo (teste) */
       @media (max-width: 899px) {
         .hero {
@@ -311,6 +315,16 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           height: 100%;
           object-fit: cover;
           z-index: 0;
+        }
+
+        .hero-dots {
+          display: block;
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background-image: radial-gradient(rgba(255, 255, 255, 0.32) 1.5px, transparent 1.5px);
+          background-size: 14px 14px;
         }
 
         .hero > .container {
@@ -419,12 +433,12 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       }
 
       .description {
-        max-width: 440px;
+        max-width: 500px;
         font-family: 'Sora', sans-serif;
         font-size: 12px;
         font-weight: 300;
         line-height: 1.6;
-        color: #130F26;
+        color: #777779;
       }
 
       .button {
@@ -1112,6 +1126,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
     <section class="hero" id="inicio">
       <video class="hero-bg-video" autoplay muted loop playsinline src="/hero-video-teste-3.mp4" aria-hidden="true"></video>
+      <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal>
         <h1 class="title reveal-item">
           <span class="title-small">Sua apresentação na internet não te representa...</span>
