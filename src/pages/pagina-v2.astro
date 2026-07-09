@@ -289,6 +289,17 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           height: 100%;
           object-fit: cover;
           z-index: 0;
+          animation: hero-video-fade 16s ease-in-out infinite;
+        }
+
+        .hero-bg-video-2 {
+          animation-delay: -8s;
+        }
+
+        @keyframes hero-video-fade {
+          0%, 44% { opacity: 1; }
+          50%, 94% { opacity: 0; }
+          100% { opacity: 1; }
         }
 
         .hero-dots {
@@ -348,8 +359,8 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           box-shadow: 0 2px 6px rgba(116, 70, 253, 0.5);
         }
 
-        .hero-floater-2 { top: 58%; right: 14px; rotate: 2deg; animation-delay: -1s; }
-        .hero-floater-3 { top: 74%; left: 14px; rotate: -1.5deg; animation-delay: -2s; }
+        .hero-floater-2 { top: 75%; right: 14px; rotate: 2deg; animation-delay: -1s; }
+        .hero-floater-3 { top: 80%; left: 14px; rotate: -1.5deg; animation-delay: -2s; }
         .hero-floater-4 { top: 85%; right: 14px; rotate: 1.5deg; animation-delay: -3s; }
 
         @keyframes hero-floater-float {
@@ -1100,7 +1111,8 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
     </header>
 
     <section class="hero" id="inicio">
-      <video class="hero-bg-video" autoplay muted loop playsinline src="/hero-fundo.mp4" aria-hidden="true"></video>
+      <video class="hero-bg-video hero-bg-video-1" autoplay muted loop playsinline src="/hero-fundo.mp4" aria-hidden="true"></video>
+      <video class="hero-bg-video hero-bg-video-2" autoplay muted loop playsinline src="/hero-fundo-2.mp4" aria-hidden="true"></video>
       <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal>
         <h1 class="title reveal-item">
