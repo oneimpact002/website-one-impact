@@ -266,11 +266,11 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       @media (max-width: 899px) {
         .hero {
           min-height: 105vh;
-          justify-content: flex-end;
-          padding-top: 24px;
+          justify-content: flex-start;
+          padding-top: 130px;
           position: relative;
           overflow: hidden;
-          background: #1A0B3D url('/hero-novo-teste-1.webp') center top / cover no-repeat;
+          background: #F3F3F3;
         }
 
         .hero-dots {
@@ -288,34 +288,21 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           z-index: 1;
         }
 
-        .hero .badge {
-          border-color: rgba(255, 255, 255, 0.3);
-          background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.85);
-        }
-
-        .hero .title {
-          color: #FFFFFF;
-        }
-
-        .hero .description {
-          color: rgba(255, 255, 255, 0.85);
-        }
       }
 
       .badge {
         display: inline-flex;
-        padding: 8px 18px;
+        padding: 5px 12px;
         border-radius: 9999px;
         border: 1px solid rgba(19, 15, 38, 0.15);
         background: rgba(19, 15, 38, 0.05);
         color: rgba(19, 15, 38, 0.75);
         font-family: 'Sora', sans-serif;
-        font-size: 9px;
+        font-size: 8px;
         font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        margin-bottom: -10px;
+        margin-bottom: 0;
       }
 
       .title {
@@ -1033,13 +1020,13 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
     <section class="hero" id="inicio">
       <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal>
+        <span class="badge reveal-item">Especialistas em posicionamento profissional</span>
         <h1 class="title reveal-item">
-          <span class="title-small">Sua apresentação na internet não te representa...</span>
-          <span class="title-highlight">e você sabe disso.</span>
+          <span class="title-highlight">Organizamos o caos do seu digital.</span>
         </h1>
 
         <p class="description reveal-item">
-          Você já construiu uma carreira sólida, mas isso não adianta quando sua apresentação na internet ainda parece amadora.
+          Presença desorganizada não gera confiança. Unificamos sua presença online em uma estrutura profissional que passa credibilidade e transforma visitantes em clientes.
         </p>
 
         <a href="#contato" class="button reveal-item">
