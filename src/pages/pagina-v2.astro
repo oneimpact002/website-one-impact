@@ -262,10 +262,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         display: none;
       }
 
-      .hero-bg-video {
-        display: none;
-      }
-
       .hero-dots {
         display: none;
       }
@@ -278,43 +274,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           padding-top: 130px;
           position: relative;
           overflow: hidden;
-          background: #2C1794;
-        }
-
-        .hero::before,
-        .hero::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-position: center;
-          background-size: cover;
-          background-repeat: no-repeat;
-          animation: hero-bg-fade 12s ease-in-out infinite;
-        }
-
-        .hero::before {
-          background-image: url('/hero-nova-versao-1.png');
-        }
-
-        .hero::after {
-          background-image: url('/hero-nova-versao-2.png');
-          animation-delay: -6s;
-        }
-
-        @keyframes hero-bg-fade {
-          0%, 42% { opacity: 1; }
-          50%, 92% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-
-        .hero-bg-video {
-          display: block;
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
+          background: #2C1794 url('/hero-novo-boa-resolucao-3.jpg') center / cover no-repeat;
         }
 
         .hero-dots {
@@ -323,7 +283,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           inset: 0;
           z-index: 0;
           pointer-events: none;
-          background-image: radial-gradient(rgba(255, 255, 255, 0.32) 1.5px, transparent 1.5px);
+          background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
           background-size: 14px 14px;
         }
 
@@ -342,11 +302,12 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
         .hero-floater {
           position: absolute;
-          display: inline-flex;
+          display: flex;
           align-items: center;
-          gap: 6px;
-          padding: 4px 12px 4px 4px;
-          border-radius: 9999px;
+          gap: 8px;
+          max-width: 160px;
+          padding: 10px 12px;
+          border-radius: 14px;
           border: 1px solid rgba(255, 255, 255, 0.28);
           background: rgba(255, 255, 255, 0.13);
           backdrop-filter: blur(10px);
@@ -356,7 +317,8 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           font-size: 9px;
           font-weight: 600;
           letter-spacing: 0.02em;
-          white-space: nowrap;
+          line-height: 1.4;
+          text-align: left;
           box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
           animation: hero-floater-float 4s ease-in-out infinite;
         }
@@ -372,7 +334,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           box-shadow: 0 2px 6px rgba(116, 70, 253, 0.5);
         }
 
-        .hero-floater-1 { top: 53%; left: 14px; rotate: -2deg; }
         .hero-floater-2 { top: 58%; right: 14px; rotate: 2deg; animation-delay: -1s; }
         .hero-floater-3 { top: 74%; left: 14px; rotate: -1.5deg; animation-delay: -2s; }
         .hero-floater-4 { top: 85%; right: 14px; rotate: 1.5deg; animation-delay: -3s; }
@@ -1125,7 +1086,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
     </header>
 
     <section class="hero" id="inicio">
-      <video class="hero-bg-video" autoplay muted loop playsinline src="/hero-video-teste-3.mp4" aria-hidden="true"></video>
       <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal>
         <h1 class="title reveal-item">
@@ -1144,21 +1104,17 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
 
       <div class="hero-floaters" aria-hidden="true">
-        <span class="hero-floater hero-floater-1">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Site estruturado
-        </span>
         <span class="hero-floater hero-floater-2">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Posicionamento atualizado
+          Autoridade no digital
         </span>
         <span class="hero-floater hero-floater-3">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          + Vendas com site estratégico
+          Clientes chegando todo dia
         </span>
         <span class="hero-floater hero-floater-4">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 4.5L6.5 11.5L2.5 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Atendimento rodando no automático
+          WhatsApp respondendo sozinho
         </span>
       </div>
     </section>
