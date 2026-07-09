@@ -258,33 +258,19 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         gap: 8px;
       }
 
-      .hero-bg-video {
-        display: none;
-      }
-
       .hero-dots {
         display: none;
       }
 
-      /* MOBILE — texto no topo + imagem de fundo (teste) */
+      /* MOBILE — texto embaixo + imagem de fundo (teste) */
       @media (max-width: 899px) {
         .hero {
           min-height: 105vh;
-          justify-content: center;
+          justify-content: flex-end;
           padding-top: 24px;
           position: relative;
           overflow: hidden;
-          background: #2C1794 url('/hero-novo-boa-resolucao-4.jpg') center / cover no-repeat;
-        }
-
-        .hero-bg-video {
-          display: block;
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
+          background: #1A0B3D url('/hero-novo-teste-1.webp') center top / cover no-repeat;
         }
 
         .hero-dots {
@@ -1045,7 +1031,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
     </header>
 
     <section class="hero" id="inicio">
-      <video class="hero-bg-video" autoplay muted loop playsinline src="/hero-fundo-novo-2.mp4" aria-hidden="true"></video>
       <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal>
         <h1 class="title reveal-item">
