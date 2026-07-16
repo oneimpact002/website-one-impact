@@ -555,6 +555,298 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         }
       }
 
+      /* Seção 3 — visual da hero antiga (fundo claro, glow, órbitas e malha) */
+      .cta-section {
+        position: relative;
+        overflow: hidden;
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 88px 20px;
+        background: #F7F5FD;
+      }
+
+      .cta-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse 62% 46% at 50% 28%, rgba(115, 69, 253, 0.13), transparent 70%),
+          radial-gradient(ellipse 42% 34% at 12% 88%, rgba(151, 116, 254, 0.10), transparent 72%),
+          radial-gradient(ellipse 42% 34% at 88% 86%, rgba(151, 116, 254, 0.10), transparent 72%);
+      }
+
+      .cta-circles {
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        width: min(640px, 88vw);
+        aspect-ratio: 1;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.16);
+        pointer-events: none;
+      }
+
+      .cta-circles::before {
+        content: '';
+        position: absolute;
+        inset: 17%;
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.22);
+      }
+
+      .cta-circles::after {
+        content: '';
+        position: absolute;
+        inset: -22%;
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.10);
+      }
+
+      .orbit-layer {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        animation: orbit-spin 46s linear infinite;
+      }
+
+      .orbit-layer-inner {
+        inset: 17%;
+        animation-duration: 30s;
+        animation-direction: reverse;
+      }
+
+      .orbit-layer::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #7345FD;
+        box-shadow: 0 0 12px rgba(115, 69, 253, 0.65);
+      }
+
+      @keyframes orbit-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .cta-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(115, 69, 253, 0.40) 1.2px, transparent 1.2px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 32%, black, transparent 75%);
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 32%, black, transparent 75%);
+      }
+
+      .cta-section > .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .cta-section .badge {
+        border-color: rgba(19, 15, 38, 0.15);
+        background: rgba(19, 15, 38, 0.05);
+        color: rgba(19, 15, 38, 0.75);
+      }
+
+      .cta-section .title {
+        color: #130F26;
+      }
+
+      .cta-section .description {
+        color: #4F4F57;
+      }
+
+      /* Seção 4 — cases da One Impact (mesmo padrão da pagina-v2) */
+      .cases-section {
+        padding: 88px 20px;
+        background: #130F26;
+      }
+
+      .cases-container {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .cases-container h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      /* Scroll-stacking — cada case empilha por cima do anterior (ref: Card Stacking, animacoes e efeitos.md) */
+      .cases-stack {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        margin-bottom: 40px;
+      }
+
+      .stack-card {
+        position: sticky;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        text-align: left;
+        border: 1px solid rgba(19, 15, 38, 0.1);
+        border-radius: 5px;
+        background: #FFFFFF;
+        box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.4);
+      }
+
+      .stack-card:nth-child(1) { top: 84px; }
+      .stack-card:nth-child(2) { top: 100px; }
+      .stack-card:nth-child(3) { top: 116px; }
+
+      .case-card-image {
+        width: 100%;
+        aspect-ratio: 1376 / 700;
+        background: linear-gradient(160deg, #4B2FBE, #7345FD 55%, #9774FE);
+      }
+
+      .case-card-image-casa3 {
+        background: #F5F0EC url('/case-casa3-arquitetura.webp') center top / cover no-repeat;
+      }
+
+      .case-card-image-fogaca {
+        background: #1B2232 url('/case-jorge-fogaca.webp') center top / cover no-repeat;
+      }
+
+      .case-card-image-katiuscia {
+        background: #E9ECE7 url('/case-katiuscia-souza.webp') center top / cover no-repeat;
+      }
+
+      .case-card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 22px;
+      }
+
+      .case-card-tag {
+        display: inline-flex;
+        padding: 3px 8px;
+        border-radius: 9999px;
+        border: 1px solid rgba(115, 69, 253, 0.32);
+        background: rgba(115, 69, 253, 0.14);
+        font-family: 'Sora', sans-serif;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9774FE;
+      }
+
+      .stack-card h3 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #130F26;
+      }
+
+      .stack-card p {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(19, 15, 38, 0.75);
+      }
+
+      .case-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 8px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #7345FD;
+        transition: gap 0.2s ease, color 0.2s ease;
+      }
+
+      .case-card-link:hover {
+        gap: 10px;
+        color: #9774FE;
+      }
+
+      .cases-more-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        border-radius: 9999px;
+        border: 1px solid rgba(115, 69, 253, 0.5);
+        background: transparent;
+        color: #FFFFFF;
+        font-family: 'Sora', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .cases-more-btn:hover {
+        background: rgba(115, 69, 253, 0.14);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(115, 69, 253, 0.25);
+      }
+
+      /* Desktop: imagem e texto lado a lado dentro do card empilhado */
+      @media (min-width: 900px) {
+        .stack-card {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          align-items: stretch;
+        }
+
+        .stack-card .case-card-image {
+          height: 100%;
+          aspect-ratio: auto;
+          min-height: 380px;
+        }
+
+        .stack-card .case-card-body {
+          justify-content: center;
+          padding: 48px;
+          gap: 14px;
+        }
+
+        .stack-card .case-card h3,
+        .stack-card h3 {
+          font-size: 24px;
+        }
+      }
+
       /* Rodapé corporativo */
       .footer {
         background: #0D0A1A;
@@ -659,6 +951,13 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         background-size: 12px 12px;
         -webkit-mask-image: radial-gradient(circle 200px at var(--x, -999px) var(--y, -999px), black 0%, transparent 100%);
         mask-image: radial-gradient(circle 200px at var(--x, -999px) var(--y, -999px), black 0%, transparent 100%);
+      }
+
+      /* Sem spotlight no mobile / telas de toque */
+      @media (max-width: 899px), (hover: none) {
+        .cursor-spotlight {
+          display: none;
+        }
       }
 
       /* ===== Boxes flutuantes de métricas (glassmorphism) ===== */
@@ -898,7 +1197,8 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         }
 
         .button,
-        .stat-hero-value {
+        .stat-hero-value,
+        .orbit-layer {
           animation: none;
         }
 
@@ -1048,6 +1348,80 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
             <p class="dados-fonte">Fontes: Stanford Web Credibility Research · GE Capital · Google</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contato">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="cta-circles" aria-hidden="true">
+        <span class="orbit-layer"></span>
+        <span class="orbit-layer orbit-layer-inner"></span>
+      </div>
+      <div class="cta-dots" aria-hidden="true"></div>
+      <div class="container" data-reveal-scroll>
+        <span class="badge reveal-fade">Vamos conversar</span>
+        <h2 class="title reveal-fade">
+          Pronto para organizar o <span class="title-highlight">caos</span>?
+        </h2>
+
+        <p class="description reveal-fade">
+          Conta pra gente onde seu digital está travado — a primeira conversa é sem compromisso.
+        </p>
+
+        <a href="#contato" class="button reveal-fade">
+          <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+          Solicitar proposta
+        </a>
+      </div>
+    </section>
+
+    <section class="cases-section" id="cases">
+      <div class="cases-container" data-reveal-scroll>
+        <span class="badge reveal-fade">Projetos realizados</span>
+        <h2 class="reveal-fade">Cases de sucesso</h2>
+
+        <div class="cases-stack">
+          <article class="stack-card">
+            <div class="case-card-image case-card-image-casa3"></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">Site para Arquitetos</span>
+              <h3>Casa Três Arquitetura</h3>
+              <p>Site institucional que posiciona o escritório como referência em arquitetura corporativa no Rio de Janeiro.</p>
+              <a href="#" class="case-card-link">
+                Ver projeto
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="case-card-image case-card-image-fogaca"></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">Site para Advogados</span>
+              <h3>Fogaça dos Santos</h3>
+              <p>Landing page de autoridade para advogado previdenciarista, focada em transformar visitantes em consultas.</p>
+              <a href="#" class="case-card-link">
+                Ver projeto
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="stack-card">
+            <div class="case-card-image case-card-image-katiuscia"></div>
+            <div class="case-card-body">
+              <span class="case-card-tag">Site para Médicos</span>
+              <h3>Dra. Katiuscia Souza</h3>
+              <p>Site para endocrinologista com posicionamento acolhedor e premium, focado em agendamento de consultas.</p>
+              <a href="#" class="case-card-link">
+                Ver projeto
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <a href="/clientes-atendidos" class="cases-more-btn reveal-fade">Ver mais cases de sucesso</a>
       </div>
     </section>
 
