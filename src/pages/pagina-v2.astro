@@ -194,7 +194,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         gap: 4px;
         padding: 10px;
         border: 1px solid rgba(255, 255, 255, 0.62);
-        border-radius: 22px;
+        border-radius: 5px;
         background: rgba(247, 245, 253, 0.94);
         box-shadow: 0 18px 42px rgba(19, 15, 38, 0.22);
         backdrop-filter: blur(22px);
@@ -216,7 +216,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       .mobile-menu a {
         padding: 13px 16px;
-        border-radius: 14px;
+        border-radius: 5px;
         font-family: 'Sora', sans-serif;
         font-size: 14px;
         font-weight: 600;
@@ -250,9 +250,9 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
         text-align: center;
-        padding: 24px 24px 80px;
+        padding: 24px;
         background: #F7F5FD;
       }
 
@@ -281,7 +281,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
       .hero-circles {
         position: absolute;
         z-index: 0;
-        top: 34%;
+        top: 50%;
         left: 50%;
         width: min(640px, 88vw);
         aspect-ratio: 1;
@@ -337,95 +337,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         to { transform: rotate(360deg); }
       }
 
-      /* Camada 3 — mockups flutuantes em leque */
-      .hero-mockups {
-        position: absolute;
-        z-index: 1;
-        top: clamp(90px, 15vh, 170px);
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        pointer-events: none;
-      }
-
-      .hero-mockup {
-        position: absolute;
-        width: 300px;
-        border-radius: 14px;
-        overflow: hidden;
-        border: 1px solid rgba(115, 69, 253, 0.20);
-        background: #FFFFFF;
-        box-shadow: 0 26px 60px rgba(19, 15, 38, 0.18);
-        animation: mockup-float 6.5s ease-in-out infinite alternate;
-      }
-
-      .hero-mockup-bar {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        height: 24px;
-        padding: 0 10px;
-        background: #F1EEFB;
-      }
-
-      .hero-mockup-bar span {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: rgba(115, 69, 253, 0.35);
-      }
-
-      .hero-mockup-body {
-        position: relative;
-        aspect-ratio: 16 / 9;
-        background: linear-gradient(160deg, #4B2FBE, #7345FD 55%, #9774FE);
-      }
-
-      .hero-mockup-body::before,
-      .hero-mockup-body::after {
-        content: '';
-        position: absolute;
-        left: 12%;
-        height: 10px;
-        border-radius: 9999px;
-        background: rgba(255, 255, 255, 0.38);
-      }
-
-      .hero-mockup-body::before {
-        top: 22%;
-        width: 46%;
-      }
-
-      .hero-mockup-body::after {
-        top: 40%;
-        width: 30%;
-        background: rgba(255, 255, 255, 0.24);
-      }
-
-      .hero-mockup-left {
-        transform: translateX(-250px) translateY(26px) rotate(-9deg) scale(0.82);
-        filter: blur(1.6px);
-        opacity: 0.78;
-        animation-delay: 0.6s;
-      }
-
-      .hero-mockup-center {
-        transform: translateY(-6px) rotate(-1.5deg);
-      }
-
-      .hero-mockup-right {
-        transform: translateX(250px) translateY(26px) rotate(9deg) scale(0.82);
-        filter: blur(1.6px);
-        opacity: 0.78;
-        animation-delay: 1.2s;
-      }
-
-      @keyframes mockup-float {
-        from { margin-top: 0; }
-        to { margin-top: -14px; }
-      }
-
       /* Malha de bolinhas — roxa sutil, some nas bordas via mask */
       .hero-dots {
         display: block;
@@ -444,33 +355,16 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         .hero {
           min-height: 90vh;
           min-height: 90svh;
-          justify-content: flex-start;
-          padding-top: 130px;
+          justify-content: center;
+          padding-top: 24px;
           position: relative;
           overflow: hidden;
           background: #F7F5FD;
         }
 
         .hero-circles {
-          top: 72%;
+          top: 50%;
           width: 520px;
-        }
-
-        .hero-mockups {
-          top: auto;
-          bottom: 16%;
-        }
-
-        .hero-mockup {
-          width: 210px;
-        }
-
-        .hero-mockup-left {
-          transform: translateX(-150px) translateY(20px) rotate(-9deg) scale(0.82);
-        }
-
-        .hero-mockup-right {
-          transform: translateX(150px) translateY(20px) rotate(9deg) scale(0.82);
         }
 
         .hero-dots {
@@ -543,7 +437,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         justify-content: center;
         gap: 10px;
         padding: 14px 48px;
-        border-radius: 10px;
+        border-radius: 5px;
         background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
         background-size: 300% 100%;
         color: #FFFFFF;
@@ -623,6 +517,31 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         background: #130F26;
       }
 
+      /* Malha de bolinhas — sutil sobre o fundo escuro, some nas bordas via mask */
+      .empathy-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(151, 116, 254, 0.55) 1.5px, transparent 1.5px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(ellipse 60% 85% at 50% 50%, black, transparent 88%);
+        mask-image: radial-gradient(ellipse 60% 85% at 50% 50%, black, transparent 88%);
+      }
+
+      /* Fade inferior — esmaece luzes e pontos antes da seção acabar */
+      .empathy-section::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 140px;
+        z-index: 0;
+        pointer-events: none;
+        background: linear-gradient(to bottom, rgba(19, 15, 38, 0), #130F26);
+      }
+
       /* Glows animados — blobs roxos desfocados se movendo lentamente */
       .empathy-glows {
         position: absolute;
@@ -644,7 +563,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         left: -8%;
         background: #4B2FBE;
         opacity: 0.5;
-        animation: blob-drift-1 18s ease-in-out infinite alternate;
+        animation: blob-drift-1 6s ease-in-out infinite alternate;
       }
 
       .glow-blob-2 {
@@ -654,7 +573,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         bottom: -16%;
         background: #7345FD;
         opacity: 0.42;
-        animation: blob-drift-2 23s ease-in-out infinite alternate;
+        animation: blob-drift-2 7s ease-in-out infinite alternate;
       }
 
       .glow-blob-3 {
@@ -664,19 +583,32 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         left: 56%;
         background: #9774FE;
         opacity: 0.28;
-        animation: blob-drift-3 27s ease-in-out infinite alternate;
+        animation: blob-drift-3 8s ease-in-out infinite alternate;
       }
 
+      /* Movimento em etapas: anda, pausa, anda de novo */
       @keyframes blob-drift-1 {
-        to { transform: translate(16vw, 14vh) scale(1.18); }
+        0% { transform: translate(0, 0) scale(1); }
+        35% { transform: translate(38vw, 3vh) scale(1.08); }
+        55% { transform: translate(38vw, 3vh) scale(1.08); }
+        90% { transform: translate(70vw, 6vh) scale(1.12); }
+        100% { transform: translate(70vw, 6vh) scale(1.12); }
       }
 
       @keyframes blob-drift-2 {
-        to { transform: translate(-14vw, -12vh) scale(0.88); }
+        0% { transform: translate(0, 0) scale(1); }
+        35% { transform: translate(-36vw, -2vh) scale(0.96); }
+        55% { transform: translate(-36vw, -2vh) scale(0.96); }
+        90% { transform: translate(-70vw, -5vh) scale(0.92); }
+        100% { transform: translate(-70vw, -5vh) scale(0.92); }
       }
 
       @keyframes blob-drift-3 {
-        to { transform: translate(-12vw, 8vh) scale(1.22); }
+        0% { transform: translate(0, 0) scale(1); }
+        35% { transform: translate(-24vw, 2vh) scale(1.08); }
+        55% { transform: translate(-24vw, 2vh) scale(1.08); }
+        90% { transform: translate(-45vw, 4vh) scale(1.15); }
+        100% { transform: translate(-45vw, 4vh) scale(1.15); }
       }
 
       /* Reveal palavra-por-palavra com blur */
@@ -733,28 +665,10 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
       }
 
       /* Badge sticker — inclinada com sombra dura deslocada */
-      .badge-tilt {
-        transform: rotate(-3deg);
-        box-shadow: 4px 5px 0 rgba(115, 69, 253, 0.30);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-      }
-
-      .reveal-ready [data-reveal] .badge-tilt {
-        transform: rotate(-9deg) scale(0.9);
-        transition:
-          opacity 0.65s ease,
-          transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
-      }
-
-      .reveal-ready [data-reveal].is-visible .badge-tilt {
-        transform: rotate(-3deg) scale(1);
-      }
-
       .empathy-content h2 {
         margin: 0 0 32px;
         font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 24px;
+        font-size: 28px;
         font-weight: 600;
         line-height: 1.25;
         color: #FFFFFF;
@@ -762,7 +676,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       @media (min-width: 900px) {
         .empathy-content h2 {
-          font-size: 34px;
+          font-size: 42px;
         }
 
         .ghost-title {
@@ -770,7 +684,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         }
       }
 
-      .empathy-lead strong,
       .empathy-text strong {
         font-weight: 600;
         color: #9774FE;
@@ -815,12 +728,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         line-height: 1.7;
       }
 
-      .empathy-lead {
-        margin: 0 0 16px;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.95);
-      }
-
       .empathy-text {
         margin: 0 0 20px;
         color: rgba(255, 255, 255, 0.85);
@@ -830,10 +737,10 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         position: relative;
         overflow: hidden;
         margin: 0;
-        padding: 28px 24px 24px;
-        border: 1px solid rgba(115, 69, 253, 0.46);
-        border-radius: 16px;
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+        padding: 24px 20px;
+        border: 1px solid #9774FE;
+        border-radius: 5px;
+        background: linear-gradient(145deg, #4B2FBE, #7345FD);
         box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
@@ -848,12 +755,26 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       .empathy-content blockquote strong {
         font-weight: 600;
-        color: #9774FE;
+        color: #FFFFFF;
       }
 
       .compare-section {
         overflow: hidden;
         padding: 88px 20px;
+      }
+
+      .compare-container .badge-dark {
+        padding: 5px 12px;
+        font-size: 8px;
+      }
+
+      @media (max-width: 899px) {
+        .compare-container .badge-dark {
+          padding: 3px 8px;
+          font-size: 7px;
+          letter-spacing: 0.1em;
+        }
+
       }
 
       .compare-container {
@@ -885,9 +806,9 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
       .compare-slider {
         position: relative;
         width: 100%;
-        aspect-ratio: 16 / 10;
+        aspect-ratio: 5 / 3;
         overflow: hidden;
-        border-radius: 18px;
+        border-radius: 5px;
         border: 1px solid rgba(115, 69, 253, 0.3);
         box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
         cursor: ew-resize;
@@ -916,11 +837,11 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
       }
 
       .compare-placeholder-before {
-        background: linear-gradient(160deg, #3a3a3a, #1a1a1a);
+        background: #1a1a1a url('/compare-planexec-antes.webp') center / cover no-repeat;
       }
 
       .compare-placeholder-after {
-        background: linear-gradient(160deg, #4B2FBE, #7345FD 55%, #9774FE);
+        background: #4B2FBE url('/compare-planexec-depois.webp') center / cover no-repeat;
       }
 
       .compare-label {
@@ -947,6 +868,22 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       .compare-label-after {
         right: 16px;
+      }
+
+      @media (max-width: 899px) {
+        .compare-label {
+          top: 10px;
+          padding: 3px 8px;
+          font-size: 8px;
+        }
+
+        .compare-label-before {
+          left: 10px;
+        }
+
+        .compare-label-after {
+          right: 10px;
+        }
       }
 
       .compare-handle {
@@ -984,10 +921,25 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
       }
 
       .services-section {
+        position: relative;
+        overflow: hidden;
         padding: 88px 20px;
       }
 
+      .services-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(151, 116, 254, 0.55) 1.5px, transparent 1.5px);
+        background-size: 22px 22px;
+        -webkit-mask-image: radial-gradient(ellipse 60% 85% at 50% 50%, black, transparent 88%);
+        mask-image: radial-gradient(ellipse 60% 85% at 50% 50%, black, transparent 88%);
+      }
+
       .services-container {
+        position: relative;
+        z-index: 1;
         width: 100%;
         max-width: 1140px;
         margin: 0 auto;
@@ -1016,6 +968,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       .service-card {
         position: relative;
+        isolation: isolate;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -1024,8 +977,8 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         padding: 28px;
         text-align: left;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 18px;
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+        border-radius: 5px;
+        background: linear-gradient(145deg, #232035, #18142A);
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
       }
@@ -1038,18 +991,52 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         right: 0;
         height: 2px;
         background: linear-gradient(90deg, #4B2FBE, #9774FE, #D9CCFF, #9774FE, #4B2FBE);
-        opacity: 0;
-        transition: opacity 0.25s ease;
       }
 
-      .service-card:hover {
-        transform: translateY(-6px);
+      .service-card {
         border-color: rgba(115, 69, 253, 0.45);
         box-shadow: 0 20px 44px rgba(115, 69, 253, 0.2);
       }
 
-      .service-card:hover::before {
-        opacity: 1;
+      /* Malha interna — padrão diferente em cada card, esmaecendo do canto superior direito */
+      .service-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        -webkit-mask-image: radial-gradient(ellipse 85% 80% at 85% 12%, black, transparent 72%);
+        mask-image: radial-gradient(ellipse 85% 80% at 85% 12%, black, transparent 72%);
+      }
+
+      /* Card 1 — bolinhas */
+      .services-grid .service-card:nth-child(1)::after {
+        background-image: radial-gradient(rgba(151, 116, 254, 0.35) 1.3px, transparent 1.3px);
+        background-size: 16px 16px;
+      }
+
+      /* Card 2 — grade quadriculada */
+      .services-grid .service-card:nth-child(2)::after {
+        background-image:
+          linear-gradient(rgba(151, 116, 254, 0.22) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(151, 116, 254, 0.22) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      /* Card 3 — linhas diagonais */
+      .services-grid .service-card:nth-child(3)::after {
+        background-image: repeating-linear-gradient(
+          45deg,
+          rgba(151, 116, 254, 0.2) 0,
+          rgba(151, 116, 254, 0.2) 1px,
+          transparent 1px,
+          transparent 12px
+        );
+      }
+
+      .service-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 52px rgba(115, 69, 253, 0.28);
       }
 
       .service-card-head {
@@ -1066,7 +1053,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         align-items: center;
         justify-content: center;
         border: 1px solid rgba(115, 69, 253, 0.32);
-        border-radius: 12px;
+        border-radius: 5px;
         background: rgba(115, 69, 253, 0.14);
         box-shadow: 0 0 24px rgba(115, 69, 253, 0.22);
         color: #9774FE;
@@ -1079,6 +1066,14 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         font-weight: 700;
         line-height: 1.2;
         color: #FFFFFF;
+      }
+
+      .service-card-desc {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.6);
       }
 
       .service-card-features {
@@ -1185,7 +1180,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         text-align: left;
         overflow: hidden;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 18px;
+        border-radius: 5px;
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -1199,8 +1194,34 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       .case-card-image {
         width: 100%;
-        aspect-ratio: 16 / 10;
+        aspect-ratio: 1376 / 700;
         background: linear-gradient(160deg, #4B2FBE, #7345FD 55%, #9774FE);
+      }
+
+      .case-card-image-casa3 {
+        background: #F5F0EC url('/case-casa3-arquitetura.webp') center top / cover no-repeat;
+      }
+
+      .case-card-image-fogaca {
+        background: #1B2232 url('/case-jorge-fogaca.webp') center top / cover no-repeat;
+      }
+
+      .case-card-image-katiuscia {
+        background: #E9ECE7 url('/case-katiuscia-souza.webp') center top / cover no-repeat;
+      }
+
+      /* Card branco — texto escuro para manter contraste */
+      .case-card.case-card-white {
+        background: #FFFFFF;
+        border-color: rgba(19, 15, 38, 0.1);
+      }
+
+      .case-card.case-card-white h3 {
+        color: #130F26;
+      }
+
+      .case-card.case-card-white p {
+        color: rgba(19, 15, 38, 0.75);
       }
 
       .case-card-body {
@@ -1213,12 +1234,12 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
       .case-card-tag {
         display: inline-flex;
-        padding: 5px 12px;
+        padding: 3px 8px;
         border-radius: 9999px;
         border: 1px solid rgba(115, 69, 253, 0.32);
         background: rgba(115, 69, 253, 0.14);
         font-family: 'Sora', sans-serif;
-        font-size: 10px;
+        font-size: 8px;
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -1240,6 +1261,38 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         font-size: 14px;
         line-height: 1.6;
         color: rgba(255, 255, 255, 0.62);
+      }
+
+      .cases-nav {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .cases-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.5);
+        background: transparent;
+        color: #FFFFFF;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .cases-arrow:hover {
+        background: rgba(115, 69, 253, 0.14);
+        transform: translateY(-2px);
+      }
+
+      .cases-arrow:disabled {
+        opacity: 0.35;
+        cursor: default;
+        transform: none;
+        background: transparent;
       }
 
       .cases-more-btn {
@@ -1276,6 +1329,221 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         .case-card {
           flex: none;
         }
+
+        .cases-nav {
+          display: none;
+        }
+      }
+
+      .testimonials-section {
+        padding: 88px 20px;
+      }
+
+      .testimonials-container {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .testimonials-container h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .testimonials-grid {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .testimonial-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 24px 20px;
+        text-align: left;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 5px;
+        background: linear-gradient(145deg, #232035, #18142A);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+      }
+
+      .testimonial-stars {
+        display: flex;
+        gap: 3px;
+      }
+
+      .testimonial-stars span {
+        width: 14px;
+        height: 14px;
+        background: #9774FE;
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      }
+
+      .testimonial-text {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 14px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: auto;
+      }
+
+      .testimonial-avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.4);
+        background: rgba(115, 69, 253, 0.18);
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: #9774FE;
+      }
+
+      .testimonial-author div {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .testimonial-author strong {
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: #FFFFFF;
+      }
+
+      .testimonial-author div span {
+        font-family: 'Sora', sans-serif;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      @media (min-width: 900px) {
+        .testimonials-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+          align-items: stretch;
+        }
+      }
+
+      .team-section {
+        padding: 88px 20px;
+      }
+
+      .team-container {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .team-container h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .team-grid {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .team-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 5px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .team-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(115, 69, 253, 0.45);
+        box-shadow: 0 20px 44px rgba(115, 69, 253, 0.2);
+      }
+
+      .team-card-image {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        background: linear-gradient(160deg, #4B2FBE, #7345FD 55%, #9774FE);
+      }
+
+      .team-card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 22px;
+      }
+
+      .team-card h3 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .team-card-role {
+        font-family: 'Sora', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9774FE;
+      }
+
+      .team-card p {
+        margin: 4px 0 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      @media (min-width: 900px) {
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -1288,7 +1556,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
 
         .title-highlight,
         .button,
-        .hero-mockup,
         .orbit-layer,
         .glow-blob {
           animation: none;
@@ -1298,10 +1565,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
           opacity: 1;
           transform: none;
           filter: none;
-          transition: none;
-        }
-
-        .reveal-ready [data-reveal] .badge-tilt {
           transition: none;
         }
 
@@ -1354,20 +1617,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         <span class="orbit-layer"></span>
         <span class="orbit-layer orbit-layer-inner"></span>
       </div>
-      <div class="hero-mockups" aria-hidden="true">
-        <div class="hero-mockup hero-mockup-left">
-          <div class="hero-mockup-bar"><span></span><span></span><span></span></div>
-          <div class="hero-mockup-body"></div>
-        </div>
-        <div class="hero-mockup hero-mockup-center">
-          <div class="hero-mockup-bar"><span></span><span></span><span></span></div>
-          <div class="hero-mockup-body"></div>
-        </div>
-        <div class="hero-mockup hero-mockup-right">
-          <div class="hero-mockup-bar"><span></span><span></span><span></span></div>
-          <div class="hero-mockup-body"></div>
-        </div>
-      </div>
       <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal>
         <span class="badge reveal-item">Especialistas em posicionamento profissional</span>
@@ -1401,6 +1650,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
     </section>
 
     <section class="empathy-section">
+      <div class="empathy-dots" aria-hidden="true"></div>
       <div class="empathy-glows" aria-hidden="true">
         <span class="glow-blob glow-blob-1"></span>
         <span class="glow-blob glow-blob-2"></span>
@@ -1408,7 +1658,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
       </div>
       <div class="empathy-container">
         <div class="empathy-content" data-reveal>
-          <span class="badge-dark badge-tilt reveal-item">Sua apresentação online importa</span>
+          <span class="badge-dark reveal-item">Sua apresentação online importa</span>
           <div class="ghost-title-wrap reveal-item">
             <span class="ghost-title" aria-hidden="true">Impacto</span>
             <h2>
@@ -1420,9 +1670,6 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
               ))}
             </h2>
           </div>
-          <p class="empathy-lead reveal-item">
-            Você construiu uma <strong>carreira sólida</strong>, mas isso não adianta se sua presença digital ainda parece amadora.
-          </p>
           <p class="empathy-text reveal-item">
             Você cresceu por indicação e boca a boca — mas esse modelo está chegando no limite. Para atrair
             novos clientes e clientes melhores, não basta ser profissional: é preciso <strong>parecer profissional</strong>.
@@ -1459,6 +1706,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
     </section>
 
     <section class="services-section" id="servicos">
+      <div class="services-dots" aria-hidden="true"></div>
       <div class="services-container" data-reveal>
         <span class="badge-dark reveal-item">Nossos serviços</span>
         <h2 class="reveal-item">O que fazemos por você</h2>
@@ -1474,6 +1722,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
               </span>
               <h3>Criação de Sites</h3>
             </div>
+            <p class="service-card-desc">Para causar a primeira impressão certa e transformar visitantes em clientes.</p>
             <ul class="service-card-features">
               <li>Design exclusivo e responsivo</li>
               <li>Otimizado para conversão</li>
@@ -1494,6 +1743,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
               </span>
               <h3>Automações Inteligentes</h3>
             </div>
+            <p class="service-card-desc">Para seu atendimento funcionar 24h por dia, sem depender de você.</p>
             <ul class="service-card-features">
               <li>Atendimento automatizado</li>
               <li>Fluxos de vendas integrados</li>
@@ -1515,6 +1765,7 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
               </span>
               <h3>Revitalização de Marca</h3>
             </div>
+            <p class="service-card-desc">Para sua imagem finalmente refletir o nível do seu trabalho.</p>
             <ul class="service-card-features">
               <li>Nova identidade visual</li>
               <li>Presença digital alinhada</li>
@@ -1535,12 +1786,12 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         <h2 class="reveal-item">Cases de sucesso</h2>
 
         <div class="cases-grid reveal-item">
-          <article class="case-card">
-            <div class="case-card-image"></div>
+          <article class="case-card case-card-white">
+            <div class="case-card-image case-card-image-casa3"></div>
             <div class="case-card-body">
-              <span class="case-card-tag">Site para Médico</span>
-              <h3>Clínica Dr. Exemplo</h3>
-              <p>Site institucional com agendamento online, aumentando a captação de novos pacientes.</p>
+              <span class="case-card-tag">Site para Arquitetos</span>
+              <h3>Casa Três Arquitetura</h3>
+              <p>Site institucional que posiciona o escritório como referência em arquitetura corporativa no Rio de Janeiro.</p>
               <a href="#" class="service-card-link">
                 Ver projeto
                 <span aria-hidden="true">→</span>
@@ -1548,12 +1799,12 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
             </div>
           </article>
 
-          <article class="case-card">
-            <div class="case-card-image"></div>
+          <article class="case-card case-card-white">
+            <div class="case-card-image case-card-image-fogaca"></div>
             <div class="case-card-body">
               <span class="case-card-tag">Site para Advogados</span>
-              <h3>Exemplo Advocacia</h3>
-              <p>Presença digital estratégica que reforça autoridade e credibilidade perante novos clientes.</p>
+              <h3>Fogaça dos Santos</h3>
+              <p>Landing page de autoridade para advogado previdenciarista, focada em transformar visitantes em consultas.</p>
               <a href="#" class="service-card-link">
                 Ver projeto
                 <span aria-hidden="true">→</span>
@@ -1561,12 +1812,12 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
             </div>
           </article>
 
-          <article class="case-card">
-            <div class="case-card-image"></div>
+          <article class="case-card case-card-white">
+            <div class="case-card-image case-card-image-katiuscia"></div>
             <div class="case-card-body">
-              <span class="case-card-tag">Site para Nutricionistas</span>
-              <h3>Nutri Exemplo Consultório</h3>
-              <p>Landing page focada em conversão, com identidade visual alinhada a um posicionamento premium.</p>
+              <span class="case-card-tag">Site para Médicos</span>
+              <h3>Dra. Katiuscia Souza</h3>
+              <p>Site para endocrinologista com posicionamento acolhedor e premium, focado em agendamento de consultas.</p>
               <a href="#" class="service-card-link">
                 Ver projeto
                 <span aria-hidden="true">→</span>
@@ -1575,7 +1826,103 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
           </article>
         </div>
 
+        <div class="cases-nav reveal-item" aria-hidden="false">
+          <button type="button" class="cases-arrow" id="cases-prev" aria-label="Case anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button type="button" class="cases-arrow" id="cases-next" aria-label="Próximo case">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+          </button>
+        </div>
+
         <a href="#" class="cases-more-btn reveal-item">Ver mais cases de sucesso</a>
+      </div>
+    </section>
+
+    <section class="testimonials-section" id="depoimentos">
+      <div class="testimonials-container" data-reveal>
+        <span class="badge-dark reveal-item">Depoimentos</span>
+        <h2 class="reveal-item">O que nossos clientes dizem</h2>
+
+        <div class="testimonials-grid reveal-item">
+          <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 estrelas">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="testimonial-text">"Depoimento do cliente aqui. Duas ou três frases sobre o resultado que ele teve com o projeto e como foi trabalhar com a One Impact."</p>
+            <footer class="testimonial-author">
+              <span class="testimonial-avatar" aria-hidden="true">NC</span>
+              <div>
+                <strong>Nome do Cliente</strong>
+                <span>Profissão · Empresa</span>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 estrelas">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="testimonial-text">"Depoimento do cliente aqui. Duas ou três frases sobre o resultado que ele teve com o projeto e como foi trabalhar com a One Impact."</p>
+            <footer class="testimonial-author">
+              <span class="testimonial-avatar" aria-hidden="true">NC</span>
+              <div>
+                <strong>Nome do Cliente</strong>
+                <span>Profissão · Empresa</span>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 estrelas">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="testimonial-text">"Depoimento do cliente aqui. Duas ou três frases sobre o resultado que ele teve com o projeto e como foi trabalhar com a One Impact."</p>
+            <footer class="testimonial-author">
+              <span class="testimonial-avatar" aria-hidden="true">NC</span>
+              <div>
+                <strong>Nome do Cliente</strong>
+                <span>Profissão · Empresa</span>
+              </div>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section" id="equipe">
+      <div class="team-container" data-reveal>
+        <span class="badge-dark reveal-item">Nossa equipe</span>
+        <h2 class="reveal-item">Quem faz acontecer</h2>
+
+        <div class="team-grid reveal-item">
+          <article class="team-card">
+            <div class="team-card-image"></div>
+            <div class="team-card-body">
+              <h3>Nome da Sócia</h3>
+              <span class="team-card-role">Cargo / Especialidade</span>
+              <p>Breve descrição da sócia, sua experiência e o que ela lidera dentro da One Impact.</p>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-card-image"></div>
+            <div class="team-card-body">
+              <h3>Nome da Sócia</h3>
+              <span class="team-card-role">Cargo / Especialidade</span>
+              <p>Breve descrição da sócia, sua experiência e o que ela lidera dentro da One Impact.</p>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-card-image"></div>
+            <div class="team-card-body">
+              <h3>Nome da Sócia</h3>
+              <span class="team-card-role">Cargo / Especialidade</span>
+              <p>Breve descrição da sócia, sua experiência e o que ela lidera dentro da One Impact.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1685,6 +2032,36 @@ const empathyTitlePart2 = 'o profissional que você é?'.split(' ')
         window.addEventListener('resize', () => {
           if (window.innerWidth >= 900) setMobileMenu(false)
         })
+      }
+
+      // Carrossel de cases — setas navegam card a card no mobile
+      const casesGrid = document.querySelector<HTMLElement>('.cases-grid')
+      const casesPrev = document.getElementById('cases-prev') as HTMLButtonElement | null
+      const casesNext = document.getElementById('cases-next') as HTMLButtonElement | null
+
+      if (casesGrid && casesPrev && casesNext) {
+        const cardStep = () => {
+          const card = casesGrid.querySelector<HTMLElement>('.case-card')
+          return card ? card.offsetWidth + 16 : casesGrid.clientWidth
+        }
+
+        const updateArrows = () => {
+          const maxScroll = casesGrid.scrollWidth - casesGrid.clientWidth
+          casesPrev.disabled = casesGrid.scrollLeft <= 4
+          casesNext.disabled = casesGrid.scrollLeft >= maxScroll - 4
+        }
+
+        casesPrev.addEventListener('click', () => {
+          casesGrid.scrollBy({ left: -cardStep(), behavior: 'smooth' })
+        })
+
+        casesNext.addEventListener('click', () => {
+          casesGrid.scrollBy({ left: cardStep(), behavior: 'smooth' })
+        })
+
+        casesGrid.addEventListener('scroll', updateArrows, { passive: true })
+        window.addEventListener('resize', updateArrows, { passive: true })
+        updateArrows()
       }
 
       const compareSlider = document.getElementById('compare-slider')
