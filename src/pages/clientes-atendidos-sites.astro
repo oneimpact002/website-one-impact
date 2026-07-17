@@ -6,7 +6,7 @@ const cases = [
     label: 'Site para Arquitetos',
     tag: 'Arquitetura · Tijuca, RJ',
     name: 'Casa3',
-    desc: 'Escritório de arquitetura, um dos mais relevantes da Tijuca, com mais de 35 anos de atuação. Reposicionamos a marca digitalmente para apresentar a autoridade que eles já conquistaram no mercado.',
+    desc: 'Um dos escritórios de arquitetura mais relevantes da Tijuca, com mais de 35 anos de projetos entregues. Reposicionamos a presença digital para que o site comunicasse, à altura, a autoridade que o escritório já conquistou no mercado.',
     chips: ['+35 anos de mercado', 'Reposicionamento de marca'],
   },
   {
@@ -15,7 +15,7 @@ const cases = [
     label: 'Hub para Arquitetos',
     tag: 'Arquitetura corporativa · B2B',
     name: 'Pett Capellato',
-    desc: 'Hub de soluções para arquitetos e designers de interiores em projetos corporativos, com parcerias com grandes fabricantes de móveis. Atende projetos de grande porte para empresas como Globo, Mercado Livre, Vale e Michelin.',
+    desc: 'Hub que conecta arquitetos e designers de interiores a grandes fabricantes de mobiliário corporativo, atendendo projetos para Globo, Mercado Livre, Vale e Michelin. Construímos uma presença digital à altura dessas contas — e a evoluímos mês a mês desde 2022.',
     chips: ['Cliente desde 2022', 'Acompanhamento mensal', 'Cases: Globo, Mercado Livre, Vale, Michelin'],
   },
   {
@@ -24,7 +24,7 @@ const cases = [
     label: 'Site para Advogados',
     tag: 'Direito previdenciário · São Paulo',
     name: 'Fogaça Santos',
-    desc: 'Site corporativo de Jorge Fogaça, advogado previdenciarista em São Paulo. Reposicionamos a marca para destacar sua experiência e consolidar autoridade junto ao público certo.',
+    desc: 'Site corporativo para Jorge Fogaça, advogado previdenciarista em São Paulo. Estruturamos a página para transformar décadas de experiência em autoridade percebida — do primeiro acesso até o contato no WhatsApp.',
     chips: ['Reposicionamento de marca'],
   },
   {
@@ -33,7 +33,7 @@ const cases = [
     label: 'Site para Agências',
     tag: 'Automação · Multilíngue',
     name: 'Anina Agency',
-    desc: 'Agência de automação com o objetivo de atingir mercados fora do país. O site foi construído multilíngue para apresentar a experiência da equipe no padrão exigido por esse público.',
+    desc: 'Agência de automação com operação voltada ao mercado internacional. Criamos um site multilíngue no padrão que esse público exige, apresentando a experiência da equipe para clientes de fora do país.',
     chips: ['Expansão internacional', 'Site multilíngue'],
   },
   {
@@ -42,8 +42,26 @@ const cases = [
     label: 'Site para Psicólogos',
     tag: 'Saúde · Neuropsicologia',
     name: 'Neurolândia',
-    desc: 'Site médico corporativo para consultório especializado em avaliação neuropsicológica, estruturado estrategicamente para falar com o público certo da marca.',
+    desc: 'Consultório especializado em avaliação neuropsicológica. Desenhamos o site para conduzir o público certo até a triagem, com linguagem acessível para famílias e estrutura clara de encaminhamento.',
     chips: ['Estratégia de público'],
+  },
+  {
+    domain: 'drakatiusciaendocrino.com.br',
+    url: 'https://drakatiusciaendocrino.com.br/',
+    label: 'Site para Médicos',
+    tag: 'Saúde · Endocrinologia',
+    name: 'Dra. Katiuscia Souza',
+    desc: 'Endocrinologista em Atibaia e São Paulo. Criamos identidade visual e site em um projeto único: posicionamento acolhedor e premium, do monograma à página, focado em transformar visitas em consultas agendadas.',
+    chips: [],
+  },
+  {
+    domain: 'iflbrasil.com.br',
+    url: 'https://iflbrasil.com.br/',
+    label: 'Site Institucional',
+    tag: 'Educação · Formação de líderes',
+    name: 'IFL Brasil',
+    desc: 'Instituto de Formação de Líderes, referência em liderança, empreendedorismo e gestão. Site institucional que organiza a proposta do instituto e apresenta seus programas com o peso que a marca pede.',
+    chips: [],
   },
 ]
 ---
@@ -156,69 +174,105 @@ const cases = [
         text-align: center;
       }
 
+      /* Malha fina — mesma textura da /inicio-teste */
       .intro-dots {
         position: absolute;
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        background-image: radial-gradient(rgba(151, 116, 254, 0.5) 1.5px, transparent 1.5px);
-        background-size: 22px 22px;
-        -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, black, transparent 85%);
-        mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, black, transparent 85%);
+        background-image: radial-gradient(rgba(151, 116, 254, 0.35) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 35%, black, transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 75% at 50% 35%, black, transparent 85%);
       }
 
-      .intro-glows {
+      /* Cursor Spotlight — revela a malha ao redor do mouse */
+      .cursor-spotlight {
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(151, 116, 254, 0.65) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(circle 200px at var(--x, -999px) var(--y, -999px), black 0%, transparent 100%);
+        mask-image: radial-gradient(circle 200px at var(--x, -999px) var(--y, -999px), black 0%, transparent 100%);
+      }
+
+      @media (max-width: 899px), (hover: none) {
+        .cursor-spotlight {
+          display: none;
+        }
+      }
+
+      /* Círculos concêntricos com orbs — mesmo visual da /inicio-teste */
+      .intro-circles {
+        position: absolute;
+        z-index: 0;
+        top: 60%;
+        left: 50%;
+        width: min(640px, 88vw);
+        aspect-ratio: 1;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        pointer-events: none;
+      }
+
+      .intro-circles::before {
+        content: '';
+        position: absolute;
+        inset: 17%;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.36);
+      }
+
+      .intro-circles::after {
+        content: '';
+        position: absolute;
+        inset: -22%;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.18);
+      }
+
+      .orbit-layer {
         position: absolute;
         inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        filter: blur(90px);
-      }
-
-      .glow-blob {
-        position: absolute;
         border-radius: 50%;
+        animation: orbit-spin 46s linear infinite;
       }
 
-      .glow-blob-1 {
-        width: 420px;
-        height: 420px;
-        top: -18%;
-        left: -10%;
-        background: #4B2FBE;
-        opacity: 0.45;
-        animation: blob-drift-1 24s ease-in-out infinite alternate;
+      .orbit-layer-inner {
+        inset: 17%;
+        animation-duration: 30s;
+        animation-direction: reverse;
       }
 
-      .glow-blob-2 {
-        width: 360px;
-        height: 360px;
-        top: -14%;
-        right: -8%;
+      .orbit-layer::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
         background: #7345FD;
-        opacity: 0.35;
-        animation: blob-drift-2 27s ease-in-out infinite alternate;
+        box-shadow: 0 0 12px rgba(115, 69, 253, 0.65);
       }
 
-      @keyframes blob-drift-1 {
-        from { transform: translate(0, 0); }
-        to   { transform: translate(6vw, 4vh); }
-      }
-
-      @keyframes blob-drift-2 {
-        from { transform: translate(0, 0); }
-        to   { transform: translate(-6vw, 3vh); }
+      @keyframes orbit-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
       }
 
       .badge-dark {
         display: inline-flex;
-        padding: 8px 18px;
+        padding: 5px 12px;
         border-radius: 9999px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        background: rgba(255, 255, 255, 0.05);
-        color: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.8);
         font-family: 'Sora', sans-serif;
-        font-size: 9px;
+        font-size: 8px;
         font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -233,7 +287,7 @@ const cases = [
         max-width: 640px;
         margin: 0 auto 18px;
         font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 32px;
+        font-size: 28px;
         font-weight: 700;
         line-height: 1.16;
         letter-spacing: -0.5px;
@@ -242,7 +296,7 @@ const cases = [
 
       @media (min-width: 900px) {
         .intro-title {
-          font-size: 48px;
+          font-size: 46px;
           letter-spacing: -1px;
         }
       }
@@ -257,7 +311,7 @@ const cases = [
         max-width: 520px;
         margin: 0 auto;
         font-family: 'Sora', sans-serif;
-        font-size: 15px;
+        font-size: 12px;
         font-weight: 300;
         line-height: 1.7;
         color: rgba(255, 255, 255, 0.7);
@@ -362,15 +416,13 @@ const cases = [
         flex: 1;
         margin: 0 12px 12px;
         border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(19, 15, 38, 0.06);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 8px;
         text-align: center;
-        background:
-          radial-gradient(circle at 28% 24%, rgba(151, 116, 254, 0.35), transparent 60%),
-          linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+        background: #FFFFFF;
       }
 
       .site-preview-label {
@@ -379,7 +431,7 @@ const cases = [
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.55);
+        color: rgba(19, 15, 38, 0.6);
       }
 
       .case-card-body {
@@ -501,7 +553,8 @@ const cases = [
         justify-content: center;
         gap: 10px;
         padding: 14px 40px;
-        border-radius: 10px;
+        border: 1px solid #9774FE;
+        border-radius: 5px;
         background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
         background-size: 300% 100%;
         color: #FFFFFF;
@@ -524,8 +577,102 @@ const cases = [
         100% { background-position: 300% 50%; }
       }
 
+      /* Rodapé corporativo — mesmo da /inicio-teste */
+      .footer {
+        background: #0D0A1A;
+        border-top: 1px solid rgba(115, 69, 253, 0.16);
+        padding: 56px 20px 0;
+        font-family: 'Sora', sans-serif;
+      }
+
+      .footer-container {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      .footer-col h4 {
+        margin: 0 0 14px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+      }
+
+      .footer-brand strong {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+      }
+
+      .footer-brand p {
+        margin: 10px 0 0;
+        max-width: 280px;
+        font-size: 12px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .footer-col ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .footer-col a {
+        font-size: 13px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.65);
+        transition: color 0.2s ease;
+      }
+
+      .footer-col a:hover {
+        color: #9774FE;
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 12px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .footer-bottom span {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      @media (min-width: 900px) {
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 899px) {
+        .footer-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 32px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
-        .glow-blob,
+        .orbit-layer,
         .button {
           animation: none !important;
         }
@@ -539,11 +686,13 @@ const cases = [
       </a>
     </header>
 
+    <div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
+
     <section class="intro-section">
       <div class="intro-dots" aria-hidden="true"></div>
-      <div class="intro-glows" aria-hidden="true">
-        <span class="glow-blob glow-blob-1"></span>
-        <span class="glow-blob glow-blob-2"></span>
+      <div class="intro-circles" aria-hidden="true">
+        <span class="orbit-layer"></span>
+        <span class="orbit-layer orbit-layer-inner"></span>
       </div>
       <div data-reveal>
         <span class="badge-dark reveal-item">Clientes atendidos</span>
@@ -595,6 +744,40 @@ const cases = [
       </div>
     </section>
 
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <strong>One Impact</strong>
+            <p>Agência de posicionamento profissional. Organizamos o caos do seu digital com sites, automações e marca.</p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Navegação</h4>
+            <ul>
+              <li><a href="/pagina-v2">Início</a></li>
+              <li><a href="/clientes-atendidos-sites">Clientes atendidos</a></li>
+              <li><a href="https://wa.me/5541988733518" target="_blank" rel="noopener">Contato</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Contato</h4>
+            <ul>
+              <li><a href="https://wa.me/5541988733518" target="_blank" rel="noopener">WhatsApp</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="mailto:contato@agenciaoneimpact.com.br">contato@agenciaoneimpact.com.br</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 One Impact — Todos os direitos reservados.</span>
+          <span>agenciaoneimpact.com.br</span>
+        </div>
+      </div>
+    </footer>
+
     <script>
       import Lenis from 'lenis'
 
@@ -628,6 +811,15 @@ const cases = [
         }
 
         requestAnimationFrame(raf)
+      }
+
+      // Cursor Spotlight — segue o mouse via CSS vars
+      const spotlight = document.getElementById('cursor-spotlight')
+      if (spotlight) {
+        window.addEventListener('mousemove', (e) => {
+          spotlight.style.setProperty('--x', `${e.clientX}px`)
+          spotlight.style.setProperty('--y', `${e.clientY}px`)
+        })
       }
     </script>
   </body>
