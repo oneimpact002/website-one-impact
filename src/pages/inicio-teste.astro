@@ -412,6 +412,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       .reveal-ready [data-reveal-scroll] .reveal-fade:nth-child(2) { transition-delay: 80ms; }
       .reveal-ready [data-reveal-scroll] .reveal-fade:nth-child(3) { transition-delay: 160ms; }
+      .reveal-ready [data-reveal-scroll] .reveal-fade:nth-child(4) { transition-delay: 240ms; }
 
       .reveal-ready [data-reveal-scroll].is-visible .reveal-fade {
         opacity: 1;
@@ -488,47 +489,99 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         color: rgba(255, 255, 255, 0.8);
       }
 
-      .stat-bars {
-        width: 100%;
-        max-width: 640px;
+      .stat-cols-wrap {
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        text-align: left;
+        align-items: center;
       }
 
-      .stat-bar-label {
+      /* Gráfico de colunas — cresce de baixo quando a seção aparece */
+      .stat-cols {
         display: flex;
-        justify-content: space-between;
+        align-items: flex-end;
+        gap: 36px;
+      }
+
+      .stat-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap: 12px;
-        margin-bottom: 6px;
-        font-family: 'Sora', sans-serif;
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.85);
+        width: 110px;
       }
 
-      .stat-bar-label strong {
-        color: #FFFFFF;
+      .stat-col-track {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 220px;
+        width: 100%;
+      }
+
+      .stat-col-fill {
+        position: relative;
+        width: 64px;
+        height: 0;
+        border-radius: 5px 5px 0 0;
+        background: linear-gradient(180deg, #9774FE, #7345FD 60%, #4B2FBE);
+        box-shadow: 0 0 28px rgba(115, 69, 253, 0.35);
+        transition: height 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .is-visible .stat-col-fill {
+        height: var(--val);
+      }
+
+      .stat-col-value {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 18px;
         font-weight: 700;
+        color: #FFFFFF;
+        opacity: 0;
+        transition: opacity 0.4s ease 0.7s;
       }
 
-      .stat-bar-track {
-        height: 10px;
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.1);
-        overflow: hidden;
+      .is-visible .stat-col-value {
+        opacity: 1;
       }
 
-      .stat-bar-fill {
-        height: 100%;
-        width: 0;
-        border-radius: 5px;
-        background: linear-gradient(90deg, #7345FD, #9774FE);
-        transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      .stat-col-label {
+        min-height: 42px;
+        font-family: 'Sora', sans-serif;
+        font-size: 11px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.7);
       }
 
-      .is-visible .stat-bar-fill {
-        width: var(--val);
+      @media (max-width: 899px) {
+        .stat-cols {
+          gap: 14px;
+        }
+
+        .stat-col {
+          width: 96px;
+        }
+
+        .stat-col-track {
+          height: 170px;
+        }
+
+        .stat-col-fill {
+          width: 48px;
+        }
+
+        .stat-col-value {
+          font-size: 14px;
+          top: -24px;
+        }
+
+        .stat-col-label {
+          font-size: 9px;
+        }
       }
 
       .dados-fonte {
@@ -578,35 +631,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           radial-gradient(ellipse 62% 46% at 50% 28%, rgba(115, 69, 253, 0.13), transparent 70%),
           radial-gradient(ellipse 42% 34% at 12% 88%, rgba(151, 116, 254, 0.10), transparent 72%),
           radial-gradient(ellipse 42% 34% at 88% 86%, rgba(151, 116, 254, 0.10), transparent 72%);
-      }
-
-      .cta-circles {
-        position: absolute;
-        z-index: 0;
-        top: 50%;
-        left: 50%;
-        width: min(640px, 88vw);
-        aspect-ratio: 1;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        border: 1px solid rgba(115, 69, 253, 0.16);
-        pointer-events: none;
-      }
-
-      .cta-circles::before {
-        content: '';
-        position: absolute;
-        inset: 17%;
-        border-radius: 50%;
-        border: 1px solid rgba(115, 69, 253, 0.22);
-      }
-
-      .cta-circles::after {
-        content: '';
-        position: absolute;
-        inset: -22%;
-        border-radius: 50%;
-        border: 1px solid rgba(115, 69, 253, 0.10);
       }
 
       .orbit-layer {
@@ -659,6 +683,77 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         gap: 12px;
       }
 
+      /* Cards de tópicos — por que presença profissional importa */
+      .cta-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        max-width: 1140px;
+        margin: 20px 0 8px;
+      }
+
+      .cta-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 24px 20px;
+        text-align: left;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        border-radius: 5px;
+        background: #FFFFFF;
+        box-shadow: 0 12px 30px rgba(19, 15, 38, 0.08);
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .cta-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(115, 69, 253, 0.35);
+        box-shadow: 0 20px 44px rgba(115, 69, 253, 0.16);
+      }
+
+      .cta-card-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(115, 69, 253, 0.28);
+        border-radius: 5px;
+        background: rgba(115, 69, 253, 0.1);
+        color: #7345FD;
+      }
+
+      .cta-card h3 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #130F26;
+      }
+
+      .cta-card p {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        line-height: 1.6;
+        color: rgba(19, 15, 38, 0.75);
+      }
+
+      @media (min-width: 900px) {
+        .cta-cards {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+
+        .cta-card {
+          padding: 28px 24px;
+        }
+      }
+
       .cta-section .badge {
         border-color: rgba(19, 15, 38, 0.15);
         background: rgba(19, 15, 38, 0.05);
@@ -708,15 +803,57 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       }
 
       .stack-card {
+        position: relative;
         position: sticky;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         text-align: left;
-        border: 1px solid rgba(19, 15, 38, 0.1);
+        border: 1px solid rgba(151, 116, 254, 0.28);
         border-radius: 5px;
-        background: #FFFFFF;
-        box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(145deg, #232035, #16112B);
+        box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(115, 69, 253, 0.12);
+      }
+
+      /* Linha gradiente no topo do card */
+      .stack-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        z-index: 1;
+        background: linear-gradient(90deg, #4B2FBE, #9774FE, #D9CCFF, #9774FE, #4B2FBE);
+      }
+
+      /* Moldura de navegador na imagem */
+      .stack-card-media {
+        display: flex;
+        flex-direction: column;
+        background: #232035;
+      }
+
+      .stack-card-browserbar {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        height: 26px;
+        flex-shrink: 0;
+        padding: 0 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .stack-card-browserbar span {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(151, 116, 254, 0.45);
+      }
+
+      .stack-card-media .case-card-image {
+        flex: 1;
       }
 
       .stack-card:nth-child(1) { top: 84px; }
@@ -769,7 +906,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         font-size: 17px;
         font-weight: 700;
         line-height: 1.2;
-        color: #130F26;
+        color: #FFFFFF;
       }
 
       .stack-card p {
@@ -777,7 +914,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         font-family: 'Sora', sans-serif;
         font-size: 14px;
         line-height: 1.6;
-        color: rgba(19, 15, 38, 0.75);
+        color: rgba(255, 255, 255, 0.7);
       }
 
       .case-card-link {
@@ -790,13 +927,13 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         font-size: 13px;
         font-weight: 700;
         text-decoration: none;
-        color: #7345FD;
+        color: #9774FE;
         transition: gap 0.2s ease, color 0.2s ease;
       }
 
       .case-card-link:hover {
         gap: 10px;
-        color: #9774FE;
+        color: #C9BBFF;
       }
 
       .cases-more-btn {
@@ -829,6 +966,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           align-items: stretch;
         }
 
+        .stack-card-media {
+          height: 100%;
+        }
+
         .stack-card .case-card-image {
           height: 100%;
           aspect-ratio: auto;
@@ -845,6 +986,66 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         .stack-card h3 {
           font-size: 24px;
         }
+      }
+
+      /* Seção final — CTA escuro com círculos e orbs (visual da hero antiga) */
+      .final-section {
+        position: relative;
+        overflow: hidden;
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 88px 20px;
+        background: #130F26;
+      }
+
+      .final-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(115, 69, 253, 0.2), transparent 70%);
+      }
+
+      .final-circles {
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        width: min(640px, 88vw);
+        aspect-ratio: 1;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        pointer-events: none;
+      }
+
+      .final-circles::before {
+        content: '';
+        position: absolute;
+        inset: 17%;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.36);
+      }
+
+      .final-circles::after {
+        content: '';
+        position: absolute;
+        inset: -22%;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.18);
+      }
+
+      .final-section > .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
       }
 
       /* Rodapé corporativo */
@@ -1223,29 +1424,34 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
             <p class="stat-hero-label">das pessoas julgam a credibilidade de um negócio pela qualidade do site.</p>
           </div>
 
-          <div class="stat-bars">
-            <div class="stat-bar">
-              <div class="stat-bar-label">
-                <span>Pesquisam online antes de contratar</span>
-                <strong>81%</strong>
+          <div class="stat-cols-wrap">
+            <div class="stat-cols">
+              <div class="stat-col">
+                <div class="stat-col-track">
+                  <div class="stat-col-fill" style="--val: 75%">
+                    <span class="stat-col-value">75%</span>
+                  </div>
+                </div>
+                <span class="stat-col-label">Julgam a credibilidade pelo site</span>
               </div>
-              <div class="stat-bar-track"><div class="stat-bar-fill" style="--val: 81%"></div></div>
-            </div>
 
-            <div class="stat-bar">
-              <div class="stat-bar-label">
-                <span>Não voltam após uma experiência ruim</span>
-                <strong>88%</strong>
+              <div class="stat-col">
+                <div class="stat-col-track">
+                  <div class="stat-col-fill" style="--val: 81%">
+                    <span class="stat-col-value">81%</span>
+                  </div>
+                </div>
+                <span class="stat-col-label">Pesquisam antes de contratar</span>
               </div>
-              <div class="stat-bar-track"><div class="stat-bar-fill" style="--val: 88%"></div></div>
-            </div>
 
-            <div class="stat-bar">
-              <div class="stat-bar-label">
-                <span>Julgam a credibilidade pelo site</span>
-                <strong>75%</strong>
+              <div class="stat-col">
+                <div class="stat-col-track">
+                  <div class="stat-col-fill" style="--val: 88%">
+                    <span class="stat-col-value">88%</span>
+                  </div>
+                </div>
+                <span class="stat-col-label">Não voltam após experiência ruim</span>
               </div>
-              <div class="stat-bar-track"><div class="stat-bar-fill" style="--val: 75%"></div></div>
             </div>
 
             <p class="dados-fonte">Fontes: Stanford Web Credibility Research · GE Capital · Google</p>
@@ -1254,22 +1460,40 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
-    <section class="cta-section" id="contato">
+    <section class="cta-section" id="importancia">
       <div class="cta-glow" aria-hidden="true"></div>
-      <div class="cta-circles" aria-hidden="true">
-        <span class="orbit-layer"></span>
-        <span class="orbit-layer orbit-layer-inner"></span>
-      </div>
       <div class="cta-dots" aria-hidden="true"></div>
       <div class="container" data-reveal-scroll>
-        <span class="badge reveal-fade">Vamos conversar</span>
+        <span class="badge reveal-fade">Por que isso importa</span>
         <h2 class="title reveal-fade">
-          Pronto para organizar o <span class="title-highlight">caos</span>?
+          Uma presença amadora está te <span class="title-highlight">custando clientes</span>.
         </h2>
 
-        <p class="description reveal-fade">
-          Conta pra gente onde seu digital está travado — a primeira conversa é sem compromisso.
-        </p>
+        <div class="cta-cards reveal-fade">
+          <article class="cta-card">
+            <span class="cta-card-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+            </span>
+            <h3>Você tem segundos</h3>
+            <p>O visitante decide em segundos se confia em você. Site amador é aba fechada — e cliente perdido sem você nem saber.</p>
+          </article>
+
+          <article class="cta-card">
+            <span class="cta-card-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+            </span>
+            <h3>Seu cliente te pesquisa</h3>
+            <p>Antes de chamar no WhatsApp, ele olha seu site e suas redes. Se parecer feito de qualquer jeito, ele chama o concorrente.</p>
+          </article>
+
+          <article class="cta-card">
+            <span class="cta-card-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+            </span>
+            <h3>Amador compete por preço</h3>
+            <p>Quem parece profissional cobra pelo seu valor. Quem parece amador entra no leilão de orçamento — e ganha quem cobra menos.</p>
+          </article>
+        </div>
 
         <a href="#contato" class="button reveal-fade">
           <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
@@ -1285,7 +1509,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
         <div class="cases-stack">
           <article class="stack-card">
-            <div class="case-card-image case-card-image-casa3"></div>
+            <div class="stack-card-media">
+              <div class="stack-card-browserbar" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="case-card-image case-card-image-casa3"></div>
+            </div>
             <div class="case-card-body">
               <span class="case-card-tag">Site para Arquitetos</span>
               <h3>Casa Três Arquitetura</h3>
@@ -1298,7 +1525,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           </article>
 
           <article class="stack-card">
-            <div class="case-card-image case-card-image-fogaca"></div>
+            <div class="stack-card-media">
+              <div class="stack-card-browserbar" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="case-card-image case-card-image-fogaca"></div>
+            </div>
             <div class="case-card-body">
               <span class="case-card-tag">Site para Advogados</span>
               <h3>Fogaça dos Santos</h3>
@@ -1311,7 +1541,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           </article>
 
           <article class="stack-card">
-            <div class="case-card-image case-card-image-katiuscia"></div>
+            <div class="stack-card-media">
+              <div class="stack-card-browserbar" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="case-card-image case-card-image-katiuscia"></div>
+            </div>
             <div class="case-card-body">
               <span class="case-card-tag">Site para Médicos</span>
               <h3>Dra. Katiuscia Souza</h3>
@@ -1325,6 +1558,29 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         </div>
 
         <a href="/clientes-atendidos" class="cases-more-btn reveal-fade">Ver mais cases de sucesso</a>
+      </div>
+    </section>
+
+    <section class="final-section" id="contato">
+      <div class="final-glow" aria-hidden="true"></div>
+      <div class="final-circles" aria-hidden="true">
+        <span class="orbit-layer"></span>
+        <span class="orbit-layer orbit-layer-inner"></span>
+      </div>
+      <div class="container" data-reveal-scroll>
+        <span class="badge reveal-fade">Vamos conversar</span>
+        <h2 class="title reveal-fade">
+          Pronto para organizar o <span class="title-highlight">caos</span>?
+        </h2>
+
+        <p class="description reveal-fade">
+          Conta pra gente onde seu digital está travado — a primeira conversa é sem compromisso.
+        </p>
+
+        <a href="#contato" class="button reveal-fade">
+          <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+          Solicitar proposta
+        </a>
       </div>
     </section>
 
