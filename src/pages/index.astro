@@ -105,6 +105,21 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         margin-bottom: 0;
       }
 
+      /* Espaçamento badge → título: 15px em todas as seções */
+      /* Nas seções sem gap no container, a badge leva os 15px inteiros */
+      .dados-container .badge,
+      .services-container .badge,
+      .cases-container .badge {
+        margin-bottom: 15px;
+      }
+
+      /* Nos containers com gap de 12px, a badge completa os 3px que faltam */
+      .hero > .container .badge,
+      .cta-section > .container .badge,
+      .final-section > .container .badge {
+        margin-bottom: 3px;
+      }
+
       .title {
         font-family: 'Zalando Sans Expanded', sans-serif;
         font-size: 36px;
@@ -307,6 +322,42 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         background: rgba(115, 69, 253, 0.09);
       }
 
+      /* Link ativo — seção visível no momento */
+      .desktop-menu a.is-active {
+        color: #7345FD;
+        background: rgba(115, 69, 253, 0.12);
+      }
+
+      /* CTA de WhatsApp no menu */
+      .header-cta {
+        display: none;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
+        background-size: 300% 100%;
+        color: #FFFFFF;
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 6px 16px rgba(115, 69, 253, 0.35);
+        animation: shimmer-purple 4s linear infinite;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .header-cta:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 9px 22px rgba(115, 69, 253, 0.45);
+      }
+
+      @media (min-width: 900px) {
+        .header-cta {
+          display: inline-flex;
+        }
+      }
+
       .mobile-menu-toggle {
         width: 34px;
         height: 34px;
@@ -350,52 +401,126 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         transform: translateY(-6.5px) rotate(-45deg);
       }
 
-      .mobile-menu {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        padding: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.62);
-        border-radius: 5px;
-        background: rgba(247, 245, 253, 0.94);
-        box-shadow: 0 18px 42px rgba(19, 15, 38, 0.22);
-        backdrop-filter: blur(22px);
-        -webkit-backdrop-filter: blur(22px);
+      /* Drawer lateral — desliza da direita */
+      .menu-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 998;
+        background: rgba(13, 10, 26, 0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
-        transform: translateY(-8px) scale(0.98);
-        transform-origin: top center;
-        transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .menu-backdrop.is-open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        width: min(320px, 85vw);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 96px 28px 28px;
+        border-left: 1px solid rgba(151, 116, 254, 0.25);
+        background:
+          radial-gradient(ellipse 90% 40% at 100% 0%, rgba(115, 69, 253, 0.22), transparent 70%),
+          radial-gradient(rgba(151, 116, 254, 0.18) 0.8px, transparent 0.8px),
+          #0D0A1A;
+        background-size: auto, 12px 12px, auto;
+        box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.38s ease;
       }
 
       .mobile-menu.is-open {
-        opacity: 1;
+        transform: translateX(0);
         visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0) scale(1);
       }
 
       .mobile-menu a {
-        padding: 13px 16px;
-        border-radius: 5px;
-        font-family: 'Sora', sans-serif;
-        font-size: 14px;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 19px;
         font-weight: 600;
         text-decoration: none;
-        color: #130F26;
-        transition: color 0.2s ease, background 0.2s ease;
+        color: #FFFFFF;
+        opacity: 0;
+        transform: translateX(24px);
+        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+      }
+
+      .mobile-menu a .menu-index {
+        font-family: 'Sora', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        color: #9774FE;
       }
 
       .mobile-menu a:hover,
       .mobile-menu a:focus-visible {
-        color: #7345FD;
-        background: rgba(115, 69, 253, 0.09);
+        color: #9774FE;
         outline: none;
+      }
+
+      /* Entrada em cascata dos links */
+      .mobile-menu.is-open a {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .mobile-menu.is-open a:nth-child(1) { transition-delay: 0.08s; }
+      .mobile-menu.is-open a:nth-child(2) { transition-delay: 0.13s; }
+      .mobile-menu.is-open a:nth-child(3) { transition-delay: 0.18s; }
+      .mobile-menu.is-open a:nth-child(4) { transition-delay: 0.23s; }
+      .mobile-menu.is-open a:nth-child(5) { transition-delay: 0.28s; }
+      .mobile-menu.is-open a:nth-child(6) { transition-delay: 0.33s; }
+      .mobile-menu.is-open a:nth-child(7) { transition-delay: 0.38s; }
+
+      .mobile-menu .menu-cta {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 20px;
+        border: 1px solid #9774FE;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
+        background-size: 300% 100%;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #FFFFFF;
+        box-shadow: 0 10px 26px rgba(115, 69, 253, 0.4);
+        animation: shimmer-purple 4s linear infinite;
+        opacity: 0;
+        transition: opacity 0.4s ease 0.42s;
+        border-bottom: none;
+        transform: none;
+      }
+
+      .mobile-menu.is-open .menu-cta {
+        opacity: 1;
+      }
+
+      /* Botão hambúrguer fica acima do drawer */
+      .floating-header {
+        z-index: 1000;
       }
 
       @media (min-width: 900px) {
@@ -827,6 +952,301 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         color: #4F4F57;
       }
 
+      /* Barra fixa de WhatsApp — aparece junto com o menu, após a seção de dados */
+      .whatsapp-bar {
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 10px 10px 18px;
+        border: 1px solid rgba(151, 116, 254, 0.35);
+        border-radius: 9999px;
+        background: rgba(19, 15, 38, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(16px);
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      }
+
+      .whatsapp-bar.is-shown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .whatsapp-bar-text {
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: #FFFFFF;
+      }
+
+      .whatsapp-bar-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-shrink: 0;
+        padding: 11px 20px;
+        border: 1px solid #9774FE;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
+        background-size: 300% 100%;
+        color: #FFFFFF;
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 8px 20px rgba(115, 69, 253, 0.4);
+        animation: shimmer-purple 4s linear infinite;
+        transition: transform 0.2s ease;
+      }
+
+      .whatsapp-bar-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      @media (min-width: 900px) {
+        .whatsapp-bar {
+          left: 50%;
+          right: auto;
+          transform: translateX(-50%) translateY(16px);
+          min-width: 420px;
+        }
+
+        .whatsapp-bar.is-shown {
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      /* Seção de serviços — bento com card destaque */
+      .services-section {
+        position: relative;
+        overflow: hidden;
+        padding: 88px 20px;
+        background: #130F26;
+      }
+
+      .services-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(151, 116, 254, 0.35) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 40%, black, transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 75% at 50% 40%, black, transparent 85%);
+      }
+
+      .services-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .services-container h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .bento-grid {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .bento-card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 28px 24px;
+        text-align: left;
+        border-radius: 5px;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        background: linear-gradient(145deg, #232035, #16112B);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+
+      /* Textura de bolinhas em todos os cards */
+      .bento-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(151, 116, 254, 0.3) 1px, transparent 1px);
+        background-size: 14px 14px;
+        -webkit-mask-image: radial-gradient(ellipse 90% 80% at 85% 10%, black, transparent 70%);
+        mask-image: radial-gradient(ellipse 90% 80% at 85% 10%, black, transparent 70%);
+      }
+
+      .bento-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(151, 116, 254, 0.5);
+        box-shadow: 0 20px 44px rgba(115, 69, 253, 0.22);
+      }
+
+      /* Card destaque — roxo sólido */
+      .bento-main {
+        position: relative;
+        overflow: hidden;
+        border-color: rgba(255, 255, 255, 0.25);
+        background: linear-gradient(160deg, #7345FD, #4B2FBE);
+        box-shadow: 0 20px 50px rgba(115, 69, 253, 0.35);
+      }
+
+      .bento-main::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+        background-size: 14px 14px;
+        -webkit-mask-image: radial-gradient(ellipse 90% 80% at 85% 10%, black, transparent 70%);
+        mask-image: radial-gradient(ellipse 90% 80% at 85% 10%, black, transparent 70%);
+      }
+
+      .bento-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 5px;
+        border: 1px solid rgba(151, 116, 254, 0.32);
+        background: rgba(115, 69, 253, 0.14);
+        color: #9774FE;
+      }
+
+      .bento-main .bento-icon {
+        border-color: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.14);
+        color: #FFFFFF;
+      }
+
+      .bento-card h3 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .bento-main h3 {
+        font-size: 21px;
+      }
+
+      .bento-card p {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .bento-main p {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .bento-features {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 4px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .bento-features li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .bento-check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        font-size: 9px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+
+      .bento-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 10px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #9774FE;
+        transition: gap 0.2s ease, color 0.2s ease;
+      }
+
+      .bento-link:hover {
+        gap: 10px;
+        color: #C9BBFF;
+      }
+
+      .bento-main .bento-link {
+        color: #FFFFFF;
+      }
+
+      .bento-main .bento-link:hover {
+        color: #E9E1FF;
+      }
+
+      @media (min-width: 900px) {
+        .bento-grid {
+          display: grid;
+          grid-template-columns: 1.25fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          gap: 20px;
+        }
+
+        .bento-main {
+          grid-row: span 2;
+          padding: 40px 36px;
+        }
+      }
+
       /* Seção 4 — cases da One Impact (mesmo padrão da pagina-v2) */
       .cases-section {
         padding: 88px 20px;
@@ -1044,6 +1464,155 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         .stack-card .case-card h3,
         .stack-card h3 {
           font-size: 24px;
+        }
+      }
+
+      /* Seção equipe — as sócias */
+      .team-section {
+        position: relative;
+        overflow: hidden;
+        padding: 88px 20px;
+        background: #130F26;
+      }
+
+      .team-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .team-container .badge {
+        margin-bottom: 15px;
+      }
+
+      .team-container h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .team-grid {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .team-card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        border-radius: 5px;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        background: linear-gradient(145deg, #232035, #16112B);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .team-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(151, 116, 254, 0.5);
+        box-shadow: 0 20px 44px rgba(115, 69, 253, 0.22);
+      }
+
+      .team-card-photo {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(ellipse 70% 60% at 50% 30%, rgba(151, 116, 254, 0.3), transparent 70%),
+          linear-gradient(160deg, #2A2344, #16112B);
+        border-bottom: 1px solid rgba(151, 116, 254, 0.2);
+      }
+
+      .team-card-photo svg {
+        color: rgba(151, 116, 254, 0.45);
+      }
+
+      .team-card-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .team-card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 20px;
+      }
+
+      .team-card h3 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .team-card-role {
+        font-family: 'Sora', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9774FE;
+      }
+
+      .team-card p {
+        margin: 6px 0 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Descrição recolhida em 3 linhas até clicar em ler mais */
+      .team-card p.is-clamped {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .team-readmore {
+        margin-top: 6px;
+        padding: 0;
+        border: none;
+        background: none;
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: #9774FE;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+
+      .team-readmore:hover {
+        color: #C9BBFF;
+      }
+
+      @media (min-width: 900px) {
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
         }
       }
 
@@ -1390,9 +1959,15 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       <div class="header-actions">
         <nav class="desktop-menu" aria-label="Navegação principal">
           <a href="#inicio">Início</a>
-          <a href="#dados">Dados</a>
-          <a href="#contato">Contato</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#cases">Cases</a>
+          <a href="/clientes-atendidos-id-visual">Identidade Visual</a>
         </nav>
+
+        <a href="https://wa.me/5541988733518" class="header-cta" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+          WhatsApp
+        </a>
 
         <button
           class="mobile-menu-toggle"
@@ -1408,12 +1983,28 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         </button>
       </div>
 
-      <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true" inert>
-        <a href="#inicio">Início</a>
-        <a href="#dados">Dados</a>
-        <a href="#contato">Contato</a>
-      </nav>
     </header>
+
+    <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true" inert>
+      <a href="#inicio"><span class="menu-index">01</span> Início</a>
+      <a href="#dados"><span class="menu-index">02</span> Dados</a>
+      <a href="#servicos"><span class="menu-index">03</span> Serviços</a>
+      <a href="#cases"><span class="menu-index">04</span> Cases</a>
+      <a href="/clientes-atendidos-sites"><span class="menu-index">05</span> Sites entregues</a>
+      <a href="/clientes-atendidos-id-visual"><span class="menu-index">06</span> Identidade Visual</a>
+      <a href="#contato"><span class="menu-index">07</span> Contato</a>
+      <a href="https://wa.me/5541988733518" class="menu-cta" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </nav>
+
+    <div class="whatsapp-bar" id="whatsapp-bar">
+      <span class="whatsapp-bar-text">Vamos organizar seu digital?</span>
+      <a href="https://wa.me/5541988733518" class="whatsapp-bar-btn" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+        Chamar no WhatsApp
+      </a>
+    </div>
 
     <section class="hero" id="inicio">
       <div class="hero-bg" aria-hidden="true"></div>
@@ -1572,6 +2163,65 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
+    <section class="services-section" id="servicos">
+      <div class="services-dots" aria-hidden="true"></div>
+      <div class="services-container" data-reveal-scroll>
+        <span class="badge reveal-fade">Nossos serviços</span>
+        <h2 class="reveal-fade">O que fazemos por você</h2>
+
+        <div class="bento-grid reveal-fade">
+          <article class="bento-card bento-main">
+            <span class="bento-icon" aria-hidden="true">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+              </svg>
+            </span>
+            <h3>Criação de Sites</h3>
+            <p>Para causar a primeira impressão certa e transformar visitantes em clientes.</p>
+            <ul class="bento-features">
+              <li><span class="bento-check">✓</span> Design exclusivo e responsivo</li>
+              <li><span class="bento-check">✓</span> Otimizado para conversão</li>
+              <li><span class="bento-check">✓</span> SEO técnico incluso</li>
+            </ul>
+            <a href="/clientes-atendidos-sites" class="bento-link">
+              Ver sites entregues
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="bento-card">
+            <span class="bento-icon" aria-hidden="true">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" />
+              </svg>
+            </span>
+            <h3>Automações Inteligentes</h3>
+            <p>Atendimento funcionando 24h por dia no seu WhatsApp, sem depender de você.</p>
+            <a href="#contato" class="bento-link">
+              Falar com a gente
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="bento-card">
+            <span class="bento-icon" aria-hidden="true">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 1 1-3-6.7" />
+                <path d="M21 3v6h-6" />
+              </svg>
+            </span>
+            <h3>Revitalização de Marca</h3>
+            <p>Para sua imagem finalmente refletir o nível do seu trabalho.</p>
+            <a href="/clientes-atendidos-id-visual" class="bento-link">
+              Ver identidades criadas
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="cases-section" id="cases">
       <div class="cases-container" data-reveal-scroll>
         <span class="badge reveal-fade">Projetos realizados</span>
@@ -1628,6 +2278,51 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         </div>
 
         <a href="/clientes-atendidos-sites" class="cases-more-btn reveal-fade">Ver mais cases de sucesso</a>
+      </div>
+    </section>
+
+    <section class="team-section" id="equipe">
+      <div class="team-container" data-reveal-scroll>
+        <span class="badge reveal-fade">Nossa equipe</span>
+        <h2 class="reveal-fade">Quem faz acontecer</h2>
+
+        <div class="team-grid reveal-fade">
+          <article class="team-card">
+            <div class="team-card-photo">
+              <img src="/equipe-christine-lopreto.webp" alt="Christine Lopreto" loading="lazy" decoding="async" />
+            </div>
+            <div class="team-card-body">
+              <h3>Christine Lopreto</h3>
+              <span class="team-card-role">Cofundadora · Estratégia de Marca</span>
+              <p class="is-clamped">Designer e estrategista especialista em marcas e reposicionamento, com trajetória construída atendendo clientes no Brasil e no exterior, em segmentos muito diferentes entre si. Essa bagagem une design, estratégia de marca, mídias sociais e estratégias de divulgação em um repertório raro de encontrar em uma pessoa só. Toda essa experiência tem peso direto no desenvolvimento do posicionamento estratégico dos projetos da One Impact, ajudando cada marca a nascer com uma base sólida muito antes da primeira tela ser desenhada.</p>
+              <button type="button" class="team-readmore" aria-expanded="false">Ler mais</button>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-card-photo">
+              <img src="/equipe-gabrielle-christie.webp" alt="Gabrielle Christie" loading="lazy" decoding="async" />
+            </div>
+            <div class="team-card-body">
+              <h3>Gabrielle Christie</h3>
+              <span class="team-card-role">Cofundadora · Design & UI/UX</span>
+              <p class="is-clamped">Designer focada em design digital, especialista em sites corporativos e landing pages. Já passou por projetos de diversos segmentos, sempre com a mesma assinatura: visual clean, corporativo e moderno. Seu domínio de UI e UX vai além da estética, cada decisão de tela é pensada para a experiência de quem navega. O resultado são sites atuais que elevam a autoridade e a relevância das marcas, deixando a apresentação dos clientes visivelmente mais profissional.</p>
+              <button type="button" class="team-readmore" aria-expanded="false">Ler mais</button>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-card-photo">
+              <img src="/equipe-karoline-christie.webp" alt="Karoline Christie" loading="lazy" decoding="async" />
+            </div>
+            <div class="team-card-body">
+              <h3>Karoline Christie</h3>
+              <span class="team-card-role">Cofundadora · Estratégia de Vendas</span>
+              <p class="is-clamped">Designer e estrategista que também domina a parte de sistemas, especialista em sites corporativos e landing pages. É ela quem elabora a estratégia de vendas dos projetos, com experiência em criação de funis e estratégias de posicionamento que fazem o site trabalhar como um vendedor, e não como um simples cartão de visita virtual. Já foi convidada a palestrar sobre o assunto em eventos, com destaque para o evento de Mateus Dias, um dos principais nomes do Brasil quando o tema é funil de vendas.</p>
+              <button type="button" class="team-readmore" aria-expanded="false">Ler mais</button>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1728,6 +2423,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       }
 
       // Reveal reversível por scroll — anima ao entrar, desfaz ao sair
+      // threshold baixo: seções altas (ex: equipe) nunca chegam a 30% visíveis no mobile
       const scrollGroups = document.querySelectorAll('[data-reveal-scroll]')
       const observer = new IntersectionObserver(
         (entries) => {
@@ -1736,7 +2432,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
             if (entry.isIntersecting && entry.target.contains(countupEl)) runCountup()
           })
         },
-        { threshold: 0.3 },
+        { threshold: 0.1 },
       )
       scrollGroups.forEach((group) => observer.observe(group))
 
@@ -1744,19 +2440,47 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       const floatingHeader = document.getElementById('floating-header')
       const dadosSection = document.getElementById('dados')
 
+      const whatsappBar = document.getElementById('whatsapp-bar')
+
       if (floatingHeader && dadosSection) {
         const updateHeader = () => {
           const rect = dadosSection.getBoundingClientRect()
-          floatingHeader.classList.toggle('is-shown', rect.bottom <= window.innerHeight)
+          const shown = rect.bottom <= window.innerHeight
+          floatingHeader.classList.toggle('is-shown', shown)
+          whatsappBar?.classList.toggle('is-shown', shown)
         }
         window.addEventListener('scroll', updateHeader, { passive: true })
         window.addEventListener('resize', updateHeader, { passive: true })
         updateHeader()
       }
 
+      // Scrollspy — destaca no menu a seção visível
+      const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.desktop-menu a[href^="#"]'))
+      const spyTargets = menuLinks
+        .map((link) => document.getElementById(link.hash.slice(1)))
+        .filter((section): section is HTMLElement => Boolean(section))
+
+      if (menuLinks.length && spyTargets.length) {
+        const updateSpy = () => {
+          let current = ''
+          spyTargets.forEach((section) => {
+            if (section.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+              current = `#${section.id}`
+            }
+          })
+          menuLinks.forEach((link) => {
+            link.classList.toggle('is-active', link.hash === current)
+          })
+        }
+        window.addEventListener('scroll', updateSpy, { passive: true })
+        updateSpy()
+      }
+
       // Menu mobile — abre/fecha
       const mobileMenuToggle = document.getElementById('mobile-menu-toggle')
       const mobileMenu = document.getElementById('mobile-menu')
+
+      const menuBackdrop = document.getElementById('menu-backdrop')
 
       if (mobileMenuToggle && mobileMenu) {
         const setMobileMenu = (open: boolean) => {
@@ -1765,7 +2489,11 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           mobileMenu.classList.toggle('is-open', open)
           mobileMenu.setAttribute('aria-hidden', String(!open))
           mobileMenu.toggleAttribute('inert', !open)
+          menuBackdrop?.classList.toggle('is-open', open)
+          document.body.style.overflow = open ? 'hidden' : ''
         }
+
+        menuBackdrop?.addEventListener('click', () => setMobileMenu(false))
 
         mobileMenuToggle.addEventListener('click', () => {
           setMobileMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true')
@@ -1779,6 +2507,17 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
           if (event.key === 'Escape') setMobileMenu(false)
         })
       }
+
+      // Ler mais / ler menos nas descrições da equipe
+      document.querySelectorAll<HTMLButtonElement>('.team-readmore').forEach((btn) => {
+        const text = btn.previousElementSibling as HTMLElement | null
+        if (!text) return
+        btn.addEventListener('click', () => {
+          const expanded = text.classList.toggle('is-clamped') === false
+          btn.textContent = expanded ? 'Ler menos' : 'Ler mais'
+          btn.setAttribute('aria-expanded', String(expanded))
+        })
+      })
 
       // Cursor Spotlight — segue o mouse via CSS vars
       const spotlight = document.getElementById('cursor-spotlight')
