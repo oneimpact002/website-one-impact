@@ -1591,6 +1591,13 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         overflow: hidden;
       }
 
+      /* Durante a animação de abrir/fechar, anima a altura */
+      .team-card p.is-animating {
+        display: block;
+        overflow: hidden;
+        transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
       .team-readmore {
         margin-top: 6px;
         padding: 0;
@@ -2222,6 +2229,19 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
+    <section class="marquee-section" aria-label="Segmentos que atendemos">
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          {marqueeItems.map((item) => (
+            <>
+              <span class="marquee-item">{item}</span>
+              <span class="marquee-separator" aria-hidden="true">✦</span>
+            </>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="cases-section" id="cases">
       <div class="cases-container" data-reveal-scroll>
         <span class="badge reveal-fade">Projetos realizados</span>
@@ -2237,7 +2257,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
               <span class="case-card-tag">Site para Arquitetos</span>
               <h3>Casa Três Arquitetura</h3>
               <p>Site institucional que posiciona o escritório como referência em arquitetura corporativa no Rio de Janeiro.</p>
-              <a href="#" class="case-card-link">
+              <a href="/sites/casa-tres-arquitetura" class="case-card-link">
                 Ver projeto
                 <span aria-hidden="true">→</span>
               </a>
@@ -2253,7 +2273,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
               <span class="case-card-tag">Site para Advogados</span>
               <h3>Fogaça dos Santos</h3>
               <p>Landing page de autoridade para advogado previdenciarista, focada em transformar visitantes em consultas.</p>
-              <a href="#" class="case-card-link">
+              <a href="/sites/jorge-fogaca" class="case-card-link">
                 Ver projeto
                 <span aria-hidden="true">→</span>
               </a>
@@ -2269,7 +2289,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
               <span class="case-card-tag">Site para Médicos</span>
               <h3>Dra. Katiuscia Souza</h3>
               <p>Site para endocrinologista com posicionamento acolhedor e premium, focado em agendamento de consultas.</p>
-              <a href="#" class="case-card-link">
+              <a href="/sites/dra-katiuscia-souza" class="case-card-link">
                 Ver projeto
                 <span aria-hidden="true">→</span>
               </a>
@@ -2508,14 +2528,54 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         })
       }
 
-      // Ler mais / ler menos nas descrições da equipe
+      // Ler mais / ler menos nas descrições da equipe — com abertura suave
       document.querySelectorAll<HTMLButtonElement>('.team-readmore').forEach((btn) => {
         const text = btn.previousElementSibling as HTMLElement | null
         if (!text) return
+
+        const collapsedHeight = text.offsetHeight
+        let animating = false
+
+        const finish = () => {
+          text.classList.remove('is-animating')
+          text.style.maxHeight = ''
+          animating = false
+        }
+
         btn.addEventListener('click', () => {
-          const expanded = text.classList.toggle('is-clamped') === false
-          btn.textContent = expanded ? 'Ler menos' : 'Ler mais'
-          btn.setAttribute('aria-expanded', String(expanded))
+          if (animating) return
+          animating = true
+          const expanded = btn.getAttribute('aria-expanded') === 'true'
+
+          if (!expanded) {
+            // abrir: parte da altura recolhida até a altura total
+            text.classList.remove('is-clamped')
+            text.classList.add('is-animating')
+            text.style.maxHeight = `${collapsedHeight}px`
+            requestAnimationFrame(() => {
+              text.style.maxHeight = `${text.scrollHeight}px`
+            })
+            text.addEventListener('transitionend', finish, { once: true })
+            btn.textContent = 'Ler menos'
+            btn.setAttribute('aria-expanded', 'true')
+          } else {
+            // fechar: da altura total de volta às 3 linhas
+            text.classList.add('is-animating')
+            text.style.maxHeight = `${text.scrollHeight}px`
+            requestAnimationFrame(() => {
+              text.style.maxHeight = `${collapsedHeight}px`
+            })
+            text.addEventListener(
+              'transitionend',
+              () => {
+                text.classList.add('is-clamped')
+                finish()
+              },
+              { once: true },
+            )
+            btn.textContent = 'Ler mais'
+            btn.setAttribute('aria-expanded', 'false')
+          }
         })
       })
 

@@ -8,6 +8,8 @@ const cases = [
     name: 'Casa3',
     desc: 'Um dos escritórios de arquitetura mais relevantes da Tijuca, com mais de 35 anos de projetos entregues. Reposicionamos a presença digital para que o site comunicasse, à altura, a autoridade que o escritório já conquistou no mercado.',
     chips: ['+35 anos de mercado', 'Reposicionamento de marca'],
+    preview: '/sites/casa-tres-arquitetura/tela-1.webp',
+    projectPage: '/sites/casa-tres-arquitetura',
   },
   {
     domain: 'pettcapellato.com.br',
@@ -26,6 +28,8 @@ const cases = [
     name: 'Fogaça Santos',
     desc: 'Site corporativo para Jorge Fogaça, advogado previdenciarista em São Paulo. Estruturamos a página para transformar décadas de experiência em autoridade percebida — do primeiro acesso até o contato no WhatsApp.',
     chips: ['Reposicionamento de marca'],
+    preview: '/sites/jorge-fogaca/tela-1.webp',
+    projectPage: '/sites/jorge-fogaca',
   },
   {
     domain: 'anina.agenciaoneimpact.com.br',
@@ -53,6 +57,52 @@ const cases = [
     name: 'Dra. Katiuscia Souza',
     desc: 'Endocrinologista em Atibaia e São Paulo. Criamos identidade visual e site em um projeto único: posicionamento acolhedor e premium, do monograma à página, focado em transformar visitas em consultas agendadas.',
     chips: [],
+    preview: '/sites/dra-katiuscia-souza/tela-1.webp',
+    projectPage: '/sites/dra-katiuscia-souza',
+  },
+  {
+    domain: 'Landing Page',
+    url: null,
+    label: 'Página de Vendas',
+    tag: 'Beleza · Micropigmentação',
+    name: 'Raquel Barros',
+    desc: 'Especialista em micropigmentação, referência na área, com centenas de alunos formados no Brasil e no mundo. Landing page de captura para o lançamento do seu evento, com design estratégico focado em conversão.',
+    chips: [],
+    preview: '/sites/raquel-barros/tela-2.webp',
+    projectPage: '/sites/raquel-barros',
+  },
+  {
+    domain: 'Site Médico',
+    url: null,
+    label: 'Site para Médicos',
+    tag: 'Saúde · Cirurgia',
+    name: 'Dr. Gabriel Braga',
+    desc: 'Cirurgião com site no modelo médico, criado para apresentar seus serviços com o acolhimento e a credibilidade que a especialidade exige.',
+    chips: [],
+    preview: '/sites/dr-gabriel-braga/tela-1.webp',
+    projectPage: '/sites/dr-gabriel-braga',
+  },
+  {
+    domain: 'Site Corporativo',
+    url: null,
+    label: 'Site para Arquitetos',
+    tag: 'Arquitetura de luxo · Bilíngue',
+    name: 'Claudia Kaissar',
+    desc: 'Arquiteta premiada e especialista em ambientes de luxo. Site corporativo bilíngue (português e inglês) pensado para valorizar as imagens dos projetos e reforçar a autoridade dela em um mercado internacional.',
+    chips: [],
+    preview: '/sites/claudia-kaissar/tela-2.webp',
+    projectPage: '/sites/claudia-kaissar',
+  },
+  {
+    domain: 'Site Médico',
+    url: null,
+    label: 'Site para Médicos',
+    tag: 'Saúde · Dermatologia',
+    name: 'Dra. Karina Morgarbel',
+    desc: 'Dermatologista com marca e site criados pela One Impact em um projeto único. Site no modelo médico com posicionamento elegante e acolhedor, à altura do seu trabalho, transmitindo acolhimento e credibilidade.',
+    chips: [],
+    preview: '/sites/dra-karina-morgarbel/tela-1.webp',
+    projectPage: '/sites/dra-karina-morgarbel',
   },
   {
     domain: 'iflbrasil.com.br',
@@ -425,6 +475,19 @@ const cases = [
         background: #FFFFFF;
       }
 
+      /* Prévia com print real do site */
+      .site-preview-fill-image {
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+      }
+
+      .case-card-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+      }
+
       .site-preview-label {
         font-family: 'Sora', sans-serif;
         font-size: 10px;
@@ -681,7 +744,7 @@ const cases = [
   </head>
   <body>
     <header class="floating-header">
-      <a class="brand" href="/pagina-v2" aria-label="One Impact — início">
+      <a class="brand" href="/" aria-label="One Impact — início">
         <strong>One Impact</strong>
       </a>
     </header>
@@ -711,9 +774,13 @@ const cases = [
                   <div class="site-preview-dots"><span></span><span></span><span></span></div>
                   <div class="site-preview-url">{item.domain}</div>
                 </div>
-                <div class="site-preview-fill">
-                  <span class="site-preview-label">{item.label}</span>
-                </div>
+                {item.preview ? (
+                  <div class="site-preview-fill site-preview-fill-image" style={`background-image: url('${item.preview}')`} role="img" aria-label={`Prévia do site ${item.name}`}></div>
+                ) : (
+                  <div class="site-preview-fill">
+                    <span class="site-preview-label">{item.label}</span>
+                  </div>
+                )}
               </div>
               <div class="case-card-body">
                 <span class="case-card-tag">{item.tag}</span>
@@ -722,10 +789,20 @@ const cases = [
                 <div class="case-chips">
                   {item.chips.map((chip) => <span class="case-chip">{chip}</span>)}
                 </div>
-                <a href={item.url} class="service-card-link" target="_blank" rel="noopener">
-                  Visitar site
-                  <span aria-hidden="true">→</span>
-                </a>
+                <div class="case-card-links">
+                  {item.projectPage && (
+                    <a href={item.projectPage} class="service-card-link">
+                      Ver projeto
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  )}
+                  {item.url && (
+                    <a href={item.url} class="service-card-link" target="_blank" rel="noopener">
+                      Visitar site
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </article>
           ))}
@@ -755,7 +832,7 @@ const cases = [
           <div class="footer-col">
             <h4>Navegação</h4>
             <ul>
-              <li><a href="/pagina-v2">Início</a></li>
+              <li><a href="/">Início</a></li>
               <li><a href="/clientes-atendidos-sites">Clientes atendidos</a></li>
               <li><a href="https://wa.me/5541988733518" target="_blank" rel="noopener">Contato</a></li>
             </ul>
@@ -795,7 +872,7 @@ const cases = [
               observer.unobserve(entry.target)
             })
           },
-          { threshold: 0.16, rootMargin: '0px 0px -8% 0px' },
+          { threshold: 0.05, rootMargin: '0px 0px -8% 0px' },
         )
 
         revealGroups.forEach((group) => revealObserver.observe(group))

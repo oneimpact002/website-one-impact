@@ -569,7 +569,7 @@ import { projects } from '../data/idVisual.js'
   </head>
   <body>
     <header class="floating-header">
-      <a class="brand" href="/pagina-v2" aria-label="One Impact — início">
+      <a class="brand" href="/" aria-label="One Impact — início">
         <strong>One Impact</strong>
       </a>
     </header>
@@ -637,7 +637,7 @@ import { projects } from '../data/idVisual.js'
           <div class="footer-col">
             <h4>Navegação</h4>
             <ul>
-              <li><a href="/pagina-v2">Início</a></li>
+              <li><a href="/">Início</a></li>
               <li><a href="/clientes-atendidos-sites">Clientes atendidos</a></li>
               <li><a href="https://wa.me/5541988733518" target="_blank" rel="noopener">Contato</a></li>
             </ul>
@@ -677,7 +677,7 @@ import { projects } from '../data/idVisual.js'
               observer.unobserve(entry.target)
             })
           },
-          { threshold: 0.16, rootMargin: '0px 0px -8% 0px' },
+          { threshold: 0.05, rootMargin: '0px 0px -8% 0px' },
         )
 
         revealGroups.forEach((group) => revealObserver.observe(group))

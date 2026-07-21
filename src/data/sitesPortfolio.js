@@ -1,0 +1,68 @@
+// Cases de sites com página própria de apresentação.
+// Para adicionar um case: criar a pasta public/sites/<slug>/ com as telas
+// (tela-1.webp, tela-2.webp...) e acrescentar um bloco aqui.
+export const siteProjects = [
+  {
+    slug: 'dra-katiuscia-souza',
+    name: 'Dra. Katiuscia Souza',
+    tag: 'Site Médico · Endocrinologia',
+    url: 'https://drakatiusciaendocrino.com.br/',
+    desc: 'Site desenvolvido no modelo de site médico para apresentar os serviços da endocrinologista Dra. Katiuscia Souza. Ela precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
+    chips: ['Site médico', 'Identidade visual + site', 'Agendamento de consultas'],
+    slides: Array.from({ length: 6 }, (_, i) => `/sites/dra-katiuscia-souza/tela-${i + 1}.webp`),
+  },
+  {
+    slug: 'casa-tres-arquitetura',
+    name: 'Casa Três Arquitetura',
+    tag: 'Site Corporativo · Arquitetura',
+    url: 'https://casa3.com.br/',
+    desc: 'Site desenvolvido no modelo corporativo para apresentar os serviços dos arquitetos Ricardo Nunes e Sônia Acciaris. Eles precisavam de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
+    chips: ['Site corporativo', 'Identidade visual + site', 'Reposicionamento de marca'],
+    slides: Array.from({ length: 10 }, (_, i) => `/sites/casa-tres-arquitetura/tela-${i + 1}.webp`),
+  },
+  {
+    slug: 'jorge-fogaca',
+    name: 'Jorge Fogaça',
+    tag: 'Site Corporativo · Advocacia',
+    url: 'https://fogacasantos.com.br/',
+    desc: 'Site desenvolvido no modelo corporativo para apresentar os serviços do advogado previdenciarista Jorge Fogaça. Ele precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
+    chips: ['Site corporativo', 'Reposicionamento de marca'],
+    slides: Array.from({ length: 6 }, (_, i) => `/sites/jorge-fogaca/tela-${i + 1}.webp`),
+  },
+  {
+    slug: 'dra-karina-morgarbel',
+    name: 'Dra. Karina Morgarbel',
+    tag: 'Site Médico · Dermatologia',
+    url: null,
+    desc: 'Site desenvolvido no modelo de site médico para apresentar os serviços da dermatologista Dra. Karina Morgarbel. Ela precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
+    chips: ['Site médico', 'Identidade visual + site'],
+    slides: Array.from({ length: 7 }, (_, i) => `/sites/dra-karina-morgarbel/tela-${i + 1}.webp`),
+  },
+  {
+    slug: 'claudia-kaissar',
+    name: 'Claudia Kaissar',
+    tag: 'Site Corporativo · Arquitetura de Luxo',
+    url: null,
+    desc: 'Site corporativo para a arquiteta Claudia Kaissar, profissional premiada e especialista em ambientes de luxo. Cada detalhe foi pensado para valorizar as imagens dos projetos e reforçar sua autoridade no mercado. Como seu público está em diferentes países, o site foi desenvolvido em inglês e português, garantindo alcance global.',
+    chips: ['Site corporativo', 'Bilíngue (PT/EN)', 'Alcance internacional'],
+    slides: Array.from({ length: 7 }, (_, i) => `/sites/claudia-kaissar/tela-${i + 1}.webp`),
+  },
+  {
+    slug: 'dr-gabriel-braga',
+    name: 'Dr. Gabriel Braga',
+    tag: 'Site Médico · Cirurgia',
+    url: null,
+    desc: 'Site desenvolvido no modelo de site médico para apresentar os serviços do cirurgião Dr. Gabriel Braga. Ele precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
+    chips: ['Site médico'],
+    slides: Array.from({ length: 8 }, (_, i) => `/sites/dr-gabriel-braga/tela-${i + 1}.webp`),
+  },
+  {
+    slug: 'raquel-barros',
+    name: 'Raquel Barros',
+    tag: 'Landing Page de Captura · Micropigmentação',
+    url: null,
+    desc: 'Landing page de captura para o evento de lançamento da especialista em micropigmentação Raquel Barros, referência na área que já formou centenas de alunos no Brasil e no mundo. Reformulamos suas páginas com um visual mais profissional e moderno, com design estratégico que preserva a imagem da especialista e organiza os elementos para aumentar as chances de conversão.',
+    chips: ['Landing page de captura', 'Lançamento de evento', 'Foco em conversão'],
+    slides: Array.from({ length: 5 }, (_, i) => `/sites/raquel-barros/tela-${i + 1}.webp`),
+  },
+]
