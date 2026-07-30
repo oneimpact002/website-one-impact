@@ -10,6 +10,62 @@ const marqueeTopics = [
   'COACHES',
 ]
 const marqueeItems = [...marqueeTopics, ...marqueeTopics]
+
+// Depoimentos — mesma divisão em 2 seções do site antigo
+const depoGroup1 = [
+  { quote: 'Amei os serviços prestados pela empresa, são super profissionais e captam exatamente a necessidade do cliente, possuem expertise e ideias inovadoras, o que me deixou confiante em fazer o meu site. Eu super recomendo e espero em breve poder fazer um novo projeto com eles!!', name: 'Claudia Kaissar', role: 'Arquiteta', img: '/depoimentos/claudia-kaissar-arquiteta.webp' },
+  { quote: 'A One Impact desenvolveu o site da minha empresa de forma impecável! Mesmo após uma experiência negativa com outro "profissional", não hesitei em confiar na Karol, pois senti segurança desde o primeiro contato. Ela demonstrou organização, rapidez e atenção aos detalhes. Não foi à toa que meu site ficou 1000000x melhor do que imaginei! Recomendo fortemente o trabalho da One Impact, uma empresa criativa, responsável e comprometida em entregar resultados excepcionais.', name: 'Deyse Caroline', role: "Geller's Cleaning", img: '/depoimentos/gellers-cleaning.webp' },
+  { quote: 'A equipe de profissionais da agência One Impact é excelente. Nosso contato frequente foi com a Karol. O produto que eles entregaram foi muito além das nossas expectativas. Sempre estiveram disponíveis para esclarecer dúvidas e propor soluções. A equipe é muito ágil, pois os retornos foram muito rápidos. Sempre preocupados em nos informar e explicar o porquê de certas decisões. Sempre atentos a detalhes que fazem a diferença. É uma empresa muito responsável e que consegue fazer com que o cliente se sinta seguro com o serviço prestado. Karol sempre muito disponível, profissional e simpática. Recomendo muito o serviço da agência One Impact.', name: 'Kellen Carvalho', role: 'GRUPOSUi', img: '/depoimentos/gruposui.webp' },
+  { quote: 'Honesta e rápida. Adorei como atendeu toda a minha situação e se prontificou a me ajudar! Não tenho dúvidas que vamos fazer muitos trabalhos juntos!', name: 'Felipe Ferro', role: 'Agência 2.Bass', img: '/depoimentos/felipe-ferro.webp' },
+  { quote: 'Recomendo demais a One Impact! O pessoal faz um trabalho muito bom. Tive uma ótima experiência no processo de criação da minha página. São muito solícitos e profissionais.', name: 'Rafael Arcanjo', role: 'Guia do Mágico', img: '/depoimentos/rafael-guia-do-magico.webp' },
+  { quote: 'A melhor agência em termos de webdesign, muito profissionalismo, desde a nossa primeira conversa até a última reunião e estou bastante satisfeito, o projeto ficou lindo. Muito obrigado por todo o suporte e serviço prestado!!', name: 'Virgilio Salvio', role: 'SM Files', img: '/depoimentos/sm-files.webp' },
+]
+
+const depoGroup2 = [
+  { quote: 'Nosso site ficou lindo. A agência nos atendeu com muita atenção do início ao fim do projeto; entregaram ainda mais do que estávamos esperando. Recomendo demais.', name: 'Jéssica Vasconcelos', role: 'Absoluta Saúde Contábil', img: '/depoimentos/jessica-absoluta-contabilidade.webp' },
+  { quote: 'Melhor investimento que já fiz foi em vocês!! Depois me passa qualquer meio para elogiar vocês publicamente. Vocês são sensacionais. Parabéns por tudo já de cara… Principalmente no mais importante, nesse acompanhamento de perto. Isso não tem preço.', name: 'Rodrigo Grillo', role: 'Fotógrafo', img: '/depoimentos/rodrigo-grillo-fotografo.webp' },
+  { quote: 'Karol, seu serviço é maravilhoso! Nós tivemos uma comunicação rápida, você entendeu minhas ideias da primeira vez sobre o que mudar na página e ficou tudo ótimo. Todo site que eu fizer vou fazer com você e vou indicar para todo mundo!', name: 'Mariana Ubertini', role: 'Curso Automaquiagem', img: '/depoimentos/mariana-ubertini.webp' },
+  { quote: 'O que posso dizer é que o atendimento é excepcional, muito profissional!', name: 'Caroline Schallbroch', role: 'SS Advocacia', img: '/depoimentos/caroline-schallbroch.webp' },
+  { quote: 'Muito satisfeita com o serviço, suporte pré e pós projeto. Expectativas foram muito bem atendidas. Muito obrigada pelo excelente serviço e profissionalismo.', name: 'Diana Furtado', role: 'Agência Você Mais Online', img: '/depoimentos/diana-furtado.webp' },
+  { quote: 'Nossa… nota 10! A loja ficou muito boa e superou minhas expectativas. Essa loja vai ser um grande diferencial aqui na nossa região. Vocês estão de parabéns.', name: 'Magson Linhares', role: 'Loja Makalina', img: '/depoimentos/magson-linhares.webp' },
+]
+
+const faq = [
+  {
+    q: 'Quanto custa um site profissional?',
+    a: 'O valor depende do escopo: número de páginas, identidade visual e automações incluídas. O orçamento é personalizado e sem compromisso, feito em uma conversa rápida pelo WhatsApp.',
+  },
+  {
+    q: 'Quanto tempo leva para criar um site?',
+    a: 'O prazo varia conforme o escopo do projeto e é definido junto com o orçamento, antes de começar. Você acompanha cada etapa do processo, do briefing à publicação.',
+  },
+  {
+    q: 'Vocês também fazem automação de atendimento?',
+    a: 'Sim. Automação no WhatsApp que responde na hora, mesmo fora do horário comercial, é o complemento natural do site.',
+  },
+  {
+    q: 'Vocês criam também a identidade visual?',
+    a: 'Sim. Site e identidade visual podem ser um projeto único: logo, paleta, tipografia e aplicações da marca alinhados com a página. Esse serviço está disponível apenas junto com a contratação dos outros.',
+  },
+  {
+    q: 'O site já vem otimizado para o Google?',
+    a: 'Sim. SEO técnico está incluso desde o início: estrutura semântica, performance, sitemap e meta tags. O site nasce pronto para ser encontrado no Google e citado por IAs.',
+  },
+  {
+    q: 'Preciso ter os textos e fotos prontos?',
+    a: 'Não. Ajudamos com a estrutura e a escrita estratégica dos textos. Fotos suas ou do seu espaço agregam, mas orientamos exatamente o que é necessário no briefing.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
 ---
 
 <!doctype html>
@@ -17,11 +73,20 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>One Impact | Agência de Posicionamento Profissional</title>
+    <title>Criação de Sites e Posicionamento Digital | One Impact</title>
+    <meta name="description" content="Agência de criação de sites, identidade visual e automações para advogados, médicos, arquitetos e outros profissionais. Transformamos visitantes em clientes." />
+    <link rel="canonical" href="https://agenciaoneimpact.com.br/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content="Criação de Sites e Posicionamento Digital | One Impact" />
+    <meta property="og:description" content="Agência de criação de sites, identidade visual e automações para advogados, médicos, arquitetos e outros profissionais." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://agenciaoneimpact.com.br/" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
     <script is:inline>document.documentElement.classList.add('reveal-ready')</script>
 
@@ -122,15 +187,18 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       .title {
         font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 36px;
+        font-size: 20px;
         font-weight: 700;
-        line-height: 1.12;
+        line-height: 1.15;
         color: #FFFFFF;
         max-width: 820px;
       }
 
       .title-highlight {
-        color: #9774FE;
+        background: linear-gradient(90deg, #C9BBFF, #9774FE, #7345FD);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .description {
@@ -178,60 +246,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         display: none;
       }
 
-      @media (min-width: 900px) {
-        .mobile-only-notice {
-          position: fixed;
-          inset: 0;
-          z-index: 10000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          padding: 24px;
-          text-align: center;
-          background:
-            radial-gradient(ellipse 55% 45% at 50% 50%, rgba(115, 69, 253, 0.18), transparent 70%),
-            #0D0A1A;
-          font-family: 'Sora', sans-serif;
-          color: #FFFFFF;
-        }
-
-        .mobile-only-notice .notice-icon {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 64px;
-          height: 64px;
-          margin-bottom: 4px;
-          border-radius: 50%;
-          border: 1px solid rgba(255, 255, 255, 0.25);
-          background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05) 60%);
-          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-          color: #9774FE;
-        }
-
-        .mobile-only-notice h2 {
-          font-family: 'Zalando Sans Expanded', sans-serif;
-          font-size: 26px;
-          font-weight: 700;
-          line-height: 1.2;
-          max-width: 480px;
-        }
-
-        .mobile-only-notice h2 span {
-          color: #9774FE;
-        }
-
-        .mobile-only-notice p {
-          max-width: 380px;
-          font-size: 13px;
-          font-weight: 300;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.75);
-        }
-      }
-
       /* Malha de pontos — bolinhas bem pequenas, textura sutil (acima dos cards) */
       .hero-dots {
         position: absolute;
@@ -242,6 +256,41 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         background-size: 12px 12px;
         -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, black, transparent 85%);
         mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, black, transparent 85%);
+      }
+
+      /* Piscar — pontos esparsos acendendo e apagando sobre a malha */
+      .hero-dots::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(201, 187, 255, 0.8) 0.8px, transparent 0.8px);
+        background-size: 36px 36px;
+        background-position: 6px 10px;
+        animation: dots-twinkle 2.2s ease-in-out infinite alternate;
+      }
+
+      /* Onda de brilho atravessando a malha da esquerda para a direita */
+      .hero-dots::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(201, 187, 255, 0.9) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: linear-gradient(90deg, transparent 45%, black 50%, transparent 55%);
+        mask-image: linear-gradient(90deg, transparent 45%, black 50%, transparent 55%);
+        -webkit-mask-size: 250% 100%;
+        mask-size: 250% 100%;
+        animation: dots-wave 7s linear infinite;
+      }
+
+      @keyframes dots-twinkle {
+        0% { opacity: 0.05; }
+        100% { opacity: 0.9; }
+      }
+
+      @keyframes dots-wave {
+        0% { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+        100% { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
       }
 
       /* Menu flutuante — só aparece depois da seção de dados */
@@ -284,6 +333,12 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         flex-shrink: 0;
         text-decoration: none;
         color: #130F26;
+      }
+
+      .brand-logo {
+        height: 32px;
+        width: auto;
+        display: block;
       }
 
       .brand > strong {
@@ -532,6 +587,17 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         .mobile-menu {
           display: none;
         }
+
+        .floating-header {
+          left: 50%;
+          right: auto;
+          width: min(100% - 32px, 1140px);
+          transform: translateX(-50%) translateY(-16px);
+        }
+
+        .floating-header.is-shown {
+          transform: translateX(-50%) translateY(0);
+        }
       }
 
       /* Marquee — áreas atendidas */
@@ -539,9 +605,14 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         position: relative;
         overflow: hidden;
         padding: 17px 0;
-        background: #130F26;
+        background: #1A1A24;
         border-top: 1px solid rgba(115, 69, 253, 0.16);
         border-bottom: 1px solid rgba(115, 69, 253, 0.16);
+      }
+
+      /* Entre depoimentos (#130F26) e cases (#130F26) — acompanha os vizinhos */
+      .marquee-section-alt {
+        background: #130F26;
       }
 
       .marquee-wrapper {
@@ -608,7 +679,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         position: relative;
         overflow: hidden;
         padding: 88px 20px;
-        background: #130F26;
+        background: #1A1A24;
       }
 
       .dados-dots {
@@ -635,12 +706,80 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       }
 
       .dados-container h2 {
-        margin: 0 0 40px;
+        margin: 0 0 16px;
         font-family: 'Zalando Sans Expanded', sans-serif;
         font-size: 24px;
         font-weight: 600;
         line-height: 1.2;
         color: #FFFFFF;
+      }
+
+      .dados-desc {
+        margin: 0 0 36px;
+        max-width: 480px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      /* Box do número-herói — gradiente que desvanece por baixo, fundindo com o fundo */
+      .stat-hero-box {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 26px 28px;
+        border-radius: 5px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 55%, transparent 100%);
+      }
+
+      /* Entrada da box: sobe e aparece quando a seção fica visível */
+      .reveal-ready [data-reveal-scroll] .stat-hero-box {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+        transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+      }
+
+      .reveal-ready [data-reveal-scroll].is-visible .stat-hero-box {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal-ready [data-reveal-scroll] .stat-hero-box {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+
+      /* Borda que acompanha o desvanecimento (some perto da base) */
+      .stat-hero-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(180deg, black 35%, transparent 95%);
+        mask-image: linear-gradient(180deg, black 35%, transparent 95%);
+      }
+
+      @media (min-width: 900px) {
+        .stat-hero-box {
+          flex-direction: row;
+          align-items: center;
+          gap: 24px;
+        }
+
+        .stat-hero-box .stat-hero-label {
+          margin-top: 0;
+          max-width: 250px;
+          padding-left: 24px;
+          border-left: 1px solid rgba(151, 116, 254, 0.35);
+        }
       }
 
       .dados-grid {
@@ -716,6 +855,15 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         height: var(--val);
       }
 
+      /* Barras sobem uma de cada vez */
+      .stat-col:nth-child(1) .stat-col-fill { transition-delay: 0s; }
+      .stat-col:nth-child(2) .stat-col-fill { transition-delay: 0.45s; }
+      .stat-col:nth-child(3) .stat-col-fill { transition-delay: 0.9s; }
+
+      .stat-col:nth-child(1) .stat-col-value { transition-delay: 0.7s; }
+      .stat-col:nth-child(2) .stat-col-value { transition-delay: 1.15s; }
+      .stat-col:nth-child(3) .stat-col-value { transition-delay: 1.6s; }
+
       .stat-col-value {
         position: absolute;
         top: -30px;
@@ -738,6 +886,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         font-family: 'Sora', sans-serif;
         font-size: 11px;
         line-height: 1.4;
+        text-align: center;
         color: rgba(255, 255, 255, 0.7);
       }
 
@@ -778,17 +927,53 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       @media (min-width: 900px) {
         .dados-grid {
           flex-direction: row;
-          justify-content: center;
-          gap: 72px;
+          justify-content: space-between;
+          gap: 48px;
           align-items: center;
         }
 
+        /* Duas metades equilibradas: número à esquerda, gráfico à direita */
         .stat-hero {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
           text-align: left;
+        }
+
+        /* Descrição vai pra depois do número no desktop */
+        .dados-desc {
+          order: 10;
+          margin: 24px 0 0;
+        }
+
+        .dados-container h2 {
+          font-size: 32px;
+          margin-bottom: 16px;
         }
 
         .stat-hero-value {
           font-size: 96px;
+        }
+
+        .stat-cols-wrap {
+          flex: 1;
+        }
+
+        .stat-cols {
+          gap: 52px;
+        }
+
+        .stat-col {
+          width: 128px;
+        }
+
+        .stat-col-track {
+          height: 260px;
+        }
+
+        .stat-col-fill {
+          width: 80px;
         }
       }
 
@@ -796,13 +981,12 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       .cta-section {
         position: relative;
         overflow: hidden;
-        min-height: 90vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 88px 20px;
+        padding: 88px 20px 72px;
         background: #F7F5FD;
       }
 
@@ -867,7 +1051,297 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         gap: 12px;
       }
 
+      /* Seção dor — cenários de identificação do público */
+      .dor-section {
+        position: relative;
+        overflow: hidden;
+        padding: 88px 20px;
+        background: #1A1A24;
+      }
+
+      .dor-glows {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(90px);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 160px, #000 calc(100% - 160px), transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0, #000 160px, #000 calc(100% - 160px), transparent 100%);
+      }
+
+      .dor-blob {
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      .dor-blob-1 {
+        width: 420px;
+        height: 420px;
+        top: -14%;
+        left: -8%;
+        background: #4B2FBE;
+        opacity: 0.4;
+        animation: dor-drift-1 8s ease-in-out infinite alternate;
+      }
+
+      .dor-blob-2 {
+        width: 380px;
+        height: 380px;
+        bottom: -16%;
+        right: -8%;
+        background: #7345FD;
+        opacity: 0.32;
+        animation: dor-drift-2 10s ease-in-out infinite alternate;
+      }
+
+      @keyframes dor-drift-1 {
+        to { transform: translate(55vw, 6vh); }
+      }
+
+      @keyframes dor-drift-2 {
+        to { transform: translate(-55vw, -5vh); }
+      }
+
+      .dor-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .dor-container .badge {
+        margin-bottom: 15px;
+      }
+
+      .dor-container h2 {
+        margin: 0 0 14px;
+        max-width: 640px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: #FFFFFF;
+      }
+
+      .dor-container h2 .hl {
+        background: linear-gradient(90deg, #C9BBFF, #9774FE, #7345FD);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Texto + imagem lado a lado */
+      .dor-split {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        margin-top: 22px;
+        text-align: left;
+      }
+
+      .dor-text {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .dor-text p {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .dor-text p strong {
+        font-weight: 600;
+        color: #FFFFFF;
+      }
+
+      /* Bullets da dor — escaneáveis, marcador roxo */
+      .dor-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 4px 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .dor-list li {
+        position: relative;
+        padding-left: 24px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.8);
+        text-align: left;
+      }
+
+      .dor-list li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #7345FD;
+        box-shadow: 0 0 10px rgba(115, 69, 253, 0.6);
+      }
+
+      .dor-list li strong {
+        font-weight: 600;
+        color: #FFFFFF;
+      }
+
+      /* Fecho da dor — editorial: filete de gradiente + tipografia + espaço */
+      .dor-final-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        margin-top: 30px;
+      }
+
+      .dor-final-box::before {
+        content: '';
+        width: 160px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #7345FD, transparent);
+      }
+
+      .dor-text .dor-final {
+        max-width: 520px;
+        font-size: 17px;
+        font-weight: 500;
+        line-height: 1.7;
+        color: #FFFFFF;
+        text-align: center;
+      }
+
+      @media (min-width: 900px) {
+        .dor-text .dor-final {
+          font-size: 19px;
+        }
+      }
+
+      .dor-text .dor-final .hl {
+        color: #9774FE;
+      }
+
+      .dor-cta {
+        margin-top: 0;
+      }
+
+      .dor-cta {
+        align-self: center;
+        margin-top: 10px;
+      }
+
+      @media (min-width: 900px) {
+        .dor-split {
+          max-width: 620px;
+        }
+
+        .dor-container h2 {
+          font-size: 40px;
+          max-width: 800px;
+        }
+      }
+
       /* Cards de tópicos — por que presença profissional importa */
+      /* Chips flutuantes sobre arcos concêntricos */
+      .solve-orbit {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        max-width: 780px;
+        height: 480px;
+        margin: 8px auto 0;
+      }
+
+      .solve-ring {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.22);
+        pointer-events: none;
+      }
+
+      .solve-ring-1 { width: 300px; height: 300px; top: 400px; }
+      .solve-ring-2 { width: 520px; height: 520px; top: 290px; }
+      .solve-ring-3 { width: 760px; height: 760px; top: 170px; }
+      .solve-ring-4 { width: 1020px; height: 1020px; top: 40px; }
+
+      .solve-chip {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 168px;
+        padding: 10px 16px;
+        border-radius: 9999px;
+        border: 1px solid rgba(19, 15, 38, 0.06);
+        background: #FFFFFF;
+        box-shadow: 0 10px 26px rgba(19, 15, 38, 0.1);
+        font-family: 'Sora', sans-serif;
+        font-size: 11.5px;
+        font-weight: 600;
+        line-height: 1.35;
+        text-align: center;
+        color: #130F26;
+        white-space: normal;
+        animation: orb-float 3.4s ease-in-out infinite alternate;
+      }
+
+      .solve-chip-main {
+        max-width: 200px;
+        animation-delay: -2s;
+      }
+
+      .solve-chip-1 { left: 2%; top: 1%; animation-delay: -0.5s; }
+      .solve-chip-2 { right: 0%; top: 6%; animation-delay: -1.6s; }
+      .solve-chip-3 { left: 0%; top: 27%; animation-delay: -2.4s; }
+      .solve-chip-4 { right: 4%; top: 32%; animation-delay: -0.9s; }
+      .solve-chip-main { left: 0; right: 0; top: 46%; margin: 0 auto; }
+      .solve-chip-5 { left: 4%; top: 65%; animation-delay: -3.1s; }
+      .solve-chip-6 { right: 2%; top: 70%; animation-delay: -1.8s; }
+
+      @media (min-width: 900px) {
+        .solve-orbit {
+          max-width: 860px;
+          height: 440px;
+        }
+
+        .solve-chip {
+          max-width: 190px;
+          font-size: 12.5px;
+          padding: 11px 18px;
+        }
+
+        .solve-chip-main {
+          max-width: 220px;
+        }
+
+        .solve-chip-1 { left: 14%; top: 2%; }
+        .solve-chip-2 { right: 15%; top: 8%; }
+        .solve-chip-3 { left: 6%; top: 30%; }
+        .solve-chip-4 { right: 8%; top: 34%; }
+        .solve-chip-main { top: 44%; }
+        .solve-chip-5 { left: 12%; top: 66%; }
+        .solve-chip-6 { right: 13%; top: 70%; }
+      }
+
       .cta-cards {
         display: flex;
         flex-direction: column;
@@ -929,7 +1403,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       @media (min-width: 900px) {
         .cta-cards {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           gap: 20px;
         }
 
@@ -946,9 +1420,19 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       .cta-section .title {
         color: #130F26;
+        font-size: 24px;
+        max-width: 620px;
+      }
+
+      @media (min-width: 900px) {
+        .cta-section .title {
+          font-size: 34px;
+          letter-spacing: -0.5px;
+        }
       }
 
       .cta-section .description {
+        max-width: 560px;
         color: #4F4F57;
       }
 
@@ -1019,14 +1503,15 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       @media (min-width: 900px) {
         .whatsapp-bar {
-          left: 50%;
-          right: auto;
-          transform: translateX(-50%) translateY(16px);
-          min-width: 420px;
+          left: auto;
+          right: 24px;
+          bottom: 24px;
+          min-width: 0;
+          transform: translateY(16px);
         }
 
         .whatsapp-bar.is-shown {
-          transform: translateX(-50%) translateY(0);
+          transform: translateY(0);
         }
       }
 
@@ -1204,6 +1689,45 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         font-size: 9px;
         font-weight: 700;
         color: #FFFFFF;
+      }
+
+      /* Chips de subitens — serviços dentro de cada card */
+      .bento-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 4px 0 0;
+      }
+
+      .bento-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 9999px;
+        border: 1px solid rgba(151, 116, 254, 0.35);
+        background: rgba(115, 69, 253, 0.12);
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.88);
+      }
+
+      .bento-main .bento-chip {
+        border-color: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.14);
+        color: #FFFFFF;
+      }
+
+      .bento-note {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 2px 0 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 11.5px;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.5);
       }
 
       .bento-link {
@@ -1467,6 +1991,393 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         }
       }
 
+      /* Seção fit — pra quem é / não é o serviço */
+      .fit-section {
+        position: relative;
+        overflow: hidden;
+        padding: 88px 20px;
+        background: #F7F5FD;
+      }
+
+      .fit-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .fit-container h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: #130F26;
+      }
+
+      .fit-grid {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .fit-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 28px 24px;
+        text-align: left;
+        border-radius: 5px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+        box-shadow: 0 12px 30px rgba(19, 15, 38, 0.08);
+      }
+
+      .fit-card h3 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #130F26;
+      }
+
+      .fit-yes h3 {
+        color: #4B2FBE;
+      }
+
+      .fit-card ul {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .fit-card li {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.6;
+        color: rgba(19, 15, 38, 0.75);
+      }
+
+      .fit-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .fit-yes .fit-mark {
+        border: 1px solid rgba(115, 69, 253, 0.35);
+        background: rgba(115, 69, 253, 0.1);
+        color: #7345FD;
+      }
+
+      .fit-no .fit-mark {
+        border: 1px solid rgba(19, 15, 38, 0.15);
+        background: rgba(19, 15, 38, 0.04);
+        color: rgba(19, 15, 38, 0.4);
+      }
+
+      .fit-no {
+        background: #FBFAFE;
+        border-color: rgba(19, 15, 38, 0.06);
+        box-shadow: none;
+      }
+
+      .fit-no li {
+        color: rgba(19, 15, 38, 0.55);
+      }
+
+      .fit-cta-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        margin-top: 40px;
+      }
+
+      .fit-cta-box::before {
+        content: '';
+        width: 160px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #7345FD, transparent);
+      }
+
+      .fit-cta-text {
+        max-width: 560px;
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 1.35;
+        text-align: center;
+        color: #130F26;
+      }
+
+      .fit-section .badge {
+        border-color: rgba(19, 15, 38, 0.15);
+        background: rgba(19, 15, 38, 0.05);
+        color: rgba(19, 15, 38, 0.75);
+      }
+
+      @media (min-width: 900px) {
+        .fit-container h2 {
+          font-size: 32px;
+          max-width: 560px;
+        }
+
+        .fit-grid {
+          flex-direction: row;
+        }
+
+        .fit-card {
+          flex: 1;
+          padding: 32px;
+        }
+      }
+
+      /* Seção depoimentos — carrossel (padrão Neurolândia, visual One Impact) */
+      .depo-section {
+        position: relative;
+        overflow: hidden;
+        padding: 88px 0;
+        background: #130F26;
+      }
+
+      .depo-head {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .depo-head .badge {
+        margin-bottom: 15px;
+      }
+
+      .depo-head h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .depo-carousel {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .depo-track {
+        display: flex;
+        gap: 16px;
+        align-items: stretch;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        padding: 4px 2px 8px;
+      }
+
+      .depo-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .depo-card {
+        position: relative;
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        padding: 26px 22px;
+        text-align: left;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        border-radius: 5px;
+        background: linear-gradient(145deg, #232035, #16112B);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+      }
+
+      .depo-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(151, 116, 254, 0.5);
+      }
+
+      @media (min-width: 900px) {
+        .depo-track {
+          gap: 20px;
+        }
+
+        .depo-card {
+          flex: 0 0 calc((100% - 40px) / 3);
+        }
+      }
+
+      .depo-quote-icon {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        opacity: 0.3;
+      }
+
+      .depo-stars {
+        color: #9774FE;
+        font-size: 14px;
+        letter-spacing: 3px;
+        margin-bottom: 14px;
+      }
+
+      .depo-quote {
+        margin: 0 0 12px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.82);
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        transition: max-height 0.45s ease;
+      }
+
+      .depo-quote.expanded {
+        -webkit-line-clamp: unset;
+      }
+
+      .depo-more {
+        align-self: flex-start;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0 0 20px;
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: #9774FE;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+
+      .depo-more:hover {
+        color: #C9BBFF;
+      }
+
+      .depo-person {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: auto;
+      }
+
+      .depo-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.4);
+        background: rgba(115, 69, 253, 0.18);
+        color: #9774FE;
+        overflow: hidden;
+      }
+
+      .depo-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .depo-name {
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+
+      .depo-role {
+        margin: 2px 0 0;
+        font-family: 'Sora', sans-serif;
+        font-size: 11px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .depo-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .depo-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.5);
+        background: transparent;
+        color: #FFFFFF;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .depo-nav:hover {
+        background: rgba(115, 69, 253, 0.14);
+        transform: translateY(-2px);
+      }
+
+      .depo-dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .depo-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(151, 116, 254, 0.25);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .depo-dot.active {
+        background: #9774FE;
+        transform: scale(1.3);
+      }
+
       /* Seção equipe — as sócias */
       .team-section {
         position: relative;
@@ -1623,6 +2534,122 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         }
       }
 
+      /* Seção FAQ — acordeão */
+      .faq-section {
+        position: relative;
+        overflow: hidden;
+        padding: 88px 20px;
+        background: #0D0A1A;
+      }
+
+      .faq-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .faq-container h2 {
+        margin: 0 0 32px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .faq-item {
+        border-radius: 5px;
+        border: 1px solid rgba(151, 116, 254, 0.2);
+        background: #130F26;
+        text-align: left;
+        overflow: hidden;
+      }
+
+      .faq-heading {
+        margin: 0;
+        font-size: inherit;
+        font-weight: inherit;
+      }
+
+      .faq-question {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+        padding: 18px 20px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-family: 'Sora', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+        color: #FFFFFF;
+      }
+
+      .faq-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.4);
+        color: #9774FE;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+
+      .faq-item.is-open .faq-icon {
+        transform: rotate(45deg);
+        background: rgba(115, 69, 253, 0.18);
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+
+      .faq-answer p {
+        margin: 0;
+        padding: 0 20px 20px;
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      @media (min-width: 900px) {
+        .faq-container h2 {
+          font-size: 32px;
+        }
+
+        .faq-question {
+          padding: 22px 26px;
+          font-size: 15px;
+        }
+
+        .faq-answer p {
+          padding: 0 26px 22px;
+        }
+      }
+
       /* Seção final — CTA escuro com círculos e orbs (visual da hero antiga) */
       .final-section {
         position: relative;
@@ -1709,12 +2736,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         color: #FFFFFF;
       }
 
-      .footer-brand strong {
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        color: #FFFFFF;
+      .footer-logo {
+        height: 34px;
+        width: auto;
+        display: block;
       }
 
       .footer-brand p {
@@ -1743,6 +2768,31 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       .footer-col a:hover {
         color: #9774FE;
+      }
+
+      .footer-social {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer-social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.3);
+        background: rgba(115, 69, 253, 0.1);
+        color: rgba(255, 255, 255, 0.75);
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .footer-social-icon:hover {
+        color: #FFFFFF;
+        border-color: rgba(151, 116, 254, 0.55);
+        background: rgba(115, 69, 253, 0.2);
       }
 
       .footer-bottom {
@@ -1891,6 +2941,67 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         }
       }
 
+      /* Box de novos contatos — glass com ícone */
+      .glass-contacts {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 12px 16px 12px 12px;
+        border-radius: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        font-family: 'Sora', sans-serif;
+        color: #FFFFFF;
+        text-align: left;
+        animation: orb-float 4s ease-in-out infinite alternate;
+        animation-delay: -1.5s;
+        top: 68%;
+        right: 10%;
+      }
+
+      .glass-contacts-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.45);
+        background: rgba(115, 69, 253, 0.22);
+        color: #9774FE;
+      }
+
+      .glass-contacts-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .glass-contacts-value {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      .glass-contacts-label {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      @media (max-width: 899px) {
+        .glass-contacts {
+          display: none;
+        }
+      }
+
       /* Cursor Spotlight — revela a malha de pontos ao redor do mouse (ref: animacoes e efeitos.md) */
       .cursor-spotlight {
         position: fixed;
@@ -1912,18 +3023,54 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
       @media (min-width: 900px) {
         .title {
-          font-size: 46px;
+          font-size: 38px;
           letter-spacing: -1px;
         }
 
         .hero {
           padding-top: 96px;
+          justify-content: center;
+          text-align: left;
         }
 
-        /* Em telas largas a imagem (vertical) fica contida e centralizada */
+        /* Conteúdo à esquerda, dentro da área central de 1140px */
+        .hero > .container {
+          width: min(100% - 40px, 1140px);
+          align-items: flex-start;
+        }
+
+        /* Título em 2 linhas, área de conteúdo reduzida */
+        .hero .title {
+          max-width: 500px;
+        }
+
+        /* Seção dados — badge e título à esquerda */
+        .dados-container {
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        /* Balões flutuantes do lado oposto ao conteúdo */
+        .glass-chart {
+          left: auto;
+          right: 33%;
+          top: 29%;
+        }
+
+        .glass-orb-1 {
+          left: auto;
+          right: 35%;
+          top: 60%;
+        }
+
+        .glass-orb-2 {
+          right: 22%;
+          top: 35%;
+        }
+
+        /* Em telas largas usa a arte horizontal própria de desktop */
         .hero-bg {
-          background-size: contain;
-          background-position: center bottom;
+          background: #0D0A1A url('/hero-desktop-1.webp') center / cover no-repeat;
         }
       }
 
@@ -1936,7 +3083,10 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
         .button,
         .stat-hero-value,
-        .orbit-layer {
+        .orbit-layer,
+        .solve-chip,
+        .hero-dots::before,
+        .hero-dots::after {
           animation: none;
         }
 
@@ -1960,15 +3110,17 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
     <header class="floating-header" id="floating-header">
       <a class="brand" href="#inicio" aria-label="One Impact — início">
-        <strong>One Impact</strong>
+        <img src="/logo-one-impact-dark.svg" alt="One Impact" class="brand-logo" />
       </a>
 
       <div class="header-actions">
         <nav class="desktop-menu" aria-label="Navegação principal">
           <a href="#inicio">Início</a>
           <a href="#servicos">Serviços</a>
-          <a href="#cases">Cases</a>
-          <a href="/clientes-atendidos-id-visual">Identidade Visual</a>
+          <a href="#cases">Portfólio</a>
+          <a href="#depoimentos">Depoimentos</a>
+          <a href="#equipe">Sobre nós</a>
+          <a href="#faq">FAQ</a>
         </nav>
 
         <a href="https://wa.me/5541988733518" class="header-cta" target="_blank" rel="noopener">
@@ -1996,11 +3148,11 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
 
     <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true" inert>
       <a href="#inicio"><span class="menu-index">01</span> Início</a>
-      <a href="#dados"><span class="menu-index">02</span> Dados</a>
-      <a href="#servicos"><span class="menu-index">03</span> Serviços</a>
-      <a href="#cases"><span class="menu-index">04</span> Cases</a>
-      <a href="/clientes-atendidos-sites"><span class="menu-index">05</span> Sites entregues</a>
-      <a href="/clientes-atendidos-id-visual"><span class="menu-index">06</span> Identidade Visual</a>
+      <a href="#servicos"><span class="menu-index">02</span> Serviços</a>
+      <a href="#cases"><span class="menu-index">03</span> Portfólio</a>
+      <a href="#depoimentos"><span class="menu-index">04</span> Depoimentos</a>
+      <a href="#equipe"><span class="menu-index">05</span> Sobre nós</a>
+      <a href="#faq"><span class="menu-index">06</span> FAQ</a>
       <a href="#contato"><span class="menu-index">07</span> Contato</a>
       <a href="https://wa.me/5541988733518" class="menu-cta" target="_blank" rel="noopener">Chamar no WhatsApp</a>
     </nav>
@@ -2047,22 +3199,37 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
             <path d="M212 16 L204 16 M212 16 L212 24" stroke="#9774FE" stroke-width="2" stroke-linecap="round" />
           </svg>
         </div>
+
+        <div class="glass-contacts">
+          <span class="glass-contacts-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </span>
+          <span class="glass-contacts-info">
+            <span class="glass-contacts-value">+12 novos contatos</span>
+            <span class="glass-contacts-label">esta semana</span>
+          </span>
+        </div>
       </div>
       <div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
 
       <div class="container" data-reveal>
         <span class="badge reveal-item">Agência de posicionamento profissional</span>
         <h1 class="title reveal-item">
-          Organizamos o <span class="title-highlight">caos</span> do seu digital.
+          Organize sua presença digital e fortaleça a <span class="title-highlight">percepção de valor</span> do seu trabalho
         </h1>
 
         <p class="description reveal-item">
-          Unificamos sua presença online em uma estrutura profissional que transforma visitantes em clientes.
+          Desenvolvemos uma presença digital organizada, profissional e preparada para transmitir confiança, atrair clientes melhores e valorizar o seu negócio.
         </p>
 
         <a href="#contato" class="button reveal-item">
           <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
-          Solicitar proposta
+          Transformar minha presença digital
         </a>
       </div>
     </section>
@@ -2083,13 +3250,15 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
     <section class="dados-section" id="dados">
       <div class="dados-dots" aria-hidden="true"></div>
       <div class="dados-container" data-reveal-scroll>
-        <span class="badge reveal-fade">Dados</span>
-        <h2 class="reveal-fade">Antes de te contratar, seu cliente te pesquisa</h2>
-
         <div class="dados-grid reveal-fade">
           <div class="stat-hero">
-            <div class="stat-hero-value" id="stat-countup">0%</div>
-            <p class="stat-hero-label">das pessoas julgam a credibilidade de um negócio pela qualidade do site.</p>
+            <span class="badge reveal-fade">Antes do primeiro contato</span>
+            <h2 class="reveal-fade">Antes de te chamar, seu cliente <span class="title-highlight">pesquisa seu nome no Google</span></h2>
+            <p class="dados-desc reveal-fade">Seus anos de experiência não aparecem sozinhos na internet. Se alguém pesquisa sobre você e não encontra nada, ou encontra um site ou perfil antigo, isso prejudica a sua credibilidade.</p>
+            <div class="stat-hero-box">
+              <div class="stat-hero-value">75%</div>
+              <p class="stat-hero-label">das pessoas julgam a credibilidade de um negócio pela qualidade do site.</p>
+            </div>
           </div>
 
           <div class="stat-cols-wrap">
@@ -2128,39 +3297,62 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
+    <section class="dor-section" id="identificacao">
+      <div class="dor-glows" aria-hidden="true">
+        <span class="dor-blob dor-blob-1"></span>
+        <span class="dor-blob dor-blob-2"></span>
+      </div>
+      <div class="dor-container" data-reveal-scroll>
+        <span class="badge reveal-fade">Talvez você se reconheça aqui</span>
+        <h2 class="reveal-fade">A autoridade que você construiu <span class="hl">não aparece no Google</span></h2>
+
+        <div class="dor-split reveal-fade">
+          <div class="dor-text">
+            <p>Você estudou anos, atendeu centenas de clientes e construiu uma reputação que chega antes de você. Só que essa reputação vive na boca dos outros. Na internet, ela some. E é na internet que ela está sendo testada todos os dias, sem você ver:</p>
+
+            <ul class="dor-list">
+              <li>Seu negócio cresceu, mas seu site, sua marca e <strong>sua presença digital continuam com a aparência de anos atrás</strong>.</li>
+              <li>Você depende de indicações para conseguir clientes, mas quando elas acontecem, <strong>sua presença digital não reforça a confiança que já conquistou</strong>.</li>
+              <li><strong>Um concorrente com metade da sua experiência aparece na frente</strong>, só porque se apresenta melhor no digital.</li>
+              <li><strong>O contato chega no sábado à noite</strong>, espera a resposta até segunda e fecha com quem respondeu primeiro.</li>
+            </ul>
+
+            <div class="dor-final-box">
+              <p class="dor-final">Quem pesquisa sobre você quer ver seu trabalho, seus depoimentos, sua formação, seu contato. Você precisa de <span class="hl">um lugar que mostre isso tudo</span> de uma vez.</p>
+
+              <a href="#contato" class="button dor-cta">Quero organizar meu digital</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section" id="importancia">
       <div class="cta-glow" aria-hidden="true"></div>
       <div class="cta-dots" aria-hidden="true"></div>
       <div class="container" data-reveal-scroll>
-        <span class="badge reveal-fade">Por que isso importa</span>
+        <span class="badge reveal-fade">Como isso se resolve</span>
         <h2 class="title reveal-fade">
-          Uma presença amadora está te <span class="title-highlight">custando clientes</span>.
+          Tudo o que sua empresa precisa para transmitir confiança, <span class="title-highlight">em um só lugar</span>
         </h2>
 
-        <div class="cta-cards reveal-fade">
-          <article class="cta-card">
-            <span class="cta-card-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-            </span>
-            <h3>Você tem segundos</h3>
-            <p>O visitante decide em segundos se confia em você. Site amador é aba fechada — e cliente perdido sem você nem saber.</p>
-          </article>
+        <p class="description reveal-fade">
+          Portfólio, depoimentos, formação e contato no lugar certo, e uma automação que responde na hora, mesmo quando você está atendendo.
+        </p>
 
-          <article class="cta-card">
-            <span class="cta-card-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
-            </span>
-            <h3>Seu cliente te pesquisa</h3>
-            <p>Antes de chamar no WhatsApp, ele olha seu site e suas redes. Se parecer feito de qualquer jeito, ele chama o concorrente.</p>
-          </article>
+        <div class="solve-orbit reveal-fade">
+          <span class="solve-ring solve-ring-1" aria-hidden="true"></span>
+          <span class="solve-ring solve-ring-2" aria-hidden="true"></span>
+          <span class="solve-ring solve-ring-3" aria-hidden="true"></span>
+          <span class="solve-ring solve-ring-4" aria-hidden="true"></span>
 
-          <article class="cta-card">
-            <span class="cta-card-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
-            </span>
-            <h3>Amador compete por preço</h3>
-            <p>Quem parece profissional cobra pelo seu valor. Quem parece amador entra no leilão de orçamento — e ganha quem cobra menos.</p>
-          </article>
+          <div class="solve-chip solve-chip-1">Portfólio para mostrar seus trabalhos</div>
+          <div class="solve-chip solve-chip-2">Depoimentos que geram confiança</div>
+          <div class="solve-chip solve-chip-3">Serviços explicados com clareza</div>
+          <div class="solve-chip solve-chip-4">Casos de sucesso apresentados</div>
+          <div class="solve-chip solve-chip-main">Informações organizadas em um só lugar</div>
+          <div class="solve-chip solve-chip-5">WhatsApp respondendo automaticamente</div>
+          <div class="solve-chip solve-chip-6">Cliente encontrando você no Google</div>
         </div>
 
         <a href="#contato" class="button reveal-fade">
@@ -2170,11 +3362,49 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
+    <section class="fit-section" id="para-quem">
+      <div class="fit-container" data-reveal-scroll>
+        <span class="badge reveal-fade">Esse serviço é pra você?</span>
+        <h2 class="reveal-fade">Desenvolvido para <span class="title-highlight">empresas que não querem mais parecer amadoras</span> no digital.</h2>
+
+        <div class="fit-grid reveal-fade">
+          <div class="fit-card fit-yes">
+            <h3>Combina com você se...</h3>
+            <ul>
+              <li><span class="fit-mark">✓</span> Você já tem anos de experiência e uma estrutura real, como consultório ou escritório</li>
+              <li><span class="fit-mark">✓</span> Sua presença online não reflete o profissional que você já é</li>
+              <li><span class="fit-mark">✓</span> Você recebe indicação, mas não quer depender só dela</li>
+              <li><span class="fit-mark">✓</span> Você quer direcionamento claro, não um catálogo infinito de opções</li>
+            </ul>
+          </div>
+
+          <div class="fit-card fit-no">
+            <h3>Não é pra você se...</h3>
+            <ul>
+              <li><span class="fit-mark">✕</span> Você busca o site mais barato do mercado</li>
+              <li><span class="fit-mark">✕</span> Você quer algo pronto sem participar do processo</li>
+              <li><span class="fit-mark">✕</span> Seu objetivo principal é crescer redes sociais, não vender serviço</li>
+              <li><span class="fit-mark">✕</span> Seu negócio ainda não tem clareza sobre o que oferece</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fit-cta-box reveal-fade">
+          <p class="fit-cta-text">Dê à sua empresa a presença digital que ela merece.</p>
+
+          <a href="#contato" class="button">
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+            Falar com a One Impact
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="services-section" id="servicos">
       <div class="services-dots" aria-hidden="true"></div>
       <div class="services-container" data-reveal-scroll>
         <span class="badge reveal-fade">Nossos serviços</span>
-        <h2 class="reveal-fade">O que fazemos por você</h2>
+        <h2 class="reveal-fade">Criação de sites, identidade visual e automações</h2>
 
         <div class="bento-grid reveal-fade">
           <article class="bento-card bento-main">
@@ -2185,14 +3415,20 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
               </svg>
             </span>
             <h3>Criação de Sites</h3>
-            <p>Para causar a primeira impressão certa e transformar visitantes em clientes.</p>
-            <ul class="bento-features">
-              <li><span class="bento-check">✓</span> Design exclusivo e responsivo</li>
-              <li><span class="bento-check">✓</span> Otimizado para conversão</li>
-              <li><span class="bento-check">✓</span> SEO técnico incluso</li>
-            </ul>
-            <a href="/clientes-atendidos-sites" class="bento-link">
-              Ver sites entregues
+            <p>Sites profissionais e landing pages criados sob medida, com design exclusivo e estratégia de conversão. A primeira impressão certa para transformar visitantes em clientes.</p>
+            <div class="bento-chips">
+              <span class="bento-chip">Site corporativo multipáginas</span>
+              <span class="bento-chip">Landing page (página única)</span>
+              <span class="bento-chip">Blog estratégico para SEO e AEO</span>
+              <span class="bento-chip">Formulários inteligentes</span>
+              <span class="bento-chip">Instalação de métricas</span>
+              <span class="bento-chip">SEO e AEO técnico</span>
+              <span class="bento-chip">Otimização de velocidade</span>
+              <span class="bento-chip">Otimização de segurança</span>
+              <span class="bento-chip">Sob medida pra sua estratégia</span>
+            </div>
+            <a href="/criacao-de-sites" class="bento-link">
+              Conhecer o serviço
               <span aria-hidden="true">→</span>
             </a>
           </article>
@@ -2204,7 +3440,15 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
               </svg>
             </span>
             <h3>Automações Inteligentes</h3>
-            <p>Atendimento funcionando 24h por dia no seu WhatsApp, sem depender de você.</p>
+            <p>Atendimento automático no WhatsApp respondendo em segundos, 24 horas por dia. Nenhum cliente fica sem resposta, mesmo fora do horário comercial.</p>
+            <div class="bento-chips">
+              <span class="bento-chip">Automação de atendimento</span>
+              <span class="bento-chip">Automação no WhatsApp</span>
+              <span class="bento-chip">Automação no Instagram</span>
+              <span class="bento-chip">IA estratégica</span>
+              <span class="bento-chip">Fluxo de atendimento e vendas</span>
+              <span class="bento-chip">Controle total do atendimento</span>
+            </div>
             <a href="#contato" class="bento-link">
               Falar com a gente
               <span aria-hidden="true">→</span>
@@ -2218,8 +3462,16 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
                 <path d="M21 3v6h-6" />
               </svg>
             </span>
-            <h3>Revitalização de Marca</h3>
-            <p>Para sua imagem finalmente refletir o nível do seu trabalho.</p>
+            <h3>Identidade Visual</h3>
+            <p>Identidade visual completa: logo, paleta, tipografia e aplicações da marca. Sua imagem finalmente refletindo o nível do trabalho que você entrega.</p>
+            <div class="bento-chips">
+              <span class="bento-chip">Logotipo</span>
+              <span class="bento-chip">Definição de paleta de cores estratégica</span>
+              <span class="bento-chip">Manual da marca</span>
+              <span class="bento-chip">Posicionamento</span>
+              <span class="bento-chip">Revitalização de marca</span>
+            </div>
+            <p class="bento-note">Serviço disponível apenas na contratação dos outros.</p>
             <a href="/clientes-atendidos-id-visual" class="bento-link">
               Ver identidades criadas
               <span aria-hidden="true">→</span>
@@ -2229,7 +3481,46 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
-    <section class="marquee-section" aria-label="Segmentos que atendemos">
+    <section class="depo-section" id="depoimentos">
+      <div class="depo-head" data-reveal-scroll>
+        <span class="badge reveal-fade">Depoimentos</span>
+        <h2 class="reveal-fade">Quem já contratou recomenda de olhos fechados</h2>
+      </div>
+
+      <div class="depo-carousel">
+        <div class="depo-track">
+          {depoGroup1.map((t) => (
+            <article class="depo-card">
+              <svg class="depo-quote-icon" width="30" height="30" viewBox="0 0 24 24" fill="#9774FE" aria-hidden="true"><path d="M9.5 5C6.46 5 4 7.46 4 10.5V19h7v-7H7.5c0-1.93 1.57-3.5 3.5-3.5V5zm9 0c-3.04 0-5.5 2.46-5.5 5.5V19h7v-7h-3.5c0-1.93 1.57-3.5 3.5-3.5V5z"/></svg>
+              <div class="depo-stars" aria-label="5 estrelas">★★★★★</div>
+              <p class="depo-quote">{t.quote}</p>
+              <button type="button" class="depo-more" aria-expanded="false">Leia mais</button>
+              <div class="depo-person">
+                <div class="depo-avatar">
+                  <img src={t.img} alt={`Foto de ${t.name}`} loading="lazy" width="42" height="42" />
+                </div>
+                <div>
+                  <p class="depo-name">{t.name}</p>
+                  <p class="depo-role">{t.role}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="depo-controls">
+          <button class="depo-nav depo-nav-prev" aria-label="Depoimentos anteriores">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="depo-dots"></div>
+          <button class="depo-nav depo-nav-next" aria-label="Próximos depoimentos">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee-section marquee-section-alt" aria-label="Segmentos que atendemos">
       <div class="marquee-wrapper">
         <div class="marquee-track">
           {marqueeItems.map((item) => (
@@ -2245,7 +3536,7 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
     <section class="cases-section" id="cases">
       <div class="cases-container" data-reveal-scroll>
         <span class="badge reveal-fade">Projetos realizados</span>
-        <h2 class="reveal-fade">Cases de sucesso</h2>
+        <h2 class="reveal-fade">Cases de sucesso em criação de sites</h2>
 
         <div class="cases-stack">
           <article class="stack-card">
@@ -2298,6 +3589,45 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         </div>
 
         <a href="/clientes-atendidos-sites" class="cases-more-btn reveal-fade">Ver mais cases de sucesso</a>
+      </div>
+    </section>
+
+    <section class="depo-section" id="depoimentos-2">
+      <div class="depo-head" data-reveal-scroll>
+        <span class="badge reveal-fade">Mais depoimentos</span>
+        <h2 class="reveal-fade">E os elogios continuam chegando</h2>
+      </div>
+
+      <div class="depo-carousel">
+        <div class="depo-track">
+          {depoGroup2.map((t) => (
+            <article class="depo-card">
+              <svg class="depo-quote-icon" width="30" height="30" viewBox="0 0 24 24" fill="#9774FE" aria-hidden="true"><path d="M9.5 5C6.46 5 4 7.46 4 10.5V19h7v-7H7.5c0-1.93 1.57-3.5 3.5-3.5V5zm9 0c-3.04 0-5.5 2.46-5.5 5.5V19h7v-7h-3.5c0-1.93 1.57-3.5 3.5-3.5V5z"/></svg>
+              <div class="depo-stars" aria-label="5 estrelas">★★★★★</div>
+              <p class="depo-quote">{t.quote}</p>
+              <button type="button" class="depo-more" aria-expanded="false">Leia mais</button>
+              <div class="depo-person">
+                <div class="depo-avatar">
+                  <img src={t.img} alt={`Foto de ${t.name}`} loading="lazy" width="42" height="42" />
+                </div>
+                <div>
+                  <p class="depo-name">{t.name}</p>
+                  <p class="depo-role">{t.role}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="depo-controls">
+          <button class="depo-nav depo-nav-prev" aria-label="Depoimentos anteriores">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="depo-dots"></div>
+          <button class="depo-nav depo-nav-next" aria-label="Próximos depoimentos">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -2355,11 +3685,11 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       <div class="container" data-reveal-scroll>
         <span class="badge reveal-fade">Vamos conversar</span>
         <h2 class="title reveal-fade">
-          Pronto para organizar o <span class="title-highlight">caos</span>?
+          Pronto para organizar o <span class="title-highlight">caos</span> do seu digital?
         </h2>
 
         <p class="description reveal-fade">
-          Conta pra gente onde seu digital está travado — a primeira conversa é sem compromisso.
+          Vamos entender o momento do seu negócio e construir uma presença digital que represente a qualidade do seu trabalho.
         </p>
 
         <a href="#contato" class="button reveal-fade">
@@ -2369,11 +3699,42 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
       </div>
     </section>
 
+    <section class="faq-section" id="faq">
+      <div class="faq-container" data-reveal-scroll>
+        <span class="badge reveal-fade">Perguntas frequentes</span>
+        <h2 class="reveal-fade">Ainda com dúvidas?</h2>
+
+        <div class="faq-list reveal-fade">
+          {faq.map((item, i) => (
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button
+                  type="button"
+                  class="faq-question"
+                  aria-expanded="false"
+                  aria-controls={`faq-answer-${i}`}
+                  id={`faq-question-${i}`}
+                >
+                  <span>{item.q}</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  </span>
+                </button>
+              </h3>
+              <div class="faq-answer" id={`faq-answer-${i}`} role="region" aria-labelledby={`faq-question-${i}`}>
+                <p>{item.a}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-grid">
           <div class="footer-col footer-brand">
-            <strong>One Impact</strong>
+            <img src="/logo-one-impact-white.svg" alt="One Impact" class="footer-logo" />
             <p>Agência de posicionamento profissional. Organizamos o caos do seu digital com sites, automações e marca.</p>
           </div>
 
@@ -2381,18 +3742,27 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
             <h4>Navegação</h4>
             <ul>
               <li><a href="#inicio">Início</a></li>
-              <li><a href="#dados">Dados</a></li>
-              <li><a href="#contato">Contato</a></li>
+              <li><a href="#servicos">Serviços</a></li>
+              <li><a href="#cases">Portfólio</a></li>
+              <li><a href="#depoimentos">Depoimentos</a></li>
+              <li><a href="#equipe">Sobre nós</a></li>
+              <li><a href="#faq">FAQ</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h4>Contato</h4>
-            <ul>
-              <li><a href="#contato">WhatsApp</a></li>
-              <li><a href="#contato">Instagram</a></li>
-              <li><a href="mailto:contato@agenciaoneimpact.com.br">contato@agenciaoneimpact.com.br</a></li>
-            </ul>
+            <div class="footer-social">
+              <a href="#contato" class="footer-social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+                <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+              </a>
+              <a href="#contato" class="footer-social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37a4 4 0 1 1-7.914 1.174A4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+              </a>
+              <a href="mailto:contato@agenciaoneimpact.com.br" class="footer-social-icon" aria-label="E-mail">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -2426,22 +3796,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         revealGroups.forEach((group) => group.classList.add('is-visible'))
       })
 
-      // Count-up do número-herói (0 → 75%)
-      const countupEl = document.getElementById('stat-countup')
-      const runCountup = () => {
-        if (!countupEl) return
-        const target = 75
-        const duration = 1400
-        const start = performance.now()
-        const tick = (now: number) => {
-          const progress = Math.min(1, (now - start) / duration)
-          const eased = 1 - Math.pow(1 - progress, 3)
-          countupEl.textContent = `${Math.round(eased * target)}%`
-          if (progress < 1) requestAnimationFrame(tick)
-        }
-        requestAnimationFrame(tick)
-      }
-
       // Reveal reversível por scroll — anima ao entrar, desfaz ao sair
       // threshold baixo: seções altas (ex: equipe) nunca chegam a 30% visíveis no mobile
       const scrollGroups = document.querySelectorAll('[data-reveal-scroll]')
@@ -2449,7 +3803,6 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         (entries) => {
           entries.forEach((entry) => {
             entry.target.classList.toggle('is-visible', entry.isIntersecting)
-            if (entry.isIntersecting && entry.target.contains(countupEl)) runCountup()
           })
         },
         { threshold: 0.1 },
@@ -2528,6 +3881,89 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
         })
       }
 
+      // Carrosséis de depoimentos — setas + bolinhas (padrão Neurolândia), um por seção
+      document.querySelectorAll<HTMLElement>('.depo-carousel').forEach((carousel) => {
+        const depoTrack = carousel.querySelector<HTMLElement>('.depo-track')
+        const depoDots = carousel.querySelector<HTMLElement>('.depo-dots')
+        const depoPrev = carousel.querySelector<HTMLButtonElement>('.depo-nav-prev')
+        const depoNext = carousel.querySelector<HTMLButtonElement>('.depo-nav-next')
+        if (!depoTrack || !depoDots || !depoPrev || !depoNext) return
+
+        const depoPages = () => Math.round((depoTrack.scrollWidth - depoTrack.clientWidth) / depoTrack.clientWidth) + 1
+        const depoIndex = () => Math.min(Math.round(depoTrack.scrollLeft / depoTrack.clientWidth), depoDots.children.length - 1)
+
+        const depoUpdate = () => {
+          const i = depoIndex()
+          Array.from(depoDots.children).forEach((d, j) => d.classList.toggle('active', j === i))
+        }
+
+        const depoBuild = () => {
+          depoDots.innerHTML = ''
+          for (let i = 0; i < depoPages(); i++) {
+            const dot = document.createElement('button')
+            dot.className = 'depo-dot'
+            dot.setAttribute('aria-label', `Ir para depoimentos ${i + 1}`)
+            dot.addEventListener('click', () => depoTrack.scrollTo({ left: i * depoTrack.clientWidth, behavior: 'smooth' }))
+            depoDots.appendChild(dot)
+          }
+          depoUpdate()
+        }
+
+        const depoStep = () => {
+          const a = depoTrack.children[0] as HTMLElement | undefined
+          const b = depoTrack.children[1] as HTMLElement | undefined
+          if (!a) return depoTrack.clientWidth
+          return b ? b.getBoundingClientRect().left - a.getBoundingClientRect().left : a.getBoundingClientRect().width
+        }
+
+        depoPrev.addEventListener('click', () => depoTrack.scrollBy({ left: -depoStep(), behavior: 'smooth' }))
+        depoNext.addEventListener('click', () => depoTrack.scrollBy({ left: depoStep(), behavior: 'smooth' }))
+        depoTrack.addEventListener('scroll', depoUpdate, { passive: true })
+        window.addEventListener('resize', depoBuild)
+        depoBuild()
+      })
+
+      // Depoimentos — Leia mais (só aparece quando o texto está cortado)
+      document.querySelectorAll<HTMLButtonElement>('.depo-more').forEach((btn) => {
+        const quote = btn.previousElementSibling as HTMLElement | null
+        if (!quote) return
+
+        const check = () => {
+          const clipped = quote.scrollHeight > quote.clientHeight + 2
+          btn.style.display = clipped || quote.classList.contains('expanded') ? '' : 'none'
+        }
+
+        let collapsedH = 0
+
+        btn.addEventListener('click', () => {
+          const isExpanded = quote.classList.contains('expanded')
+
+          if (!isExpanded) {
+            collapsedH = quote.clientHeight
+            quote.classList.add('expanded')
+            const fullH = quote.scrollHeight
+            quote.style.maxHeight = collapsedH + 'px'
+            void quote.offsetHeight
+            quote.style.maxHeight = fullH + 'px'
+            setTimeout(() => { quote.style.maxHeight = '' }, 500)
+          } else {
+            quote.style.maxHeight = quote.scrollHeight + 'px'
+            void quote.offsetHeight
+            quote.style.maxHeight = collapsedH + 'px'
+            setTimeout(() => {
+              quote.classList.remove('expanded')
+              quote.style.maxHeight = ''
+            }, 500)
+          }
+
+          btn.textContent = isExpanded ? 'Leia mais' : 'Leia menos'
+          btn.setAttribute('aria-expanded', String(!isExpanded))
+        })
+
+        window.addEventListener('resize', check)
+        check()
+      })
+
       // Ler mais / ler menos nas descrições da equipe — com abertura suave
       document.querySelectorAll<HTMLButtonElement>('.team-readmore').forEach((btn) => {
         const text = btn.previousElementSibling as HTMLElement | null
@@ -2576,6 +4012,19 @@ const marqueeItems = [...marqueeTopics, ...marqueeTopics]
             btn.textContent = 'Ler mais'
             btn.setAttribute('aria-expanded', 'false')
           }
+        })
+      })
+
+      // FAQ — acordeão
+      document.querySelectorAll<HTMLElement>('.faq-item').forEach((item) => {
+        const btn = item.querySelector<HTMLButtonElement>('.faq-question')
+        const answer = item.querySelector<HTMLElement>('.faq-answer')
+        if (!btn || !answer) return
+
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.toggle('is-open')
+          btn.setAttribute('aria-expanded', String(isOpen))
+          answer.style.maxHeight = isOpen ? `${answer.scrollHeight}px` : ''
         })
       })
 

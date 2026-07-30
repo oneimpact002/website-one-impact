@@ -1,0 +1,919 @@
+---
+const WHATSAPP = 'https://wa.me/5541988733518?text=' + encodeURIComponent('Olá! Quero saber mais sobre a criação de site com a One Impact.');
+
+const faq = [
+  {
+    q: 'Quanto custa um site profissional?',
+    a: 'O valor depende do escopo: número de páginas, identidade visual e automações incluídas. O orçamento é personalizado e sem compromisso, feito em uma conversa rápida pelo WhatsApp.',
+  },
+  {
+    q: 'Quanto tempo leva para criar um site?',
+    a: 'O prazo varia conforme o escopo do projeto e é definido junto com o orçamento, antes de começar. Você acompanha cada etapa do processo, do briefing à publicação.',
+  },
+  {
+    q: 'O site funciona bem no celular?',
+    a: 'Sim. Todos os nossos sites são responsivos e pensados primeiro para o celular, onde está a maioria dos seus visitantes, sem perder qualidade no computador.',
+  },
+  {
+    q: 'Vocês criam também a identidade visual?',
+    a: 'Sim. Site e identidade visual podem ser um projeto único: logo, paleta, tipografia e aplicações da marca alinhados com a página, como fizemos para a Dra. Katiuscia Souza.',
+  },
+  {
+    q: 'O site já vem otimizado para o Google?',
+    a: 'Sim. SEO técnico está incluso desde o início: estrutura semântica, performance, sitemap e meta tags. O site nasce pronto para ser encontrado no Google e citado por IAs.',
+  },
+  {
+    q: 'Preciso ter os textos e fotos prontos?',
+    a: 'Não. Ajudamos com a estrutura e a escrita estratégica dos textos. Fotos suas ou do seu espaço agregam, mas orientamos exatamente o que é necessário no briefing.',
+  },
+]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Criação de Sites Profissionais',
+  provider: {
+    '@type': 'Organization',
+    name: 'One Impact',
+    url: 'https://agenciaoneimpact.com.br',
+  },
+  description:
+    'Criação de sites profissionais e landing pages sob medida, com design exclusivo, estratégia de conversão e SEO técnico incluso.',
+  areaServed: 'Brasil',
+  url: 'https://agenciaoneimpact.com.br/criacao-de-sites',
+}
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criação de Sites Profissionais | One Impact</title>
+    <meta name="description" content="Criação de sites profissionais para advogados, médicos, arquitetos e outros profissionais. Design exclusivo, estratégia de conversão e SEO técnico incluso." />
+    <link rel="canonical" href="https://agenciaoneimpact.com.br/criacao-de-sites" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content="Criação de Sites Profissionais | One Impact" />
+    <meta property="og:description" content="Sites sob medida com design exclusivo, estratégia de conversão e SEO técnico incluso." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://agenciaoneimpact.com.br/criacao-de-sites" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+    <script is:inline>document.documentElement.classList.add('reveal-ready')</script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
+      body {
+        background-color: #0D0A1A;
+        font-family: 'Sora', sans-serif;
+      }
+
+      /* Reveal reversível */
+      .reveal-ready [data-reveal-scroll] .reveal-fade {
+        opacity: 0;
+        transform: translate3d(0, 24px, 0);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal-ready [data-reveal-scroll] .reveal-fade:nth-child(2) { transition-delay: 80ms; }
+      .reveal-ready [data-reveal-scroll] .reveal-fade:nth-child(3) { transition-delay: 160ms; }
+      .reveal-ready [data-reveal-scroll] .reveal-fade:nth-child(4) { transition-delay: 240ms; }
+
+      .reveal-ready [data-reveal-scroll].is-visible .reveal-fade {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      /* Header flutuante */
+      .floating-header {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        z-index: 100;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 5px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        border-radius: 9999px;
+        background: rgba(247, 245, 253, 0.78);
+        box-shadow: 0 8px 28px rgba(19, 15, 38, 0.16);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-shrink: 0;
+        text-decoration: none;
+        color: #130F26;
+      }
+
+      .brand > strong {
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .back-link {
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        color: rgba(19, 15, 38, 0.7);
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: #7345FD;
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 148px 20px 72px;
+        text-align: center;
+      }
+
+      .hero-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(151, 116, 254, 0.35) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 35%, black, transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 75% at 50% 35%, black, transparent 85%);
+      }
+
+      .hero-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 55% 45% at 50% 30%, rgba(115, 69, 253, 0.2), transparent 70%);
+      }
+
+      .hero > .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .badge {
+        display: inline-flex;
+        padding: 5px 12px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.16;
+        color: #FFFFFF;
+      }
+
+      h1 .hl {
+        color: #9774FE;
+      }
+
+      @media (min-width: 900px) {
+        h1 {
+          font-size: 44px;
+          letter-spacing: -1px;
+        }
+      }
+
+      .hero-desc {
+        max-width: 560px;
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 8px;
+        padding: 14px 40px;
+        border: 1px solid #9774FE;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
+        background-size: 300% 100%;
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 26px rgba(115, 69, 253, 0.35);
+        animation: shimmer-purple 4s linear infinite;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 13px 32px rgba(115, 69, 253, 0.48);
+      }
+
+      @keyframes shimmer-purple {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+      }
+
+      /* Seções base */
+      .section {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 20px;
+      }
+
+      .section-alt {
+        background: #130F26;
+      }
+
+      .container-md {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      h2 {
+        margin: 0 0 40px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #FFFFFF;
+      }
+
+      .section .badge {
+        margin-bottom: 15px;
+      }
+
+      /* O que está incluso */
+      .incluso-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        text-align: left;
+      }
+
+      @media (min-width: 700px) {
+        .incluso-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 18px;
+        }
+      }
+
+      .incluso-card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 22px 20px;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        border-radius: 5px;
+        background: linear-gradient(145deg, #232035, #16112B);
+        transition: transform 0.25s ease, border-color 0.25s ease;
+      }
+
+      .incluso-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(151, 116, 254, 0.5);
+      }
+
+      .incluso-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(115, 69, 253, 0.32);
+        border-radius: 5px;
+        background: rgba(115, 69, 253, 0.14);
+        color: #9774FE;
+      }
+
+      .incluso-card h3 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+
+      .incluso-card p {
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Processo — steps numerados com linha tracejada */
+      .steps {
+        width: 100%;
+        max-width: 620px;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .step {
+        position: relative;
+        display: flex;
+        gap: 18px;
+        padding-bottom: 32px;
+      }
+
+      .step:not(:last-child)::before {
+        content: '';
+        position: absolute;
+        left: 19px;
+        top: 44px;
+        bottom: 4px;
+        border-left: 2px dashed rgba(151, 116, 254, 0.35);
+      }
+
+      .step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.4);
+        background: rgba(115, 69, 253, 0.14);
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: #9774FE;
+      }
+
+      .step:last-child .step-num {
+        background: linear-gradient(135deg, #9774FE, #7446FD);
+        color: #FFFFFF;
+        border-color: #9774FE;
+      }
+
+      .step h3 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin-bottom: 6px;
+      }
+
+      .step p {
+        font-size: 13px;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Portfólio */
+      .portfolio-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-bottom: 32px;
+      }
+
+      @media (min-width: 700px) {
+        .portfolio-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 18px;
+        }
+      }
+
+      .portfolio-card {
+        display: block;
+        overflow: hidden;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        border-radius: 5px;
+        background: #16112B;
+        text-decoration: none;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .portfolio-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(151, 116, 254, 0.5);
+        box-shadow: 0 16px 36px rgba(115, 69, 253, 0.2);
+      }
+
+      .portfolio-bar {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        height: 24px;
+        padding: 0 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .portfolio-bar span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(151, 116, 254, 0.45);
+      }
+
+      .portfolio-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .portfolio-card figcaption {
+        padding: 12px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .more-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 26px;
+        border-radius: 9999px;
+        border: 1px solid rgba(115, 69, 253, 0.5);
+        background: transparent;
+        color: #FFFFFF;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .more-btn:hover {
+        background: rgba(115, 69, 253, 0.14);
+        transform: translateY(-2px);
+      }
+
+      /* Marquee */
+      .marquee-section {
+        position: relative;
+        overflow: hidden;
+        padding: 17px 0;
+        background: #130F26;
+        border-top: 1px solid rgba(115, 69, 253, 0.16);
+        border-bottom: 1px solid rgba(115, 69, 253, 0.16);
+      }
+
+      .marquee-wrapper {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      }
+
+      .marquee-track {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        white-space: nowrap;
+        animation: marquee-scroll 30s linear infinite;
+        flex-shrink: 0;
+        padding-right: 2.5rem;
+      }
+
+      .marquee-item {
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.86);
+      }
+
+      .marquee-separator {
+        font-size: 13px;
+        color: #9774FE;
+        opacity: 0.7;
+      }
+
+      @keyframes marquee-scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      /* FAQ */
+      .faq-list {
+        width: 100%;
+        max-width: 720px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        text-align: left;
+      }
+
+      .faq-item {
+        padding: 20px;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        border-radius: 5px;
+        background: linear-gradient(145deg, #232035, #16112B);
+      }
+
+      .faq-item h3 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin-bottom: 8px;
+      }
+
+      .faq-item p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      /* CTA final */
+      .final-section {
+        position: relative;
+        overflow: hidden;
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 88px 20px;
+        background: #130F26;
+      }
+
+      .final-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(115, 69, 253, 0.2), transparent 70%);
+      }
+
+      .final-circles {
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        width: min(560px, 88vw);
+        aspect-ratio: 1;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.28);
+        pointer-events: none;
+      }
+
+      .final-circles::before {
+        content: '';
+        position: absolute;
+        inset: 17%;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.36);
+      }
+
+      .orbit-layer {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        animation: orbit-spin 46s linear infinite;
+      }
+
+      .orbit-layer-inner {
+        inset: 17%;
+        animation-duration: 30s;
+        animation-direction: reverse;
+      }
+
+      .orbit-layer::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #7345FD;
+        box-shadow: 0 0 12px rgba(115, 69, 253, 0.65);
+      }
+
+      @keyframes orbit-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .final-section > .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .final-section h2 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .final-desc {
+        max-width: 460px;
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .button,
+        .orbit-layer {
+          animation: none !important;
+        }
+
+        .marquee-track {
+          animation-play-state: paused;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="floating-header">
+      <a class="brand" href="/" aria-label="One Impact — início">
+        <strong>One Impact</strong>
+      </a>
+      <a class="back-link" href="/">← Voltar ao início</a>
+    </header>
+
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-dots" aria-hidden="true"></div>
+      <div class="container" data-reveal-scroll>
+        <span class="badge reveal-fade">Criação de Sites</span>
+        <h1 class="reveal-fade">
+          Criação de sites profissionais que <span class="hl">transformam visitantes em clientes</span>
+        </h1>
+        <p class="hero-desc reveal-fade">
+          Sites e landing pages sob medida para advogados, médicos, arquitetos e outros profissionais: design exclusivo, estratégia de conversão e SEO técnico inclusos desde o início.
+        </p>
+        <a href={WHATSAPP} class="button reveal-fade" target="_blank" rel="noopener">
+          Solicitar orçamento no WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container-md" data-reveal-scroll>
+        <span class="badge reveal-fade">O que está incluso</span>
+        <h2 class="reveal-fade">Tudo que o seu site precisa para vender</h2>
+
+        <div class="incluso-grid reveal-fade">
+          <article class="incluso-card">
+            <span class="incluso-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            </span>
+            <h3>Design exclusivo</h3>
+            <p>Nada de template pronto: cada site é desenhado do zero para a sua marca e o seu público.</p>
+          </article>
+
+          <article class="incluso-card">
+            <span class="incluso-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18" /><path d="m19 9-5 5-4-4-3 3" /></svg>
+            </span>
+            <h3>Estrutura de conversão</h3>
+            <p>Textos e seções organizados como um funil, guiando o visitante até o contato no WhatsApp.</p>
+          </article>
+
+          <article class="incluso-card">
+            <span class="incluso-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+            </span>
+            <h3>SEO técnico incluso</h3>
+            <p>Estrutura semântica, performance e meta tags: o site nasce pronto para ser encontrado no Google.</p>
+          </article>
+
+          <article class="incluso-card">
+            <span class="incluso-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M11 18.5h2" /></svg>
+            </span>
+            <h3>Mobile-first</h3>
+            <p>Perfeito no celular, onde está a maioria dos seus visitantes, sem perder nada no computador.</p>
+          </article>
+
+          <article class="incluso-card">
+            <span class="incluso-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" /></svg>
+            </span>
+            <h3>Performance</h3>
+            <p>Carregamento rápido e leve: velocidade é experiência para o visitante e ranking para o Google.</p>
+          </article>
+
+          <article class="incluso-card">
+            <span class="incluso-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+            </span>
+            <h3>Integração com WhatsApp</h3>
+            <p>Botões e chamadas conectados direto ao seu WhatsApp, com automações opcionais de atendimento.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-md" data-reveal-scroll>
+        <span class="badge reveal-fade">Como funciona</span>
+        <h2 class="reveal-fade">Do briefing ao site no ar</h2>
+
+        <div class="steps reveal-fade">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div>
+              <h3>Briefing e estratégia</h3>
+              <p>Entendemos seu negócio, seu público e seu objetivo. Definimos juntos a estrutura do site e o que ele precisa comunicar para converter.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div>
+              <h3>Design sob medida</h3>
+              <p>Criamos o visual exclusivo da sua página, alinhado à sua marca. Você aprova o design antes de qualquer linha de código.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div>
+              <h3>Desenvolvimento</h3>
+              <p>Construímos o site com performance, SEO técnico e responsividade inclusos, e você acompanha o progresso de perto.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div>
+              <h3>Publicação e ajustes</h3>
+              <p>Site no ar no seu domínio, com revisão final em conjunto e os ajustes necessários para começar a receber clientes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container-md" data-reveal-scroll>
+        <span class="badge reveal-fade">Portfólio</span>
+        <h2 class="reveal-fade">Sites que já entregamos</h2>
+
+        <div class="portfolio-grid reveal-fade">
+          <a class="portfolio-card" href="/sites/dra-katiuscia-souza">
+            <span class="portfolio-bar" aria-hidden="true"><span></span><span></span><span></span></span>
+            <img src="/sites/dra-katiuscia-souza/tela-1.webp" alt="Site da Dra. Katiuscia Souza, endocrinologista" loading="lazy" decoding="async" />
+            <figcaption>Dra. Katiuscia Souza · Site Médico</figcaption>
+          </a>
+          <a class="portfolio-card" href="/sites/casa-tres-arquitetura">
+            <span class="portfolio-bar" aria-hidden="true"><span></span><span></span><span></span></span>
+            <img src="/sites/casa-tres-arquitetura/tela-1.webp" alt="Site da Casa Três Arquitetura" loading="lazy" decoding="async" />
+            <figcaption>Casa Três · Site Corporativo</figcaption>
+          </a>
+          <a class="portfolio-card" href="/sites/jorge-fogaca">
+            <span class="portfolio-bar" aria-hidden="true"><span></span><span></span><span></span></span>
+            <img src="/sites/jorge-fogaca/tela-1.webp" alt="Site do advogado Jorge Fogaça" loading="lazy" decoding="async" />
+            <figcaption>Jorge Fogaça · Site para Advogados</figcaption>
+          </a>
+        </div>
+
+        <a href="/clientes-atendidos-sites" class="more-btn reveal-fade">Ver todos os sites entregues</a>
+      </div>
+    </section>
+
+    <section class="marquee-section" aria-label="Segmentos que atendemos">
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          {['ADVOGADOS', 'MÉDICOS', 'NUTRICIONISTAS', 'PSICÓLOGOS', 'ARQUITETOS', 'CONTADORES', 'CONSULTORES', 'COACHES', 'ADVOGADOS', 'MÉDICOS', 'NUTRICIONISTAS', 'PSICÓLOGOS', 'ARQUITETOS', 'CONTADORES', 'CONSULTORES', 'COACHES'].map((item) => (
+            <>
+              <span class="marquee-item">{item}</span>
+              <span class="marquee-separator" aria-hidden="true">✦</span>
+            </>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-md" data-reveal-scroll>
+        <span class="badge reveal-fade">Perguntas frequentes</span>
+        <h2 class="reveal-fade">Dúvidas sobre criação de sites</h2>
+
+        <div class="faq-list reveal-fade">
+          {faq.map((item) => (
+            <article class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="final-section" id="contato">
+      <div class="final-glow" aria-hidden="true"></div>
+      <div class="final-circles" aria-hidden="true">
+        <span class="orbit-layer"></span>
+        <span class="orbit-layer orbit-layer-inner"></span>
+      </div>
+      <div class="container" data-reveal-scroll>
+        <span class="badge reveal-fade">Vamos conversar</span>
+        <h2 class="reveal-fade">Pronto para ter um site à altura do seu trabalho?</h2>
+        <p class="final-desc reveal-fade">Conta pra gente sobre o seu negócio e receba um orçamento personalizado, sem compromisso.</p>
+        <a href={WHATSAPP} class="button reveal-fade" target="_blank" rel="noopener">
+          Solicitar orçamento no WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <script>
+      import Lenis from 'lenis'
+
+      // Reveal reversível por scroll
+      const scrollGroups = document.querySelectorAll('[data-reveal-scroll]')
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle('is-visible', entry.isIntersecting)
+          })
+        },
+        { threshold: 0.05 },
+      )
+      scrollGroups.forEach((group) => observer.observe(group))
+
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        })
+
+        function raf(time: number) {
+          lenis.raf(time)
+          requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+      }
+    </script>
+  </body>
+</html>

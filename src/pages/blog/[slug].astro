@@ -1,0 +1,676 @@
+---
+import { getCollection, render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }))
+}
+
+const { post } = Astro.props
+const { Content, headings } = await render(post)
+
+const WHATSAPP = 'https://wa.me/5541988733518?text=' + encodeURIComponent('Olá! Vim pelo blog da One Impact e quero saber mais.');
+
+const url = `https://agenciaoneimpact.com.br/blog/${post.id}`
+const fmtDate = (d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
+const toc = headings.filter((h) => h.depth === 2)
+const words = post.body ? post.body.split(/\s+/).length : 0
+const readingTime = Math.max(1, Math.round(words / 200))
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  url,
+  datePublished: post.data.datePublished.toISOString(),
+  dateModified: (post.data.dateModified ?? post.data.datePublished).toISOString(),
+  inLanguage: 'pt-BR',
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+    worksFor: {
+      '@type': 'Organization',
+      name: 'One Impact',
+      url: 'https://agenciaoneimpact.com.br',
+    },
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'One Impact',
+    url: 'https://agenciaoneimpact.com.br',
+  },
+  ...(post.data.cover ? { image: `https://agenciaoneimpact.com.br${post.data.cover}` } : {}),
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://agenciaoneimpact.com.br' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://agenciaoneimpact.com.br/blog' },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: url },
+  ],
+}
+
+const faqSchema = post.data.faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.data.faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    }
+  : null
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.data.title} | One Impact</title>
+    <meta name="description" content={post.data.description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={post.data.title} />
+    <meta property="og:description" content={post.data.description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={url} />
+    {post.data.cover && <meta property="og:image" content={`https://agenciaoneimpact.com.br${post.data.cover}`} />}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
+      body {
+        background-color: #F7F5FD;
+        font-family: 'Sora', sans-serif;
+      }
+
+      .floating-header {
+        position: fixed;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        width: min(92%, 720px);
+        padding: 10px 16px;
+        border-radius: 9999px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 8px 28px rgba(19, 15, 38, 0.12);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-shrink: 0;
+        text-decoration: none;
+        color: #130F26;
+      }
+
+      .brand > strong {
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .back-link {
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        color: rgba(19, 15, 38, 0.7);
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: #7345FD;
+      }
+
+      .post-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 140px 20px 40px;
+      }
+
+      .post-hero-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(75, 47, 190, 0.22) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 80% at 80% 15%, black, transparent 80%);
+        mask-image: radial-gradient(ellipse 65% 80% at 80% 15%, black, transparent 80%);
+      }
+
+      .post-hero-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 45% 55% at 85% 10%, rgba(115, 69, 253, 0.12), transparent 70%);
+      }
+
+      .post-hero-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 12px;
+        color: rgba(19, 15, 38, 0.5);
+      }
+
+      .breadcrumb a {
+        color: rgba(19, 15, 38, 0.62);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .breadcrumb a:hover {
+        color: #7345FD;
+      }
+
+      .post-category {
+        display: inline-flex;
+        align-self: flex-start;
+        padding: 5px 12px;
+        border-radius: 9999px;
+        border: 1px solid rgba(115, 69, 253, 0.35);
+        background: rgba(115, 69, 253, 0.08);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #4B2FBE;
+      }
+
+      h1 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: #130F26;
+      }
+
+      .post-desc {
+        font-size: 14.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(19, 15, 38, 0.7);
+      }
+
+      .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 14px;
+        font-size: 12px;
+        color: rgba(19, 15, 38, 0.55);
+      }
+
+      .post-meta strong {
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .post-cover {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .post-cover img {
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 0 12px 36px rgba(19, 15, 38, 0.12);
+        display: block;
+      }
+
+      .post-layout {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 20px 72px;
+      }
+
+      .post-toc {
+        margin-bottom: 32px;
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        border-left: 3px solid #7345FD;
+        background: #FFFFFF;
+        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.06);
+      }
+
+      .post-toc strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #4B2FBE;
+      }
+
+      .post-toc ol {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        padding-left: 18px;
+      }
+
+      .post-toc a {
+        font-size: 13.5px;
+        color: rgba(19, 15, 38, 0.75);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .post-toc a:hover {
+        color: #7345FD;
+      }
+
+      .post-content :global(h2) {
+        margin: 36px 0 14px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: #130F26;
+        scroll-margin-top: 90px;
+      }
+
+      .post-content :global(h3) {
+        margin: 26px 0 10px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .post-content :global(p) {
+        margin: 0 0 16px;
+        font-size: 14.5px;
+        font-weight: 300;
+        line-height: 1.85;
+        color: rgba(19, 15, 38, 0.78);
+      }
+
+      .post-content :global(strong) {
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .post-content :global(a) {
+        color: #7345FD;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .post-content :global(ul),
+      .post-content :global(ol) {
+        margin: 0 0 16px;
+        padding-left: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .post-content :global(li) {
+        font-size: 14.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(19, 15, 38, 0.78);
+      }
+
+      .post-content :global(blockquote) {
+        margin: 0 0 16px;
+        padding: 14px 18px;
+        border-left: 3px solid #7345FD;
+        border-radius: 0 5px 5px 0;
+        background: rgba(115, 69, 253, 0.07);
+      }
+
+      .post-content :global(blockquote p) {
+        margin: 0;
+      }
+
+      .post-content :global(table) {
+        width: 100%;
+        margin: 0 0 16px;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        background: #FFFFFF;
+      }
+
+      .post-content :global(th),
+      .post-content :global(td) {
+        padding: 10px 12px;
+        border: 1px solid rgba(19, 15, 38, 0.1);
+        text-align: left;
+        color: rgba(19, 15, 38, 0.78);
+        font-weight: 300;
+      }
+
+      .post-content :global(th) {
+        background: rgba(115, 69, 253, 0.08);
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .post-content :global(img) {
+        max-width: 100%;
+        border-radius: 5px;
+      }
+
+      .post-faq {
+        margin-top: 44px;
+      }
+
+      .post-faq h2 {
+        margin-bottom: 18px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .faq-item {
+        margin-bottom: 12px;
+        padding: 18px 20px;
+        border-radius: 5px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.05);
+      }
+
+      .faq-item h3 {
+        margin-bottom: 8px;
+        font-size: 14.5px;
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .faq-item p {
+        font-size: 13.5px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      .post-author {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 44px;
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.05);
+      }
+
+      .post-author-avatar {
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(115, 69, 253, 0.4);
+        object-fit: cover;
+      }
+
+      .post-author p {
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 1.65;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      .post-author p strong {
+        display: block;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #130F26;
+      }
+
+      .final-section {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 20px;
+        text-align: center;
+        background: #130F26;
+      }
+
+      .final-glow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 55% 60% at 50% 100%, rgba(115, 69, 253, 0.25), transparent 70%);
+      }
+
+      .final-section .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .final-badge {
+        display: inline-flex;
+        padding: 5px 12px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #C9BBFF;
+      }
+
+      .final-section h2 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: #F7F5FD;
+      }
+
+      .final-desc {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #7345FD, #4B2FBE);
+        font-family: 'Sora', sans-serif;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #F7F5FD;
+        text-decoration: none;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(115, 69, 253, 0.4);
+      }
+
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 36px;
+        }
+
+        .post-content :global(h2) {
+          font-size: 23px;
+        }
+
+        .final-section h2 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="floating-header">
+      <a class="brand" href="/" aria-label="One Impact — início">
+        <strong>One Impact</strong>
+      </a>
+      <a class="back-link" href="/blog">← Voltar ao blog</a>
+    </header>
+
+    <article>
+      <header class="post-hero">
+        <div class="post-hero-glow" aria-hidden="true"></div>
+        <div class="post-hero-dots" aria-hidden="true"></div>
+        <div class="post-hero-inner">
+          <nav class="breadcrumb" aria-label="Você está em">
+            <a href="/">Início</a>
+            <span aria-hidden="true">/</span>
+            <a href="/blog">Blog</a>
+            <span aria-hidden="true">/</span>
+            <span>{post.data.title}</span>
+          </nav>
+          <span class="post-category">{post.data.category}</span>
+          <h1>{post.data.title}</h1>
+          <p class="post-desc">{post.data.description}</p>
+          <p class="post-meta">
+            <span>Por <strong>{post.data.author}</strong></span>
+            <span>·</span>
+            <time datetime={post.data.datePublished.toISOString()}>Publicado em {fmtDate(post.data.datePublished)}</time>
+            {post.data.dateModified && (
+              <>
+                <span>·</span>
+                <time datetime={post.data.dateModified.toISOString()}>Atualizado em {fmtDate(post.data.dateModified)}</time>
+              </>
+            )}
+            <span>·</span>
+            <span>{readingTime} min de leitura</span>
+          </p>
+        </div>
+      </header>
+
+      {post.data.cover && (
+        <div class="post-cover">
+          <img src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} fetchpriority="high" />
+        </div>
+      )}
+
+      <div class="post-layout">
+        {toc.length > 1 && (
+          <nav class="post-toc" aria-label="Sumário do artigo">
+            <strong>Neste artigo</strong>
+            <ol>
+              {toc.map((h) => (
+                <li><a href={`#${h.slug}`}>{h.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        )}
+
+        <div class="post-content">
+          <Content />
+        </div>
+
+        {post.data.faq.length > 0 && (
+          <section class="post-faq">
+            <h2>Perguntas frequentes</h2>
+            {post.data.faq.map((item) => (
+              <article class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </article>
+            ))}
+          </section>
+        )}
+
+        <aside class="post-author">
+          <img class="post-author-avatar" src="/equipe-karoline-christie.webp" alt="Foto de Karoline Christie" loading="lazy" />
+          <p>
+            <strong>{post.data.author}</strong>
+            Sócia da One Impact, agência de criação de sites, identidade visual e automações para profissionais que querem ser encontrados e gerar clientes pela internet.
+          </p>
+        </aside>
+      </div>
+    </article>
+
+    <section class="final-section">
+      <div class="final-glow" aria-hidden="true"></div>
+      <div class="container">
+        <span class="final-badge">Vamos conversar</span>
+        <h2>Quer um site que aplica tudo isso por você?</h2>
+        <p class="final-desc">Conta pra gente sobre o seu negócio e receba um orçamento personalizado, sem compromisso.</p>
+        <a href={WHATSAPP} class="button" target="_blank" rel="noopener">
+          Falar com a One Impact
+        </a>
+      </div>
+    </section>
+
+    <script>
+      import Lenis from 'lenis'
+
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        })
+
+        function raf(time: number) {
+          lenis.raf(time)
+          requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+      }
+    </script>
+  </body>
+</html>
