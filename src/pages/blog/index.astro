@@ -6,9 +6,6 @@ const WHATSAPP = 'https://wa.me/5541988733518?text=' + encodeURIComponent('Olá!
 const posts = (await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true)))
   .sort((a, b) => b.data.datePublished.valueOf() - a.data.datePublished.valueOf())
 
-const featured = posts[0]
-const rest = posts.slice(1)
-
 const fmtDate = (d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
 const readingTime = (body: string | undefined) => Math.max(1, Math.round((body ? body.split(/\s+/).length : 0) / 200))
 
@@ -105,12 +102,32 @@ const blogSchema = {
         color: #130F26;
       }
 
-      .brand > strong {
+      .brand-logo {
+        height: 26px;
+        width: auto;
+        display: block;
+      }
+
+      .desktop-menu {
+        display: none;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .desktop-menu a {
+        padding: 8px 11px;
+        border-radius: 9999px;
         font-family: 'Sora', sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #130F26;
+        transition: color 0.2s ease, background 0.2s ease;
+      }
+
+      .desktop-menu a:hover {
+        color: #7345FD;
+        background: rgba(115, 69, 253, 0.09);
       }
 
       .back-link {
@@ -124,6 +141,12 @@ const blogSchema = {
 
       .back-link:hover {
         color: #7345FD;
+      }
+
+      @media (min-width: 900px) {
+        .desktop-menu {
+          display: flex;
+        }
       }
 
       .container {
@@ -202,42 +225,49 @@ const blogSchema = {
       }
 
       /* Destaque — post mais recente */
-      .featured-section {
-        padding: 8px 20px 24px;
+      /* Lista de posts — card horizontal, imagem + conteúdo */
+      .posts-section {
+        padding: 8px 20px 72px;
       }
 
-      .featured-card {
+      .posts-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .post-row {
         display: flex;
         flex-direction: column;
         overflow: hidden;
         border-radius: 5px;
         border: 1px solid rgba(19, 15, 38, 0.08);
         background: #FFFFFF;
-        box-shadow: 0 12px 36px rgba(19, 15, 38, 0.08);
+        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.06);
         text-decoration: none;
         transition: transform 0.25s ease, box-shadow 0.25s ease;
       }
 
-      .featured-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 44px rgba(115, 69, 253, 0.18);
+      .post-row:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 34px rgba(115, 69, 253, 0.14);
       }
 
-      .featured-media {
+      .post-row-media {
         position: relative;
         aspect-ratio: 16 / 9;
         overflow: hidden;
         background: linear-gradient(135deg, #130F26, #4B2FBE);
       }
 
-      .featured-media img {
+      .post-row-media img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
       }
 
-      .featured-media-fallback {
+      .post-row-media-fallback {
         position: absolute;
         inset: 0;
         display: flex;
@@ -245,34 +275,19 @@ const blogSchema = {
         justify-content: center;
       }
 
-      .featured-media-fallback span {
+      .post-row-media-fallback span {
         font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         letter-spacing: 0.06em;
         color: rgba(247, 245, 253, 0.9);
       }
 
-      .featured-tag {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        display: inline-flex;
-        padding: 5px 12px;
-        border-radius: 9999px;
-        background: #7345FD;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #F7F5FD;
-      }
-
-      .featured-body {
+      .post-row-body {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        padding: 24px 20px;
+        gap: 10px;
+        padding: 22px 20px;
       }
 
       .post-meta-row {
@@ -296,91 +311,29 @@ const blogSchema = {
         color: #4B2FBE;
       }
 
-      .featured-body h2 {
+      .post-row-body h2 {
         font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 21px;
+        font-size: 19px;
         font-weight: 700;
-        line-height: 1.3;
+        line-height: 1.35;
         color: #130F26;
       }
 
-      .featured-body > p {
+      .post-row-body p {
         font-size: 14px;
         font-weight: 300;
-        line-height: 1.75;
-        color: rgba(19, 15, 38, 0.7);
+        line-height: 1.7;
+        color: rgba(19, 15, 38, 0.68);
       }
 
       .read-link {
         display: inline-flex;
         align-items: center;
         gap: 6px;
+        margin-top: 4px;
         font-size: 13px;
-        font-weight: 600;
+        font-weight: 700;
         color: #7345FD;
-      }
-
-      /* Grid dos demais posts */
-      .posts-section {
-        padding: 8px 20px 72px;
-      }
-
-      .posts-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .post-card {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border-radius: 5px;
-        border: 1px solid rgba(19, 15, 38, 0.08);
-        background: #FFFFFF;
-        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.06);
-        text-decoration: none;
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-      }
-
-      .post-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 14px 34px rgba(115, 69, 253, 0.16);
-      }
-
-      .post-card-cover {
-        aspect-ratio: 16 / 9;
-        overflow: hidden;
-        background: linear-gradient(135deg, #130F26, #4B2FBE);
-      }
-
-      .post-card-cover img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-
-      .post-card-body {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px;
-      }
-
-      .post-card h2 {
-        font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 16.5px;
-        font-weight: 600;
-        line-height: 1.35;
-        color: #130F26;
-      }
-
-      .post-card p {
-        font-size: 13px;
-        font-weight: 300;
-        line-height: 1.7;
-        color: rgba(19, 15, 38, 0.68);
       }
 
       .posts-empty {
@@ -444,6 +397,10 @@ const blogSchema = {
         color: #F7F5FD;
       }
 
+      .final-section h2 .hl {
+        color: #C9BBFF;
+      }
+
       .final-desc {
         font-size: 14px;
         font-weight: 300;
@@ -476,27 +433,23 @@ const blogSchema = {
           font-size: 42px;
         }
 
-        .featured-card {
+        .post-row {
           flex-direction: row;
         }
 
-        .featured-media {
-          width: 52%;
+        .post-row-media {
+          width: 320px;
           aspect-ratio: auto;
           flex-shrink: 0;
         }
 
-        .featured-body {
+        .post-row-body {
           justify-content: center;
-          padding: 36px 32px;
+          padding: 28px 36px;
         }
 
-        .featured-body h2 {
-          font-size: 25px;
-        }
-
-        .posts-grid {
-          grid-template-columns: repeat(3, 1fr);
+        .post-row-body h2 {
+          font-size: 21px;
         }
 
         .final-section h2 {
@@ -511,13 +464,138 @@ const blogSchema = {
           transition: none;
         }
       }
+
+      /* Rodapé — mesmo padrão da home */
+      .footer {
+        background: #0D0A1A;
+        border-top: 1px solid rgba(115, 69, 253, 0.16);
+        padding: 56px 20px 0;
+        font-family: 'Sora', sans-serif;
+      }
+
+      .footer-container {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      .footer-col h4 {
+        margin: 0 0 14px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+      }
+
+      .footer-logo {
+        height: 34px;
+        width: auto;
+        display: block;
+      }
+
+      .footer-brand p {
+        margin: 10px 0 0;
+        max-width: 280px;
+        font-size: 12px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .footer-col ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .footer-col a {
+        font-size: 13px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.65);
+        transition: color 0.2s ease;
+      }
+
+      .footer-col a:hover {
+        color: #9774FE;
+      }
+
+      .footer-social {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer-social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid rgba(151, 116, 254, 0.3);
+        background: rgba(115, 69, 253, 0.1);
+        color: rgba(255, 255, 255, 0.75);
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .footer-social-icon:hover {
+        color: #FFFFFF;
+        border-color: rgba(151, 116, 254, 0.55);
+        background: rgba(115, 69, 253, 0.2);
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 12px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .footer-bottom span {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      @media (min-width: 900px) {
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 899px) {
+        .footer-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 32px;
+        }
+      }
     </style>
   </head>
   <body>
     <header class="floating-header">
       <a class="brand" href="/" aria-label="One Impact — início">
-        <strong>One Impact</strong>
+        <img src="/logo-one-impact-dark.svg" alt="One Impact" class="brand-logo" />
       </a>
+      <nav class="desktop-menu" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/#servicos">Serviços</a>
+        <a href="/#cases">Portfólio</a>
+        <a href="/#depoimentos">Depoimentos</a>
+        <a href="/#equipe">Sobre nós</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
       <a class="back-link" href="/">← Voltar ao início</a>
     </header>
 
@@ -533,54 +611,32 @@ const blogSchema = {
       </div>
     </section>
 
-    {featured && (
-      <section class="featured-section">
-        <div class="container" data-reveal-scroll>
-          <a class="featured-card reveal-fade" href={`/blog/${featured.id}`}>
-            <div class="featured-media">
-              {featured.data.cover ? (
-                <img src={featured.data.cover} alt={featured.data.coverAlt ?? featured.data.title} loading="eager" fetchpriority="high" />
-              ) : (
-                <span class="featured-media-fallback"><span>One Impact</span></span>
-              )}
-              <span class="featured-tag">Mais recente</span>
-            </div>
-            <div class="featured-body">
-              <span class="post-meta-row">
-                <span class="post-cat">{featured.data.category}</span>
-                <time datetime={featured.data.datePublished.toISOString()}>{fmtDate(featured.data.datePublished)}</time>
-                <span>·</span>
-                <span>{readingTime(featured.body)} min de leitura</span>
-              </span>
-              <h2>{featured.data.title}</h2>
-              <p>{featured.data.description}</p>
-              <span class="read-link">Ler artigo completo <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </div>
-      </section>
-    )}
-
     <section class="posts-section">
       <div class="container" data-reveal-scroll>
         {posts.length === 0 && (
           <p class="posts-empty reveal-fade">Os primeiros artigos estão sendo preparados. Volte em breve!</p>
         )}
-        {rest.length > 0 && (
-          <div class="posts-grid reveal-fade">
-            {rest.map((post) => (
-              <a class="post-card" href={`/blog/${post.id}`}>
-                <div class="post-card-cover">
-                  {post.data.cover && <img src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} loading="lazy" decoding="async" />}
+        {posts.length > 0 && (
+          <div class="posts-list reveal-fade">
+            {posts.map((post, i) => (
+              <a class="post-row" href={`/blog/${post.id}`}>
+                <div class="post-row-media">
+                  {post.data.cover ? (
+                    <img src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                  ) : (
+                    <span class="post-row-media-fallback"><span>One Impact</span></span>
+                  )}
                 </div>
-                <div class="post-card-body">
+                <div class="post-row-body">
                   <span class="post-meta-row">
                     <span class="post-cat">{post.data.category}</span>
                     <time datetime={post.data.datePublished.toISOString()}>{fmtDate(post.data.datePublished)}</time>
+                    <span>·</span>
+                    <span>{readingTime(post.body)} min de leitura</span>
                   </span>
                   <h2>{post.data.title}</h2>
                   <p>{post.data.description}</p>
-                  <span class="read-link">Ler artigo <span aria-hidden="true">→</span></span>
+                  <span class="read-link">Leia mais <span aria-hidden="true">→</span></span>
                 </div>
               </a>
             ))}
@@ -593,13 +649,56 @@ const blogSchema = {
       <div class="final-glow" aria-hidden="true"></div>
       <div class="container" data-reveal-scroll>
         <span class="final-badge reveal-fade">Vamos conversar</span>
-        <h2 class="reveal-fade">Quer um site que aplica tudo isso por você?</h2>
-        <p class="final-desc reveal-fade">Conta pra gente sobre o seu negócio e receba um orçamento personalizado, sem compromisso.</p>
+        <h2 class="reveal-fade">Pronto para organizar o <span class="hl">caos</span> do seu digital?</h2>
+        <p class="final-desc reveal-fade">Vamos entender o momento do seu negócio e construir uma presença digital que represente a qualidade do seu trabalho.</p>
         <a href={WHATSAPP} class="button reveal-fade" target="_blank" rel="noopener">
-          Falar com a One Impact
+          Solicitar proposta
         </a>
       </div>
     </section>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <img src="/logo-one-impact-white.svg" alt="One Impact" class="footer-logo" />
+            <p>Agência de posicionamento profissional. Organizamos o caos do seu digital com sites, automações e marca.</p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Navegação</h4>
+            <ul>
+              <li><a href="/">Início</a></li>
+              <li><a href="/#servicos">Serviços</a></li>
+              <li><a href="/#cases">Portfólio</a></li>
+              <li><a href="/#depoimentos">Depoimentos</a></li>
+              <li><a href="/#equipe">Sobre nós</a></li>
+              <li><a href="/#faq">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Contato</h4>
+            <div class="footer-social">
+              <a href="https://wa.me/5541988733518" class="footer-social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+                <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"/></svg>
+              </a>
+              <a href="/" class="footer-social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37a4 4 0 1 1-7.914 1.174A4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+              </a>
+              <a href="mailto:contato@agenciaoneimpact.com.br" class="footer-social-icon" aria-label="E-mail">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 One Impact — Todos os direitos reservados.</span>
+          <span>agenciaoneimpact.com.br</span>
+        </div>
+      </div>
+    </footer>
 
     <script>
       import Lenis from 'lenis'
