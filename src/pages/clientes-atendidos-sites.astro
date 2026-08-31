@@ -1,4 +1,8 @@
 ---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import WhatsappBar from '../components/WhatsappBar.astro'
+
 const cases = [
   {
     domain: 'casa3.com.br',
@@ -19,6 +23,8 @@ const cases = [
     name: 'Pett Capellato',
     desc: 'Hub que conecta arquitetos e designers de interiores a grandes fabricantes de mobiliário corporativo, atendendo projetos para Globo, Mercado Livre, Vale e Michelin. Construímos uma presença digital à altura dessas contas — e a evoluímos mês a mês desde 2022.',
     chips: ['Cliente desde 2022', 'Acompanhamento mensal', 'Cases: Globo, Mercado Livre, Vale, Michelin'],
+    preview: '/sites/pett-capellato/tela-1.webp',
+    projectPage: '/sites/pett-capellato',
   },
   {
     domain: 'fogacasantos.com.br',
@@ -113,6 +119,38 @@ const cases = [
     desc: 'Instituto de Formação de Líderes, referência em liderança, empreendedorismo e gestão. Site institucional que organiza a proposta do instituto e apresenta seus programas com o peso que a marca pede.',
     chips: [],
   },
+  {
+    domain: 'Site Corporativo',
+    url: null,
+    label: 'Consultoria Empresarial',
+    tag: 'Consultoria · Cogestão',
+    name: 'Sandro Britto · PlanExec',
+    desc: 'Consultoria empresarial com cogestão. Site corporativo criado para transmitir o profissionalismo e a credibilidade que o trabalho de Sandro Britto exige, à altura da experiência que ele entrega aos clientes.',
+    chips: [],
+    preview: '/sites/planexec/tela-1.webp',
+  },
+  {
+    domain: 'Site Médico',
+    url: null,
+    label: 'Site para Fisioterapeutas',
+    tag: 'Saúde · Fisioterapia',
+    name: 'Dr. Vicente Hennemann',
+    desc: 'Fisioterapeuta especialista em dor em Porto Alegre, professor sênior do Método McKenzie, com mais de 20 anos de atendimento. Site no modelo médico criado para apresentar seus serviços com o profissionalismo e a credibilidade que seu trabalho exige.',
+    chips: [],
+    preview: '/sites/vicente-hennemann/tela-1.jpg',
+    projectPage: '/sites/vicente-hennemann',
+  },
+  {
+    domain: 'Landing Page',
+    url: null,
+    label: 'Página de Vendas',
+    tag: 'Marketing · Funis de vendas',
+    name: 'Mateus Dias',
+    desc: 'Um dos maiores especialistas em marketing e referência em funis de vendas no Brasil. Landing page de vendas estruturada estrategicamente para destacar a autoridade do especialista e aumentar as chances de conversão.',
+    chips: [],
+    preview: '/sites/mateus-dias/tela-1.webp',
+    projectPage: '/sites/mateus-dias',
+  },
 ]
 ---
 
@@ -176,44 +214,6 @@ const cases = [
       .reveal-ready [data-scroll-reveal-card].is-visible {
         opacity: 1;
         transform: translate3d(0, 0, 0);
-      }
-
-      /* ── Header flutuante ── */
-      .floating-header {
-        position: fixed;
-        top: 16px;
-        left: 16px;
-        right: 16px;
-        z-index: 100;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 5px 5px 5px 16px;
-        border: 1px solid rgba(255, 255, 255, 0.58);
-        border-radius: 9999px;
-        background: rgba(247, 245, 253, 0.78);
-        box-shadow: 0 8px 28px rgba(19, 15, 38, 0.16);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        flex-shrink: 0;
-        text-decoration: none;
-        color: #130F26;
-      }
-
-      .brand > strong {
-        font-family: 'Sora', sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
       }
 
       /* ── Intro ── */
@@ -380,28 +380,31 @@ const cases = [
 
       .cases-grid {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .case-card {
         display: grid;
         grid-template-columns: 1fr;
-        align-items: stretch;
-        text-align: left;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 18px;
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
-        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        gap: 18px;
       }
 
       @media (min-width: 700px) {
-        .case-card {
-          grid-template-columns: 220px 1fr;
+        .cases-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
+      }
+
+      @media (min-width: 1000px) {
+        .cases-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .case-card {
+        display: block;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+        text-decoration: none;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
       }
 
       .case-card:hover {
@@ -410,178 +413,69 @@ const cases = [
         box-shadow: 0 20px 44px rgba(115, 69, 253, 0.2);
       }
 
-      /* Prévia do site — mock de navegador com o domínio real */
-      .site-preview {
-        width: 100%;
-        height: 140px;
+      .case-card-static {
+        cursor: default;
+      }
+
+      .case-card-static:hover {
+        transform: none;
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: none;
+      }
+
+      /* Barra de navegador — só as bolinhas, sem URL */
+      .case-preview-bar {
         display: flex;
-        flex-direction: column;
-        background: linear-gradient(160deg, #1c1733, #241d42);
+        align-items: center;
+        gap: 5px;
+        height: 26px;
+        padding: 0 12px;
+        background: rgba(255, 255, 255, 0.05);
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
 
-      @media (min-width: 700px) {
-        .site-preview {
-          height: 100%;
-          border-bottom: none;
-          border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-      }
-
-      .site-preview-bar {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 12px 8px;
-      }
-
-      .site-preview-dots {
-        display: flex;
-        gap: 4px;
-        flex-shrink: 0;
-      }
-
-      .site-preview-dots span {
+      .case-preview-bar span {
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.2);
       }
 
-      .site-preview-url {
-        flex: 1;
-        padding: 3px 9px;
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        font-family: 'Sora', sans-serif;
-        font-size: 10px;
-        color: rgba(255, 255, 255, 0.5);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      .case-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        object-position: center top;
       }
 
-      .site-preview-fill {
-        flex: 1;
-        margin: 0 12px 12px;
-        border-radius: 8px;
-        border: 1px solid rgba(19, 15, 38, 0.06);
+      .case-preview-fallback {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        padding: 12px;
         text-align: center;
-        background: #FFFFFF;
+        background: linear-gradient(160deg, #1c1733, #241d42);
       }
 
-      /* Prévia com print real do site */
-      .site-preview-fill-image {
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
-      }
-
-      .case-card-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 18px;
-      }
-
-      .site-preview-label {
+      .case-preview-fallback span {
         font-family: 'Sora', sans-serif;
         font-size: 10px;
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(19, 15, 38, 0.6);
+        color: rgba(255, 255, 255, 0.5);
       }
 
-      .case-card-body {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 22px;
-      }
-
-      .case-card-tag {
-        display: inline-flex;
-        padding: 3px 8px;
-        border-radius: 9999px;
-        border: 1px solid rgba(115, 69, 253, 0.32);
-        background: rgba(115, 69, 253, 0.14);
-        font-family: 'Sora', sans-serif;
-        font-size: 8px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #9774FE;
-      }
-
-      .case-card h3 {
-        margin: 0;
-        font-family: 'Zalando Sans Expanded', sans-serif;
-        font-size: 19px;
-        font-weight: 700;
-        line-height: 1.2;
-        color: #FFFFFF;
-      }
-
-      .case-card p {
-        margin: 0;
-        font-family: 'Sora', sans-serif;
-        font-size: 14px;
-        font-weight: 300;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.68);
-      }
-
-      .case-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 2px 0 0;
-      }
-
-      .case-chip {
-        display: inline-flex;
-        padding: 5px 11px;
-        border-radius: 9999px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.72);
-        font-family: 'Sora', sans-serif;
-        font-size: 11px;
-        font-weight: 600;
-      }
-
-      .service-card-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 6px;
-        padding: 10px 20px;
-        border-radius: 9999px;
-        border: 1px solid rgba(115, 69, 253, 0.5);
-        background: rgba(115, 69, 253, 0.14);
+      .case-card figcaption {
+        padding: 12px 14px;
         font-family: 'Sora', sans-serif;
         font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
-        color: #FFFFFF;
-        transition: gap 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .service-card-link span {
-        transition: transform 0.2s ease;
-      }
-
-      .service-card-link:hover {
-        gap: 11px;
-        background: rgba(115, 69, 253, 0.28);
-        transform: translateY(-2px);
-        box-shadow: 0 10px 26px rgba(115, 69, 253, 0.25);
+        font-weight: 600;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.9);
       }
 
       /* ── CTA final ── */
@@ -640,100 +534,6 @@ const cases = [
         100% { background-position: 300% 50%; }
       }
 
-      /* Rodapé corporativo — mesmo da /inicio-teste */
-      .footer {
-        background: #0D0A1A;
-        border-top: 1px solid rgba(115, 69, 253, 0.16);
-        padding: 56px 20px 0;
-        font-family: 'Sora', sans-serif;
-      }
-
-      .footer-container {
-        width: 100%;
-        max-width: 1140px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 36px;
-      }
-
-      .footer-col h4 {
-        margin: 0 0 14px;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #FFFFFF;
-      }
-
-      .footer-brand strong {
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        color: #FFFFFF;
-      }
-
-      .footer-brand p {
-        margin: 10px 0 0;
-        max-width: 280px;
-        font-size: 12px;
-        line-height: 1.7;
-        color: rgba(255, 255, 255, 0.6);
-      }
-
-      .footer-col ul {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .footer-col a {
-        font-size: 13px;
-        text-decoration: none;
-        color: rgba(255, 255, 255, 0.65);
-        transition: color 0.2s ease;
-      }
-
-      .footer-col a:hover {
-        color: #9774FE;
-      }
-
-      .footer-bottom {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        margin-top: 12px;
-        padding: 20px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .footer-bottom span {
-        font-size: 11px;
-        color: rgba(255, 255, 255, 0.45);
-      }
-
-      @media (min-width: 900px) {
-        .footer-grid {
-          display: grid;
-          grid-template-columns: 2fr 1fr 1fr;
-          gap: 40px;
-        }
-      }
-
-      @media (max-width: 899px) {
-        .footer-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 32px;
-        }
-      }
-
       @media (prefers-reduced-motion: reduce) {
         .orbit-layer,
         .button {
@@ -743,11 +543,7 @@ const cases = [
     </style>
   </head>
   <body>
-    <header class="floating-header">
-      <a class="brand" href="/" aria-label="One Impact — início">
-        <strong>One Impact</strong>
-      </a>
-    </header>
+    <Header />
 
     <div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
 
@@ -767,45 +563,29 @@ const cases = [
     <section class="cases-section">
       <div class="cases-container">
         <div class="cases-grid" data-reveal>
-          {cases.map((item) => (
-            <article class="case-card reveal-item">
-              <div class="site-preview">
-                <div class="site-preview-bar">
-                  <div class="site-preview-dots"><span></span><span></span><span></span></div>
-                  <div class="site-preview-url">{item.domain}</div>
-                </div>
+          {cases.map((item) => {
+            const href = item.projectPage || item.url || null
+            const external = !item.projectPage && Boolean(item.url)
+            const Tag = href ? 'a' : 'div'
+            return (
+              <Tag
+                class={`case-card reveal-item${href ? '' : ' case-card-static'}`}
+                href={href ?? undefined}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener' : undefined}
+              >
+                <span class="case-preview-bar" aria-hidden="true"><span></span><span></span><span></span></span>
                 {item.preview ? (
-                  <div class="site-preview-fill site-preview-fill-image" style={`background-image: url('${item.preview}')`} role="img" aria-label={`Prévia do site ${item.name}`}></div>
+                  <img src={item.preview} alt={`Site ${item.name}`} loading="lazy" decoding="async" />
                 ) : (
-                  <div class="site-preview-fill">
-                    <span class="site-preview-label">{item.label}</span>
+                  <div class="case-preview-fallback">
+                    <span>{item.label}</span>
                   </div>
                 )}
-              </div>
-              <div class="case-card-body">
-                <span class="case-card-tag">{item.tag}</span>
-                <h3>{item.name}</h3>
-                <p>{item.desc}</p>
-                <div class="case-chips">
-                  {item.chips.map((chip) => <span class="case-chip">{chip}</span>)}
-                </div>
-                <div class="case-card-links">
-                  {item.projectPage && (
-                    <a href={item.projectPage} class="service-card-link">
-                      Ver projeto
-                      <span aria-hidden="true">→</span>
-                    </a>
-                  )}
-                  {item.url && (
-                    <a href={item.url} class="service-card-link" target="_blank" rel="noopener">
-                      Visitar site
-                      <span aria-hidden="true">→</span>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </article>
-          ))}
+                <figcaption>{item.name} · {item.label}</figcaption>
+              </Tag>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -821,39 +601,8 @@ const cases = [
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-grid">
-          <div class="footer-col footer-brand">
-            <strong>One Impact</strong>
-            <p>Agência de posicionamento profissional. Organizamos o caos do seu digital com sites, automações e marca.</p>
-          </div>
-
-          <div class="footer-col">
-            <h4>Navegação</h4>
-            <ul>
-              <li><a href="/">Início</a></li>
-              <li><a href="/clientes-atendidos-sites">Clientes atendidos</a></li>
-              <li><a href="https://wa.me/5541988733518" target="_blank" rel="noopener">Contato</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h4>Contato</h4>
-            <ul>
-              <li><a href="https://wa.me/5541988733518" target="_blank" rel="noopener">WhatsApp</a></li>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="mailto:contato@agenciaoneimpact.com.br">contato@agenciaoneimpact.com.br</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <span>© 2026 One Impact — Todos os direitos reservados.</span>
-          <span>agenciaoneimpact.com.br</span>
-        </div>
-      </div>
-    </footer>
+    <Footer />
+    <WhatsappBar />
 
     <script>
       import Lenis from 'lenis'
