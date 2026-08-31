@@ -610,10 +610,7 @@ const ScoreGauge = ({ score }) => {
 const Result = ({ payload, onEdit }) => {
   const { score, sinais, nome, dashboard } = payload
   const faixa = getScoreFaixa(score)
-  const waMsg = encodeURIComponent(
-    `Olá! Acabei de fazer o diagnóstico digital da One Impact.\n\nNome: ${nome}\nPontuação: ${score}/100\nPerda estimada: ${fmt(dashboard.monthlyLoss)}/mês\n\nGostaria de receber o plano de ação completo.`
-  )
-  const waLink = `https://wa.me/5541988733518?text=${waMsg}`
+  const waLink = 'https://link.oneimpact.com.br/contato-whatsapp'
   const [showToast, setShowToast] = useState(true)
   useEffect(() => {
     const t = setTimeout(() => setShowToast(false), 4000)
