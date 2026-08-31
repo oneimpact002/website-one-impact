@@ -1,54 +1,102 @@
 ---
 const navItems = [
-  { label: 'Início', href: '#inicio' },
-  { label: 'Solução', href: '#solucao' },
-  { label: 'Como Funciona', href: '#como-funciona' },
-  { label: 'Contato', href: '#contato' },
-];
+  { label: 'Início', href: '/' },
+  { label: 'Serviços', href: '/servicos' },
+  { label: 'Portfólio', href: '/clientes-atendidos-sites' },
+  { label: 'Contato', href: '/#contato' },
+]
 ---
 
-<header style="position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 50; background-color: #0C0E10; border-radius: 100px; padding: 8px 8px 8px 24px; display: flex; align-items: center; gap: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
-  <!-- Logo -->
-  <a href="#inicio" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-    <span style="font-size: 15px; font-weight: 700; color: #F7FAFF; font-family: 'Sora', sans-serif;">One Impact</span>
+<header class="floating-header">
+  <a class="brand" href="/" aria-label="One Impact — início">
+    <img src="/logo-one-impact-dark.svg" alt="One Impact" class="brand-logo" />
   </a>
-
-  <!-- Desktop Menu -->
-  <ul style="display: none; align-items: center; gap: 4px;" class="desktop-menu">
-    {navItems.map((item) => (
-      <li>
-        <a
-          href={item.href}
-          style="font-size: 13px; font-weight: 500; color: rgba(247, 250, 255, 0.7); text-decoration: none; padding: 8px 14px; border-radius: 100px; transition: all 0.2s; font-family: 'Sora', sans-serif;"
-        >
-          {item.label}
-        </a>
-      </li>
-    ))}
-  </ul>
-
-  <!-- CTA -->
-  <a
-    href="#contato"
-    style="padding: 8px 18px; font-size: 13px; font-weight: 600; color: #0C0E10; background-color: #F7FAFF; border-radius: 100px; text-decoration: none; transition: all 0.2s; font-family: 'Sora', sans-serif;"
-  >
-    Contato
-  </a>
+  <nav class="desktop-menu" aria-label="Navegação principal">
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+  <a class="mobile-back-link" href="/">← Início</a>
 </header>
 
 <style>
-  @media (min-width: 768px) {
+  .floating-header {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    width: min(94%, 840px);
+    padding: 10px 16px;
+    border-radius: 9999px;
+    border: 1px solid rgba(19, 15, 38, 0.08);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 8px 28px rgba(19, 15, 38, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #130F26;
+  }
+
+  .brand-logo {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+
+  .desktop-menu {
+    display: none;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .desktop-menu a {
+    padding: 7px 9px;
+    border-radius: 9999px;
+    font-family: 'Sora', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #130F26;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+
+  .desktop-menu a:hover {
+    color: #7345FD;
+    background: rgba(115, 69, 253, 0.09);
+  }
+
+  .mobile-back-link {
+    flex-shrink: 0;
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgba(19, 15, 38, 0.7);
+    transition: color 0.2s ease;
+  }
+
+  .mobile-back-link:hover {
+    color: #7345FD;
+  }
+
+  @media (min-width: 900px) {
     .desktop-menu {
-      display: flex !important;
+      display: flex;
     }
-  }
 
-  header a:hover {
-    color: #F7FAFF !important;
-  }
-
-  header a[href="#contato"]:hover {
-    background-color: rgba(247, 250, 255, 0.9) !important;
-    transform: scale(1.05);
+    .mobile-back-link {
+      display: none;
+    }
   }
 </style>

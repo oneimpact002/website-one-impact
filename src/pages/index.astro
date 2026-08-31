@@ -544,6 +544,7 @@ const faqSchema = {
       .mobile-menu.is-open a:nth-child(5) { transition-delay: 0.28s; }
       .mobile-menu.is-open a:nth-child(6) { transition-delay: 0.33s; }
       .mobile-menu.is-open a:nth-child(7) { transition-delay: 0.38s; }
+      .mobile-menu.is-open a:nth-child(8) { transition-delay: 0.43s; }
 
       .mobile-menu .menu-cta {
         margin-top: auto;
@@ -2529,7 +2530,8 @@ const faqSchema = {
       @media (min-width: 900px) {
         .team-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, minmax(280px, 340px));
+          justify-content: center;
           gap: 20px;
         }
       }
@@ -3116,11 +3118,9 @@ const faqSchema = {
       <div class="header-actions">
         <nav class="desktop-menu" aria-label="Navegação principal">
           <a href="#inicio">Início</a>
-          <a href="#servicos">Serviços</a>
-          <a href="#cases">Portfólio</a>
-          <a href="#depoimentos">Depoimentos</a>
-          <a href="#equipe">Sobre nós</a>
-          <a href="#faq">FAQ</a>
+          <a href="/servicos">Serviços</a>
+          <a href="/clientes-atendidos-sites">Portfólio</a>
+          <a href="#contato">Contato</a>
         </nav>
 
         <a href="https://wa.me/5541988733518" class="header-cta" target="_blank" rel="noopener">
@@ -3148,12 +3148,9 @@ const faqSchema = {
 
     <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true" inert>
       <a href="#inicio"><span class="menu-index">01</span> Início</a>
-      <a href="#servicos"><span class="menu-index">02</span> Serviços</a>
-      <a href="#cases"><span class="menu-index">03</span> Portfólio</a>
-      <a href="#depoimentos"><span class="menu-index">04</span> Depoimentos</a>
-      <a href="#equipe"><span class="menu-index">05</span> Sobre nós</a>
-      <a href="#faq"><span class="menu-index">06</span> FAQ</a>
-      <a href="#contato"><span class="menu-index">07</span> Contato</a>
+      <a href="/servicos"><span class="menu-index">02</span> Serviços</a>
+      <a href="/clientes-atendidos-sites"><span class="menu-index">03</span> Portfólio</a>
+      <a href="#contato"><span class="menu-index">04</span> Contato</a>
       <a href="https://wa.me/5541988733518" class="menu-cta" target="_blank" rel="noopener">Chamar no WhatsApp</a>
     </nav>
 
@@ -3472,8 +3469,8 @@ const faqSchema = {
               <span class="bento-chip">Revitalização de marca</span>
             </div>
             <p class="bento-note">Serviço disponível apenas na contratação dos outros.</p>
-            <a href="/clientes-atendidos-id-visual" class="bento-link">
-              Ver identidades criadas
+            <a href="#contato" class="bento-link">
+              Falar com a gente
               <span aria-hidden="true">→</span>
             </a>
           </article>
@@ -3639,18 +3636,6 @@ const faqSchema = {
         <div class="team-grid reveal-fade">
           <article class="team-card">
             <div class="team-card-photo">
-              <img src="/equipe-christine-lopreto.webp" alt="Christine Lopreto" loading="lazy" decoding="async" />
-            </div>
-            <div class="team-card-body">
-              <h3>Christine Lopreto</h3>
-              <span class="team-card-role">Cofundadora · Estratégia de Marca</span>
-              <p class="is-clamped">Designer e estrategista especialista em marcas e reposicionamento, com trajetória construída atendendo clientes no Brasil e no exterior, em segmentos muito diferentes entre si. Essa bagagem une design, estratégia de marca, mídias sociais e estratégias de divulgação em um repertório raro de encontrar em uma pessoa só. Toda essa experiência tem peso direto no desenvolvimento do posicionamento estratégico dos projetos da One Impact, ajudando cada marca a nascer com uma base sólida muito antes da primeira tela ser desenhada.</p>
-              <button type="button" class="team-readmore" aria-expanded="false">Ler mais</button>
-            </div>
-          </article>
-
-          <article class="team-card">
-            <div class="team-card-photo">
               <img src="/equipe-gabrielle-christie.webp" alt="Gabrielle Christie" loading="lazy" decoding="async" />
             </div>
             <div class="team-card-body">
@@ -3742,11 +3727,9 @@ const faqSchema = {
             <h4>Navegação</h4>
             <ul>
               <li><a href="#inicio">Início</a></li>
-              <li><a href="#servicos">Serviços</a></li>
-              <li><a href="#cases">Portfólio</a></li>
-              <li><a href="#depoimentos">Depoimentos</a></li>
-              <li><a href="#equipe">Sobre nós</a></li>
-              <li><a href="#faq">FAQ</a></li>
+              <li><a href="/servicos">Serviços</a></li>
+              <li><a href="/clientes-atendidos-sites">Portfólio</a></li>
+              <li><a href="#contato">Contato</a></li>
             </ul>
           </div>
 
