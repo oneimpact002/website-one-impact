@@ -1,15 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
-
-let _supabase = null
-function getSupabase() {
-  if (!_supabase) {
-    _supabase = createClient(
-      'https://nhbpvmfrdsttbnbdsqlo.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oYnB2bWZyZHN0dGJuYmRzcWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODQ3OTAsImV4cCI6MjA5ODA2MDc5MH0.a07JFkGNRjTKPxFtj0O0gQpY4JiW1ANH90rdBP8Ti7U'
-    )
-  }
-  return _supabase
-}
+import { salvarLead, ORIGENS, getUTMParams } from '../../../lib/leads.js'
 
 const LABELS = {
   segmento: { juridico: 'Advocacia / Jurídico', saude: 'Saúde', contabil: 'Contábil / Financeiro', tech: 'Tecnologia / SaaS / Agência digital', educacao: 'Educação / Cursos / Coaching / Mentoria', imobiliario: 'Imobiliário', estetica: 'Estética / Beleza / Bem-estar', construcao: 'Engenharia / Construção / Arquitetura', varejo: 'Varejo / E-commerce / Produto físico', alimentacao: 'Alimentação', industria: 'Indústria / Logística / Operacional', outro: 'Outro segmento' },
@@ -65,16 +54,7 @@ export function formatWhatsApp(value) {
   return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`
 }
 
-export function getUTMParams() {
-  if (typeof window === 'undefined') return {}
-  const params = new URLSearchParams(window.location.search)
-  return {
-    utm_source: params.get('utm_source') || 'direct',
-    utm_medium: params.get('utm_medium') || '',
-    utm_campaign: params.get('utm_campaign') || '',
-    utm_content: params.get('utm_content') || '',
-  }
-}
+export { getUTMParams }
 
 export function trackEvent(event, data = {}) {
   if (typeof window === 'undefined') return
@@ -113,19 +93,18 @@ async function submitToRenvChatViaWorker(payload) {
 }
 
 export async function submitToRenvChat(payload) {
-  const utm = getUTMParams()
-
+  // As respostas do diagnostico sao especificas desta frente, entao vao em
+  // `extras` na tabela central em vez de virar coluna.
   const [supabaseResult, renvResult] = await Promise.allSettled([
-    getSupabase().from('leads').insert({
+    salvarLead({
+      origem: ORIGENS.diagnostico,
       nome: payload.nome,
-      whatsapp: payload.whatsapp,
       email: payload.email,
-      pessoal_confirm: payload.pessoalConfirm,
-      answers: toLabels(payload.answers),
-      utm_source: utm.utm_source,
-      utm_medium: utm.utm_medium,
-      utm_campaign: utm.utm_campaign,
-      utm_content: utm.utm_content,
+      telefone: payload.whatsapp,
+      extras: {
+        respostas: toLabels(payload.answers),
+        pessoal_confirm: payload.pessoalConfirm,
+      },
     }),
     submitToRenvChatViaWorker(payload),
   ])

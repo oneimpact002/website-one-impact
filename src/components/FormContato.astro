@@ -1,0 +1,332 @@
+---
+// Formulário de contato da home, na seção #contato. Grava na tabela central de
+// leads com origem 'contato'.
+//
+// É Astro puro com um script de módulo, e não um componente React, de propósito:
+// a home hoje não carrega React nenhum, e não vale puxar a biblioteca inteira
+// por causa de um formulário de cinco campos.
+const SERVICOS = [
+  'Criação de site',
+  'Automações inteligentes',
+  'Identidade visual',
+  'Ainda não sei, quero entender',
+]
+const WHATSAPP = 'https://link.oneimpact.com.br/contato-whatsapp'
+---
+
+<div class="contato-wrap">
+  <form class="contato-form" id="form-contato" novalidate>
+    <div class="contato-linha">
+      <div class="contato-campo">
+        <label for="contato-nome">Nome</label>
+        <input type="text" id="contato-nome" name="nome" autocomplete="name" placeholder="Seu nome completo" />
+        <span class="contato-erro" data-erro="nome" aria-live="polite"></span>
+      </div>
+
+      <div class="contato-campo">
+        <label for="contato-whatsapp">WhatsApp</label>
+        <input type="tel" id="contato-whatsapp" name="whatsapp" autocomplete="tel" inputmode="numeric" placeholder="(21) 90000-0000" />
+        <span class="contato-erro" data-erro="whatsapp" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="contato-linha">
+      <div class="contato-campo">
+        <label for="contato-email">E-mail</label>
+        <input type="email" id="contato-email" name="email" autocomplete="email" placeholder="voce@empresa.com.br" />
+        <span class="contato-erro" data-erro="email" aria-live="polite"></span>
+      </div>
+
+      <div class="contato-campo">
+        <label for="contato-servico">O que você procura</label>
+        <select id="contato-servico" name="servico">
+          {SERVICOS.map((s) => <option value={s}>{s}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <div class="contato-campo">
+      <label for="contato-mensagem">Conte um pouco do seu projeto <span class="contato-opcional">(opcional)</span></label>
+      <textarea id="contato-mensagem" name="mensagem" rows="3" placeholder="O que você tem hoje e onde quer chegar."></textarea>
+    </div>
+
+    <button type="submit" class="contato-enviar">Enviar mensagem</button>
+    <p class="contato-falha" data-falha aria-live="assertive"></p>
+  </form>
+
+  <div class="contato-sucesso" id="contato-sucesso" hidden>
+    <h3>Recebemos sua mensagem</h3>
+    <p>A gente responde em até um dia útil. Se preferir adiantar, chama no WhatsApp.</p>
+    <a href={WHATSAPP} class="contato-zap" target="_blank" rel="noopener">Falar no WhatsApp agora</a>
+  </div>
+</div>
+
+<style>
+  .contato-wrap {
+    width: 100%;
+    max-width: 620px;
+    margin: 28px auto 0;
+    text-align: left;
+  }
+
+  .contato-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px;
+    border: 1px solid rgba(151, 116, 254, 0.28);
+    border-radius: 10px;
+    background: rgba(19, 15, 38, 0.72);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.34);
+  }
+
+  .contato-linha {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contato-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .contato-campo label {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary, rgba(247, 250, 255, 0.75));
+  }
+
+  .contato-opcional {
+    color: var(--text-muted, #7B7582);
+    font-weight: 400;
+  }
+
+  .contato-campo input,
+  .contato-campo select,
+  .contato-campo textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border, #3c3847);
+    border-radius: 5px;
+    background: var(--bg-input, #1f1b2e);
+    color: var(--text-primary, #F7FAFF);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .contato-campo textarea {
+    resize: vertical;
+    min-height: 84px;
+  }
+
+  .contato-campo input::placeholder,
+  .contato-campo textarea::placeholder {
+    color: var(--text-muted, #7B7582);
+  }
+
+  .contato-campo input:focus,
+  .contato-campo select:focus,
+  .contato-campo textarea:focus {
+    outline: none;
+    border-color: #9774FE;
+    box-shadow: 0 0 0 3px rgba(115, 69, 253, 0.22);
+  }
+
+  .contato-campo select {
+    appearance: none;
+    cursor: pointer;
+    /* Seta desenhada como fundo: o triangulo nativo do select nao aceita cor e
+       fica preto sobre o fundo escuro em boa parte dos navegadores. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%237B7582' stroke-width='2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .contato-campo select option {
+    background: #1f1b2e;
+    color: #F7FAFF;
+  }
+
+  .contato-campo input[aria-invalid='true'] {
+    border-color: #ef4444;
+  }
+
+  .contato-erro:empty {
+    display: none;
+  }
+
+  .contato-erro {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    color: #ff8f8f;
+  }
+
+  .contato-enviar {
+    margin-top: 4px;
+    padding: 15px 24px;
+    border: 1px solid #9774FE;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
+    background-size: 300% 100%;
+    color: #FFFFFF;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(115, 69, 253, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contato-enviar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(115, 69, 253, 0.45);
+  }
+
+  .contato-enviar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .contato-falha:empty {
+    display: none;
+  }
+
+  .contato-falha {
+    margin: 0;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    color: #ff8f8f;
+    text-align: center;
+  }
+
+  .contato-sucesso {
+    padding: 40px 28px;
+    border: 1px solid rgba(151, 116, 254, 0.28);
+    border-radius: 10px;
+    background: rgba(19, 15, 38, 0.72);
+    text-align: center;
+  }
+
+  .contato-sucesso h3 {
+    margin: 0 0 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary, #F7FAFF);
+  }
+
+  .contato-sucesso p {
+    margin: 0 0 20px;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary, rgba(247, 250, 255, 0.75));
+  }
+
+  .contato-zap {
+    display: inline-block;
+    padding: 13px 28px;
+    border: 1px solid #9774FE;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #9774FE, #7446FD, #9774FE);
+    color: #FFFFFF;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .contato-linha {
+      grid-template-columns: 1fr;
+    }
+
+    .contato-form {
+      padding: 22px 18px;
+    }
+  }
+</style>
+
+<script>
+  import { salvarLead, ORIGENS } from '../lib/leads.js'
+  import { validarNome, validarEmail, validarWhatsApp, formatarWhatsApp } from '../lib/validacao.js'
+
+  const form = document.getElementById('form-contato')
+  const sucesso = document.getElementById('contato-sucesso')
+
+  if (form && sucesso) {
+    const campoWhatsapp = form.querySelector('#contato-whatsapp')
+    const botao = form.querySelector('.contato-enviar')
+    const falha = form.querySelector('[data-falha]')
+    let enviando = false
+
+    campoWhatsapp.addEventListener('input', (e) => {
+      e.target.value = formatarWhatsApp(e.target.value)
+    })
+
+    function mostrarErro(campo, mensagem) {
+      form.querySelector('[data-erro="' + campo + '"]').textContent = mensagem
+      form.querySelector('#contato-' + campo).setAttribute('aria-invalid', String(Boolean(mensagem)))
+    }
+
+    function validar(dados) {
+      const erros = {
+        nome: validarNome(dados.nome) ? '' : 'Escreva seu nome e sobrenome.',
+        email: validarEmail(dados.email) ? '' : 'Confira o e-mail.',
+        whatsapp: validarWhatsApp(dados.whatsapp) ? '' : 'Confira o número com DDD.',
+      }
+      Object.entries(erros).forEach(([campo, msg]) => mostrarErro(campo, msg))
+
+      const primeiroErro = Object.entries(erros).find(([, msg]) => msg)
+      if (primeiroErro) {
+        form.querySelector('#contato-' + primeiroErro[0]).focus()
+        return false
+      }
+      return true
+    }
+
+    form.addEventListener('submit', async (evento) => {
+      evento.preventDefault()
+      if (enviando) return
+
+      const dados = Object.fromEntries(new FormData(form))
+      falha.textContent = ''
+      if (!validar(dados)) return
+
+      enviando = true
+      botao.disabled = true
+      botao.textContent = 'Enviando...'
+
+      const resultado = await salvarLead({
+        origem: ORIGENS.contato,
+        nome: dados.nome.trim(),
+        email: dados.email.trim(),
+        telefone: dados.whatsapp.trim(),
+        servico: dados.servico,
+        mensagem: dados.mensagem.trim() || null,
+      })
+
+      if (resultado.ok) {
+        form.hidden = true
+        sucesso.hidden = false
+        sucesso.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
+      }
+
+      // Não perder o lead por causa de uma falha de rede: o formulário volta ao
+      // normal e o WhatsApp continua como saída.
+      enviando = false
+      botao.disabled = false
+      botao.textContent = 'Enviar mensagem'
+      falha.textContent = 'Não conseguimos enviar agora. Tente de novo ou chame no WhatsApp.'
+    })
+  }
+</script>
