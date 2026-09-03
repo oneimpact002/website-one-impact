@@ -1,4 +1,6 @@
 ---
+import ListaSuspensa from './ListaSuspensa.astro'
+
 // Formulário de contato do site, em /contato. Grava na tabela central de leads
 // com origem 'contato'.
 //
@@ -33,6 +35,8 @@ const FATURAMENTO = [
   'Prefiro não informar',
 ]
 
+const JA_TEM_SITE = ['Não', 'Sim', 'Tenho, mas está desatualizado']
+
 const COMO_CONHECEU = [
   'YouTube',
   'Instagram',
@@ -53,25 +57,19 @@ const COMO_CONHECEU = [
     <fieldset class="etapa" data-etapa="1">
       <legend class="etapa-titulo">Sobre o projeto</legend>
 
-      <div class="contato-campo">
-        <label for="contato-tipo-site">Que tipo de site você precisa</label>
-        <select id="contato-tipo-site" name="tipoSite">
-          <option value="">Escolha uma opção</option>
-          {TIPOS_SITE.map((t) => <option value={t}>{t}</option>)}
-        </select>
-        <span class="contato-erro" data-erro="tipo-site" aria-live="polite"></span>
-      </div>
+      <ListaSuspensa
+        id="contato-tipo-site"
+        name="tipoSite"
+        label="Que tipo de site você precisa"
+        opcoes={TIPOS_SITE}
+      />
 
-      <div class="contato-campo">
-        <label for="contato-ja-tem-site">Você já tem site hoje</label>
-        <select id="contato-ja-tem-site" name="jaTemSite">
-          <option value="">Escolha uma opção</option>
-          <option value="Não">Não</option>
-          <option value="Sim">Sim</option>
-          <option value="Tenho, mas está desatualizado">Tenho, mas está desatualizado</option>
-        </select>
-        <span class="contato-erro" data-erro="ja-tem-site" aria-live="polite"></span>
-      </div>
+      <ListaSuspensa
+        id="contato-ja-tem-site"
+        name="jaTemSite"
+        label="Você já tem site hoje"
+        opcoes={JA_TEM_SITE}
+      />
     </fieldset>
 
     <fieldset class="etapa" data-etapa="2" hidden>
@@ -98,23 +96,19 @@ const COMO_CONHECEU = [
         <span class="contato-erro" data-erro="segmento" aria-live="polite"></span>
       </div>
 
-      <div class="contato-campo">
-        <label for="contato-faturamento">Média de faturamento</label>
-        <select id="contato-faturamento" name="faturamento">
-          <option value="">Escolha uma opção</option>
-          {FATURAMENTO.map((f) => <option value={f}>{f}</option>)}
-        </select>
-        <span class="contato-erro" data-erro="faturamento" aria-live="polite"></span>
-      </div>
+      <ListaSuspensa
+        id="contato-faturamento"
+        name="faturamento"
+        label="Média de faturamento"
+        opcoes={FATURAMENTO}
+      />
 
-      <div class="contato-campo">
-        <label for="contato-como-conheceu">Como você conheceu nosso trabalho</label>
-        <select id="contato-como-conheceu" name="comoConheceu">
-          <option value="">Escolha uma opção</option>
-          {COMO_CONHECEU.map((c) => <option value={c}>{c}</option>)}
-        </select>
-        <span class="contato-erro" data-erro="como-conheceu" aria-live="polite"></span>
-      </div>
+      <ListaSuspensa
+        id="contato-como-conheceu"
+        name="comoConheceu"
+        label="Como você conheceu nosso trabalho"
+        opcoes={COMO_CONHECEU}
+      />
     </fieldset>
 
     <fieldset class="etapa" data-etapa="4" hidden>
@@ -520,8 +514,13 @@ const COMO_CONHECEU = [
         const aviso = form.querySelector('[data-erro="' + chave + '"]')
         const ok = ehValido(campo.value)
         aviso.textContent = ok ? '' : MENSAGENS[chave]
-        campo.setAttribute('aria-invalid', String(!ok))
-        if (!ok && !primeiroInvalido) primeiroInvalido = campo
+
+        // Nas listas suspensas o campo é um input escondido: pintar a borda
+        // dele não apareceria. Quem recebe o aviso visual é o botão.
+        const gatilho = campo.parentElement?.querySelector('[data-gatilho]')
+        const alvo = gatilho ?? campo
+        alvo.setAttribute('aria-invalid', String(!ok))
+        if (!ok && !primeiroInvalido) primeiroInvalido = alvo
       }
 
       if (primeiroInvalido) {

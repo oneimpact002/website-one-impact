@@ -1,0 +1,277 @@
+---
+// Lista suspensa desenhada por nós.
+//
+// O <select> nativo foi descartado de propósito: o painel de opções que ele
+// abre é desenhado pelo sistema operacional e não aceita CSS nenhum, então
+// ficava uma lista branca com destaque azul no meio de um site escuro.
+//
+// O valor continua saindo num <input type="hidden">, que carrega o id e o name
+// do campo. Assim o FormData e a validação do formulário funcionam igual a
+// qualquer outro campo, sem saber que isto aqui não é um select.
+interface Props {
+  id: string
+  name: string
+  label: string
+  opcoes: string[]
+  placeholder?: string
+}
+
+const { id, name, label, opcoes, placeholder = 'Escolha uma opção' } = Astro.props
+---
+
+<div class="contato-campo">
+  <span class="lista-rotulo" id={`${id}-rotulo`}>{label}</span>
+
+  <div class="lista" data-lista>
+    <input type="hidden" id={id} name={name} value="" />
+
+    <button
+      type="button"
+      class="lista-gatilho"
+      data-gatilho
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-labelledby={`${id}-rotulo ${id}-valor`}
+    >
+      <span class="lista-valor lista-vazio" id={`${id}-valor`} data-valor>{placeholder}</span>
+      <span class="lista-seta" aria-hidden="true"></span>
+    </button>
+
+    <div class="lista-painel" role="listbox" aria-labelledby={`${id}-rotulo`} data-painel hidden>
+      {
+        opcoes.map((opcao) => (
+          <button type="button" class="lista-opcao" role="option" aria-selected="false" data-opcao data-valor-opcao={opcao}>
+            {opcao}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <span class="contato-erro" data-erro={id.replace('contato-', '')} aria-live="polite"></span>
+</div>
+
+<style>
+  /* Repetidos de propósito: o Astro isola o CSS por componente, então o que
+     está no FormContato não alcança o que é desenhado aqui. */
+  .contato-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .contato-erro:empty {
+    display: none;
+  }
+
+  .contato-erro {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    color: #ff8f8f;
+  }
+
+  .lista-rotulo {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(247, 250, 255, 0.75);
+  }
+
+  .lista {
+    position: relative;
+  }
+
+  .lista-gatilho {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 14px;
+    border: 1px solid #3c3847;
+    border-radius: 5px;
+    background: #1f1b2e;
+    color: #F7FAFF;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .lista-gatilho:hover {
+    border-color: #6b5aa8;
+  }
+
+  .lista-gatilho:focus-visible,
+  .lista-gatilho[aria-expanded='true'] {
+    outline: none;
+    border-color: #9774FE;
+    box-shadow: 0 0 0 3px rgba(115, 69, 253, 0.22);
+  }
+
+  .lista-gatilho[aria-invalid='true'] {
+    border-color: #ef4444;
+  }
+
+  .lista-vazio {
+    color: #7B7582;
+  }
+
+  .lista-seta {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #7B7582;
+    border-bottom: 2px solid #7B7582;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.18s ease;
+  }
+
+  .lista-gatilho[aria-expanded='true'] .lista-seta {
+    transform: translateY(2px) rotate(-135deg);
+    border-color: #9774FE;
+  }
+
+  .lista-painel {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    display: flex;
+    max-height: 252px;
+    flex-direction: column;
+    gap: 2px;
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid rgba(151, 116, 254, 0.34);
+    border-radius: 8px;
+    background: #16121f;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.6);
+    animation: abrir 140ms ease;
+  }
+
+  .lista-painel[hidden] {
+    display: none;
+  }
+
+  @keyframes abrir {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Barra de rolagem discreta, porque a lista de tipo de site é longa */
+  .lista-painel::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .lista-painel::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(151, 116, 254, 0.34);
+  }
+
+  .lista-opcao {
+    padding: 11px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: rgba(247, 250, 255, 0.78);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+
+  .lista-opcao:hover,
+  .lista-opcao:focus-visible {
+    outline: none;
+    background: rgba(115, 69, 253, 0.2);
+    color: #FFFFFF;
+  }
+
+  .lista-opcao[aria-selected='true'] {
+    background: rgba(115, 69, 253, 0.3);
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Uma única passagem cuida de todas as listas da página: o Astro inclui este
+  // script uma vez só, mesmo com o componente repetido.
+  const listas = document.querySelectorAll('[data-lista]')
+
+  function fecharTodas(exceto) {
+    listas.forEach((lista) => {
+      if (lista === exceto) return
+      lista.querySelector('[data-painel]').hidden = true
+      lista.querySelector('[data-gatilho]').setAttribute('aria-expanded', 'false')
+    })
+  }
+
+  listas.forEach((lista) => {
+    const campo = lista.querySelector('input[type="hidden"]')
+    const gatilho = lista.querySelector('[data-gatilho]')
+    const painel = lista.querySelector('[data-painel]')
+    const rotulo = lista.querySelector('[data-valor]')
+    const opcoes = [...lista.querySelectorAll('[data-opcao]')]
+
+    function abrir(mostrar) {
+      painel.hidden = !mostrar
+      gatilho.setAttribute('aria-expanded', String(mostrar))
+      if (mostrar) {
+        fecharTodas(lista)
+        const marcada = opcoes.find((o) => o.getAttribute('aria-selected') === 'true')
+        ;(marcada ?? opcoes[0])?.focus()
+      }
+    }
+
+    gatilho.addEventListener('click', () => abrir(painel.hidden))
+
+    opcoes.forEach((opcao) => {
+      opcao.addEventListener('click', () => {
+        const valor = opcao.dataset.valorOpcao
+        campo.value = valor
+        rotulo.textContent = valor
+        rotulo.classList.remove('lista-vazio')
+        opcoes.forEach((o) => o.setAttribute('aria-selected', String(o === opcao)))
+
+        // Escolher já limpa o aviso de erro daquele campo.
+        gatilho.setAttribute('aria-invalid', 'false')
+        const aviso = lista.parentElement.querySelector('[data-erro]')
+        if (aviso) aviso.textContent = ''
+
+        abrir(false)
+        gatilho.focus()
+      })
+    })
+
+    // Setas percorrem a lista aberta, como num select de verdade.
+    painel.addEventListener('keydown', (evento) => {
+      const indice = opcoes.indexOf(document.activeElement)
+      if (evento.key === 'ArrowDown' || evento.key === 'ArrowUp') {
+        evento.preventDefault()
+        const passo = evento.key === 'ArrowDown' ? 1 : -1
+        const proximo = (indice + passo + opcoes.length) % opcoes.length
+        opcoes[proximo].focus()
+      }
+    })
+  })
+
+  document.addEventListener('click', (evento) => {
+    if (!evento.target.closest('[data-lista]')) fecharTodas(null)
+  })
+
+  document.addEventListener('keydown', (evento) => {
+    if (evento.key === 'Escape') fecharTodas(null)
+  })
+</script>
