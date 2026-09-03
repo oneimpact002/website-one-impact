@@ -685,7 +685,7 @@ const Result = ({ payload, onEdit }) => {
             ))}
           </ul>
           <a
-            href="https://wa.me/5500000000000"
+            href="https://link.oneimpact.com.br/contato-agencia-one-impact"
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full text-center py-4 rounded-xl font-bold text-base bg-gradient-to-r from-[#5907DB] via-[#8539FF] to-[#677BFF] text-white shadow-[0_0_30px_rgba(133,57,255,0.4)] hover:scale-[1.01] active:scale-[0.99] transition-transform"

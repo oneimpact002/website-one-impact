@@ -610,7 +610,7 @@ const ScoreGauge = ({ score }) => {
 const Result = ({ payload, onEdit }) => {
   const { score, sinais, nome, dashboard } = payload
   const faixa = getScoreFaixa(score)
-  const waLink = 'https://link.oneimpact.com.br/contato-whatsapp'
+  const waLink = 'https://link.oneimpact.com.br/contato-agencia-one-impact'
   const [showToast, setShowToast] = useState(true)
   useEffect(() => {
     const t = setTimeout(() => setShowToast(false), 4000)
@@ -1057,7 +1057,7 @@ const _ResultOld = ({ payload, onEdit }) => {
             Falamos com você em até 24h com a análise detalhada, as 10 ações priorizadas e o caminho prático dos próximos 90 dias.
           </p>
           <a
-            href="https://wa.me/5500000000000?text=Quero%20receber%20o%20plano%20completo%20do%20diagn%C3%B3stico"
+            href="https://link.oneimpact.com.br/contato-agencia-one-impact?text=Quero%20receber%20o%20plano%20completo%20do%20diagn%C3%B3stico"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 sm:px-8 py-4 rounded-xl font-bold bg-white text-gray-900 hover:bg-gray-100 transition-colors"
