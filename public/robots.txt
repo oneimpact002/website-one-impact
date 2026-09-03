@@ -1,0 +1,11 @@
+# Diz aos buscadores o que podem rastrear e onde está a lista de páginas.
+
+User-agent: *
+Allow: /
+
+# Páginas que existem só para redirecionar endereços antigos. Não têm conteúdo
+# próprio, então não há o que indexar nelas.
+Disallow: /clientes-atendidos-id-visual
+Disallow: /id-visual/
+
+Sitemap: https://agenciaoneimpact.com.br/sitemap-index.xml
