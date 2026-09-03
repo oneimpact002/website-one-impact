@@ -3,15 +3,17 @@
 // leads com origem 'contato'.
 //
 // É Astro puro com um script de módulo, e não um componente React, de propósito:
-// a home hoje não carrega React nenhum, e não vale puxar a biblioteca inteira
+// nenhuma página do site carrega React, e não vale puxar a biblioteca inteira
 // por causa de um formulário de cinco campos.
+//
+// Vive em /contato. O link curto contato-agencia-one-impact aponta pra lá, então
+// todo botão de contato do site desemboca aqui.
 const SERVICOS = [
   'Criação de site',
   'Automações inteligentes',
   'Identidade visual',
   'Ainda não sei, quero entender',
 ]
-const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact'
 ---
 
 <div class="contato-wrap">
@@ -24,7 +26,7 @@ const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact'
       </div>
 
       <div class="contato-campo">
-        <label for="contato-whatsapp">WhatsApp</label>
+        <label for="contato-whatsapp">Contato</label>
         <input type="tel" id="contato-whatsapp" name="whatsapp" autocomplete="tel" inputmode="numeric" placeholder="(21) 90000-0000" />
         <span class="contato-erro" data-erro="whatsapp" aria-live="polite"></span>
       </div>
@@ -56,8 +58,8 @@ const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact'
 
   <div class="contato-sucesso" id="contato-sucesso" hidden>
     <h3>Recebemos sua mensagem</h3>
-    <p>A gente responde em até um dia útil. Se preferir adiantar, chama no WhatsApp.</p>
-    <a href={WHATSAPP} class="contato-zap" target="_blank" rel="noopener">Falar no WhatsApp agora</a>
+    <p>A gente responde em até um dia útil, no contato que você deixou.</p>
+    <a href="/clientes-atendidos-sites" class="contato-zap">Enquanto isso, veja o que já entregamos</a>
   </div>
 </div>
 
@@ -322,11 +324,11 @@ const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact'
       }
 
       // Não perder o lead por causa de uma falha de rede: o formulário volta ao
-      // normal e o WhatsApp continua como saída.
+      // normal para a pessoa tentar de novo.
       enviando = false
       botao.disabled = false
       botao.textContent = 'Enviar mensagem'
-      falha.textContent = 'Não conseguimos enviar agora. Tente de novo ou chame no WhatsApp.'
+      falha.textContent = 'Não conseguimos enviar agora. Tente de novo em instantes.'
     })
   }
 </script>
