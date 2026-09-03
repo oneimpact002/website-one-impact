@@ -1,64 +1,162 @@
 ---
-// Formulário de contato da home, na seção #contato. Grava na tabela central de
-// leads com origem 'contato'.
+// Formulário de contato do site, em /contato. Grava na tabela central de leads
+// com origem 'contato'.
 //
 // É Astro puro com um script de módulo, e não um componente React, de propósito:
 // nenhuma página do site carrega React, e não vale puxar a biblioteca inteira
-// por causa de um formulário de cinco campos.
+// por causa de um formulário.
 //
-// Vive em /contato. O link curto contato-agencia-one-impact aponta pra lá, então
-// todo botão de contato do site desemboca aqui.
-const SERVICOS = [
-  'Criação de site',
-  'Automações inteligentes',
+// As perguntas vêm em etapas, e os dados de contato ficam na ÚLTIMA. Pedir nome
+// e telefone de cara é a maior barreira de um formulário; quem já respondeu
+// sobre o próprio projeto tende a terminar. A ordem em que o briefing é lido
+// depois é outra e independe desta.
+const TIPOS_SITE = [
+  'Website completo para uma marca/expert',
+  'Site institucional para empresa',
+  'Site para advocacia',
+  'Site para área da saúde',
+  'Site de portfólio',
+  'Landing page para anúncios',
+  'Loja virtual',
+  'Automação de atendimento',
   'Identidade visual',
-  'Ainda não sei, quero entender',
+  'Ainda não sei',
+]
+
+const FATURAMENTO = [
+  'Ainda não faturo',
+  'Até 10 mil por mês',
+  'Entre 10 mil e 30 mil por mês',
+  'Entre 30 mil e 50 mil por mês',
+  'Entre 50 mil e 100 mil por mês',
+  'Acima de 100 mil por mês',
+  'Prefiro não informar',
+]
+
+const COMO_CONHECEU = [
+  'YouTube',
+  'Instagram',
+  'Google',
+  'Indicação de alguém',
+  'Já sou cliente',
+  'Outro',
 ]
 ---
 
 <div class="contato-wrap">
   <form class="contato-form" id="form-contato" novalidate>
-    <div class="contato-linha">
+    <div class="passos">
+      <div class="passos-trilha"><div class="passos-barra" data-barra></div></div>
+      <span class="passos-texto" data-contador>Etapa 1 de 4</span>
+    </div>
+
+    <fieldset class="etapa" data-etapa="1">
+      <legend class="etapa-titulo">Sobre o projeto</legend>
+
+      <div class="contato-campo">
+        <label for="contato-tipo-site">Que tipo de site você precisa</label>
+        <select id="contato-tipo-site" name="tipoSite">
+          <option value="">Escolha uma opção</option>
+          {TIPOS_SITE.map((t) => <option value={t}>{t}</option>)}
+        </select>
+        <span class="contato-erro" data-erro="tipo-site" aria-live="polite"></span>
+      </div>
+
+      <div class="contato-campo">
+        <label for="contato-ja-tem-site">Você já tem site hoje</label>
+        <select id="contato-ja-tem-site" name="jaTemSite">
+          <option value="">Escolha uma opção</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+          <option value="Tenho, mas está desatualizado">Tenho, mas está desatualizado</option>
+        </select>
+        <span class="contato-erro" data-erro="ja-tem-site" aria-live="polite"></span>
+      </div>
+    </fieldset>
+
+    <fieldset class="etapa" data-etapa="2" hidden>
+      <legend class="etapa-titulo">O que você precisa</legend>
+
+      <div class="contato-campo">
+        <label for="contato-mensagem">Conte com suas palavras o que você quer resolver</label>
+        <textarea
+          id="contato-mensagem"
+          name="mensagem"
+          rows="5"
+          placeholder="Ex: preciso de um site para divulgar profissionais e serviços. Estou em dúvida se também preciso de um aplicativo."
+        ></textarea>
+        <span class="contato-erro" data-erro="mensagem" aria-live="polite"></span>
+      </div>
+    </fieldset>
+
+    <fieldset class="etapa" data-etapa="3" hidden>
+      <legend class="etapa-titulo">Sobre a empresa</legend>
+
+      <div class="contato-campo">
+        <label for="contato-segmento">Qual seu segmento de mercado</label>
+        <input type="text" id="contato-segmento" name="segmento" placeholder="Ex: psicologia, advocacia, arquitetura" />
+        <span class="contato-erro" data-erro="segmento" aria-live="polite"></span>
+      </div>
+
+      <div class="contato-campo">
+        <label for="contato-faturamento">Média de faturamento</label>
+        <select id="contato-faturamento" name="faturamento">
+          <option value="">Escolha uma opção</option>
+          {FATURAMENTO.map((f) => <option value={f}>{f}</option>)}
+        </select>
+        <span class="contato-erro" data-erro="faturamento" aria-live="polite"></span>
+      </div>
+
+      <div class="contato-campo">
+        <label for="contato-como-conheceu">Como você conheceu nosso trabalho</label>
+        <select id="contato-como-conheceu" name="comoConheceu">
+          <option value="">Escolha uma opção</option>
+          {COMO_CONHECEU.map((c) => <option value={c}>{c}</option>)}
+        </select>
+        <span class="contato-erro" data-erro="como-conheceu" aria-live="polite"></span>
+      </div>
+    </fieldset>
+
+    <fieldset class="etapa" data-etapa="4" hidden>
+      <legend class="etapa-titulo">Seus dados</legend>
+
       <div class="contato-campo">
         <label for="contato-nome">Nome</label>
         <input type="text" id="contato-nome" name="nome" autocomplete="name" placeholder="Seu nome completo" />
         <span class="contato-erro" data-erro="nome" aria-live="polite"></span>
       </div>
 
-      <div class="contato-campo">
-        <label for="contato-whatsapp">Contato</label>
-        <input type="tel" id="contato-whatsapp" name="whatsapp" autocomplete="tel" inputmode="numeric" placeholder="(21) 90000-0000" />
-        <span class="contato-erro" data-erro="whatsapp" aria-live="polite"></span>
+      <div class="contato-linha">
+        <div class="contato-campo">
+          <label for="contato-whatsapp">WhatsApp</label>
+          <input type="tel" id="contato-whatsapp" name="whatsapp" autocomplete="tel" inputmode="numeric" placeholder="(21) 90000-0000" />
+          <span class="contato-erro" data-erro="whatsapp" aria-live="polite"></span>
+        </div>
+
+        <div class="contato-campo">
+          <label for="contato-email">E-mail</label>
+          <input type="email" id="contato-email" name="email" autocomplete="email" placeholder="voce@empresa.com.br" />
+          <span class="contato-erro" data-erro="email" aria-live="polite"></span>
+        </div>
       </div>
+
+      <div class="contato-campo">
+        <label for="contato-instagram">Instagram <span class="contato-opcional">(opcional)</span></label>
+        <input type="text" id="contato-instagram" name="instagram" placeholder="@seuperfil" />
+      </div>
+    </fieldset>
+
+    <div class="contato-acoes">
+      <button type="button" class="contato-voltar" data-voltar hidden>Voltar</button>
+      <button type="submit" class="contato-enviar" data-enviar>Continuar</button>
     </div>
 
-    <div class="contato-linha">
-      <div class="contato-campo">
-        <label for="contato-email">E-mail</label>
-        <input type="email" id="contato-email" name="email" autocomplete="email" placeholder="voce@empresa.com.br" />
-        <span class="contato-erro" data-erro="email" aria-live="polite"></span>
-      </div>
-
-      <div class="contato-campo">
-        <label for="contato-servico">O que você procura</label>
-        <select id="contato-servico" name="servico">
-          {SERVICOS.map((s) => <option value={s}>{s}</option>)}
-        </select>
-      </div>
-    </div>
-
-    <div class="contato-campo">
-      <label for="contato-mensagem">Conte um pouco do seu projeto <span class="contato-opcional">(opcional)</span></label>
-      <textarea id="contato-mensagem" name="mensagem" rows="3" placeholder="O que você tem hoje e onde quer chegar."></textarea>
-    </div>
-
-    <button type="submit" class="contato-enviar">Enviar mensagem</button>
     <p class="contato-falha" data-falha aria-live="assertive"></p>
   </form>
 
   <div class="contato-sucesso" id="contato-sucesso" hidden>
     <h3>Recebemos sua mensagem</h3>
-    <p>A gente responde em até um dia útil, no contato que você deixou.</p>
+    <p>Já temos o que precisamos para pensar num caminho. Entramos em contato pelos dados que você deixou.</p>
     <a href="/clientes-atendidos-sites" class="contato-zap">Enquanto isso, veja o que já entregamos</a>
   </div>
 </div>
@@ -83,6 +181,73 @@ const SERVICOS = [
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.34);
   }
 
+  /* Progresso */
+
+  .passos {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .passos-trilha {
+    flex: 1;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+    overflow: hidden;
+  }
+
+  .passos-barra {
+    height: 100%;
+    width: 25%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #5907DB, #9774FE);
+    transition: width 220ms ease;
+  }
+
+  .passos-texto {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+  }
+
+  /* Etapas */
+
+  .etapa {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    animation: entrar 200ms ease;
+  }
+
+  .etapa[hidden] {
+    display: none;
+  }
+
+  @keyframes entrar {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .etapa-titulo {
+    padding: 0;
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
   .contato-linha {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -100,11 +265,11 @@ const SERVICOS = [
     font-family: 'Sora', sans-serif;
     font-size: 13px;
     font-weight: 500;
-    color: var(--text-secondary, rgba(247, 250, 255, 0.75));
+    color: rgba(247, 250, 255, 0.75);
   }
 
   .contato-opcional {
-    color: var(--text-muted, #7B7582);
+    color: #7B7582;
     font-weight: 400;
   }
 
@@ -113,10 +278,10 @@ const SERVICOS = [
   .contato-campo textarea {
     width: 100%;
     padding: 13px 14px;
-    border: 1px solid var(--border, #3c3847);
+    border: 1px solid #3c3847;
     border-radius: 5px;
-    background: var(--bg-input, #1f1b2e);
-    color: var(--text-primary, #F7FAFF);
+    background: #1f1b2e;
+    color: #F7FAFF;
     font-family: 'Sora', sans-serif;
     font-size: 14px;
     transition: border-color 0.18s ease, box-shadow 0.18s ease;
@@ -124,12 +289,13 @@ const SERVICOS = [
 
   .contato-campo textarea {
     resize: vertical;
-    min-height: 84px;
+    min-height: 110px;
+    line-height: 1.6;
   }
 
   .contato-campo input::placeholder,
   .contato-campo textarea::placeholder {
-    color: var(--text-muted, #7B7582);
+    color: #7B7582;
   }
 
   .contato-campo input:focus,
@@ -156,7 +322,9 @@ const SERVICOS = [
     color: #F7FAFF;
   }
 
-  .contato-campo input[aria-invalid='true'] {
+  .contato-campo input[aria-invalid='true'],
+  .contato-campo select[aria-invalid='true'],
+  .contato-campo textarea[aria-invalid='true'] {
     border-color: #ef4444;
   }
 
@@ -170,8 +338,39 @@ const SERVICOS = [
     color: #ff8f8f;
   }
 
-  .contato-enviar {
+  /* Ações */
+
+  .contato-acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-top: 4px;
+  }
+
+  .contato-voltar {
+    padding: 15px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.18s ease, color 0.18s ease;
+  }
+
+  .contato-voltar:hover {
+    border-color: #9774FE;
+    color: #FFFFFF;
+  }
+
+  .contato-voltar[hidden] {
+    display: none;
+  }
+
+  .contato-enviar {
+    flex: 1;
     padding: 15px 24px;
     border: 1px solid #9774FE;
     border-radius: 5px;
@@ -209,6 +408,8 @@ const SERVICOS = [
     text-align: center;
   }
 
+  /* Sucesso */
+
   .contato-sucesso {
     padding: 40px 28px;
     border: 1px solid rgba(151, 116, 254, 0.28);
@@ -222,7 +423,7 @@ const SERVICOS = [
     font-family: 'Sora', sans-serif;
     font-size: 20px;
     font-weight: 700;
-    color: var(--text-primary, #F7FAFF);
+    color: #F7FAFF;
   }
 
   .contato-sucesso p {
@@ -230,7 +431,7 @@ const SERVICOS = [
     font-family: 'Sora', sans-serif;
     font-size: 14px;
     line-height: 1.6;
-    color: var(--text-secondary, rgba(247, 250, 255, 0.75));
+    color: rgba(247, 250, 255, 0.75);
   }
 
   .contato-zap {
@@ -265,55 +466,107 @@ const SERVICOS = [
   const sucesso = document.getElementById('contato-sucesso')
 
   if (form && sucesso) {
-    const campoWhatsapp = form.querySelector('#contato-whatsapp')
-    const botao = form.querySelector('.contato-enviar')
+    const etapas = [...form.querySelectorAll('.etapa')]
+    const barra = form.querySelector('[data-barra]')
+    const contador = form.querySelector('[data-contador]')
+    const botaoVoltar = form.querySelector('[data-voltar]')
+    const botaoAvancar = form.querySelector('[data-enviar]')
     const falha = form.querySelector('[data-falha]')
+
+    let atual = 0
     let enviando = false
 
-    campoWhatsapp.addEventListener('input', (e) => {
+    // Cada etapa valida só os próprios campos. A chave é o sufixo do id e do
+    // data-erro; o valor diz quando aquele campo conta como preenchido.
+    const REGRAS = [
+      { 'tipo-site': (v) => !!v, 'ja-tem-site': (v) => !!v },
+      { mensagem: (v) => v.trim().length >= 10 },
+      { segmento: (v) => v.trim().length >= 2, faturamento: (v) => !!v, 'como-conheceu': (v) => !!v },
+      { nome: validarNome, whatsapp: validarWhatsApp, email: validarEmail },
+    ]
+
+    const MENSAGENS = {
+      'tipo-site': 'Escolha uma opção.',
+      'ja-tem-site': 'Escolha uma opção.',
+      mensagem: 'Escreva um pouco mais para a gente entender.',
+      segmento: 'Diga seu segmento.',
+      faturamento: 'Escolha uma opção.',
+      'como-conheceu': 'Escolha uma opção.',
+      nome: 'Escreva seu nome e sobrenome.',
+      whatsapp: 'Confira o número com DDD.',
+      email: 'Confira o e-mail.',
+    }
+
+    form.querySelector('#contato-whatsapp').addEventListener('input', (e) => {
       e.target.value = formatarWhatsApp(e.target.value)
     })
 
-    function mostrarErro(campo, mensagem) {
-      form.querySelector('[data-erro="' + campo + '"]').textContent = mensagem
-      form.querySelector('#contato-' + campo).setAttribute('aria-invalid', String(Boolean(mensagem)))
+    function mostrar(indice) {
+      etapas.forEach((etapa, i) => {
+        etapa.hidden = i !== indice
+      })
+      barra.style.width = ((indice + 1) / etapas.length) * 100 + '%'
+      contador.textContent = 'Etapa ' + (indice + 1) + ' de ' + etapas.length
+      botaoVoltar.hidden = indice === 0
+      botaoAvancar.textContent = indice === etapas.length - 1 ? 'Enviar mensagem' : 'Continuar'
+      falha.textContent = ''
     }
 
-    function validar(dados) {
-      const erros = {
-        nome: validarNome(dados.nome) ? '' : 'Escreva seu nome e sobrenome.',
-        email: validarEmail(dados.email) ? '' : 'Confira o e-mail.',
-        whatsapp: validarWhatsApp(dados.whatsapp) ? '' : 'Confira o número com DDD.',
-      }
-      Object.entries(erros).forEach(([campo, msg]) => mostrarErro(campo, msg))
+    function validarEtapa(indice) {
+      let primeiroInvalido = null
 
-      const primeiroErro = Object.entries(erros).find(([, msg]) => msg)
-      if (primeiroErro) {
-        form.querySelector('#contato-' + primeiroErro[0]).focus()
+      for (const [chave, ehValido] of Object.entries(REGRAS[indice])) {
+        const campo = form.querySelector('#contato-' + chave)
+        const aviso = form.querySelector('[data-erro="' + chave + '"]')
+        const ok = ehValido(campo.value)
+        aviso.textContent = ok ? '' : MENSAGENS[chave]
+        campo.setAttribute('aria-invalid', String(!ok))
+        if (!ok && !primeiroInvalido) primeiroInvalido = campo
+      }
+
+      if (primeiroInvalido) {
+        primeiroInvalido.focus()
         return false
       }
       return true
     }
 
+    botaoVoltar.addEventListener('click', () => {
+      if (atual > 0) mostrar(--atual)
+    })
+
     form.addEventListener('submit', async (evento) => {
       evento.preventDefault()
       if (enviando) return
+      if (!validarEtapa(atual)) return
+
+      // Ainda não é a última etapa: só avança.
+      if (atual < etapas.length - 1) {
+        mostrar(++atual)
+        return
+      }
 
       const dados = Object.fromEntries(new FormData(form))
-      falha.textContent = ''
-      if (!validar(dados)) return
-
       enviando = true
-      botao.disabled = true
-      botao.textContent = 'Enviando...'
+      botaoAvancar.disabled = true
+      botaoAvancar.textContent = 'Enviando...'
 
+      // O que é comum a todo lead vira coluna; o resto vai em extras, para a
+      // tabela central não precisar de coluna nova a cada pergunta nova aqui.
       const resultado = await salvarLead({
         origem: ORIGENS.contato,
         nome: dados.nome.trim(),
         email: dados.email.trim(),
         telefone: dados.whatsapp.trim(),
-        servico: dados.servico,
-        mensagem: dados.mensagem.trim() || null,
+        servico: dados.tipoSite,
+        mensagem: dados.mensagem.trim(),
+        extras: {
+          instagram: dados.instagram.trim() || null,
+          segmento: dados.segmento.trim(),
+          faturamento: dados.faturamento,
+          ja_tem_site: dados.jaTemSite,
+          como_conheceu: dados.comoConheceu,
+        },
       })
 
       if (resultado.ok) {
@@ -326,9 +579,11 @@ const SERVICOS = [
       // Não perder o lead por causa de uma falha de rede: o formulário volta ao
       // normal para a pessoa tentar de novo.
       enviando = false
-      botao.disabled = false
-      botao.textContent = 'Enviar mensagem'
+      botaoAvancar.disabled = false
+      botaoAvancar.textContent = 'Enviar mensagem'
       falha.textContent = 'Não conseguimos enviar agora. Tente de novo em instantes.'
     })
+
+    mostrar(0)
   }
 </script>
