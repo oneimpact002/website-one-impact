@@ -1,5 +1,6 @@
 ---
 import { siteProjects } from '../../data/sitesPortfolio.js'
+import Header from '../../components/Header.astro'
 
 export function getStaticPaths() {
   return siteProjects.map((project) => ({
@@ -58,57 +59,6 @@ const { project } = Astro.props
       .reveal-ready [data-reveal].is-visible .reveal-item {
         opacity: 1;
         transform: translate3d(0, 0, 0);
-      }
-
-      /* ── Header flutuante ── */
-      .floating-header {
-        position: fixed;
-        top: 16px;
-        left: 16px;
-        right: 16px;
-        z-index: 100;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 5px 16px;
-        border: 1px solid rgba(255, 255, 255, 0.58);
-        border-radius: 9999px;
-        background: rgba(247, 245, 253, 0.78);
-        box-shadow: 0 8px 28px rgba(19, 15, 38, 0.16);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        flex-shrink: 0;
-        text-decoration: none;
-        color: #130F26;
-      }
-
-      .brand > strong {
-        font-family: 'Sora', sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-      }
-
-      .back-link {
-        font-family: 'Sora', sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        color: rgba(19, 15, 38, 0.7);
-        transition: color 0.2s ease;
-      }
-
-      .back-link:hover {
-        color: #7345FD;
       }
 
       /* ── Intro ── */
@@ -287,12 +237,7 @@ const { project } = Astro.props
     </style>
   </head>
   <body>
-    <header class="floating-header">
-      <a class="brand" href="/" aria-label="One Impact — início">
-        <strong>One Impact</strong>
-      </a>
-      <a class="back-link" href="/clientes-atendidos-sites">← Todos os projetos</a>
-    </header>
+    <Header />
 
     <section class="intro-section">
       <div class="intro-dots" aria-hidden="true"></div>

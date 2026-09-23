@@ -14,8 +14,27 @@ const navItems = [
   <nav class="desktop-menu" aria-label="Navegação principal">
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
-  <a class="mobile-back-link" href="/">← Início</a>
+  <button
+    class="mobile-menu-toggle"
+    id="mobile-menu-toggle"
+    type="button"
+    aria-label="Abrir menu"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </header>
+
+<div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true" inert>
+  {navItems.map((item, i) => (
+    <a href={item.href}><span class="menu-index">{String(i + 1).padStart(2, '0')}</span> {item.label}</a>
+  ))}
+</nav>
 
 <style>
   .floating-header {
@@ -23,13 +42,13 @@ const navItems = [
     top: 14px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 60;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
     width: min(94%, 840px);
-    padding: 10px 16px;
+    padding: 10px;
     border-radius: 9999px;
     border: 1px solid rgba(19, 15, 38, 0.08);
     background: rgba(255, 255, 255, 0.82);
@@ -48,7 +67,7 @@ const navItems = [
   }
 
   .brand-logo {
-    height: 26px;
+    height: 38px;
     width: auto;
     display: block;
   }
@@ -76,27 +95,176 @@ const navItems = [
     background: rgba(115, 69, 253, 0.09);
   }
 
-  .mobile-back-link {
+  .mobile-menu-toggle {
     flex-shrink: 0;
-    font-family: 'Sora', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    color: rgba(19, 15, 38, 0.7);
-    transition: color 0.2s ease;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    border: 1px solid rgba(19, 15, 38, 0.12);
+    border-radius: 50%;
+    background: rgba(19, 15, 38, 0.06);
+    box-shadow: 0 3px 10px rgba(19, 15, 38, 0.08);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
 
-  .mobile-back-link:hover {
-    color: #7345FD;
+  .mobile-menu-toggle > span {
+    width: 18px;
+    height: 2px;
+    border-radius: 9999px;
+    background: #130F26;
+    transition: transform 0.25s ease, opacity 0.2s ease;
   }
+
+  .mobile-menu-toggle:hover,
+  .mobile-menu-toggle[aria-expanded='true'] {
+    border-color: rgba(19, 15, 38, 0.2);
+    background: rgba(19, 15, 38, 0.1);
+  }
+
+  .mobile-menu-toggle[aria-expanded='true'] > span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-menu-toggle[aria-expanded='true'] > span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle[aria-expanded='true'] > span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Drawer lateral — desliza da direita */
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: rgba(13, 10, 26, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .menu-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    width: min(320px, 85vw);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 96px 28px 28px;
+    border-left: 1px solid rgba(151, 116, 254, 0.25);
+    background:
+      radial-gradient(ellipse 90% 40% at 100% 0%, rgba(115, 69, 253, 0.22), transparent 70%),
+      radial-gradient(rgba(151, 116, 254, 0.18) 0.8px, transparent 0.8px),
+      #0D0A1A;
+    background-size: auto, 12px 12px, auto;
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.38s ease;
+  }
+
+  .mobile-menu.is-open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .mobile-menu a {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-family: 'Zalando Sans Expanded', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #FFFFFF;
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+  }
+
+  .mobile-menu a .menu-index {
+    font-family: 'Sora', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #9774FE;
+  }
+
+  .mobile-menu a:hover,
+  .mobile-menu a:focus-visible {
+    color: #9774FE;
+    outline: none;
+  }
+
+  .mobile-menu.is-open a {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .mobile-menu.is-open a:nth-child(1) { transition-delay: 0.08s; }
+  .mobile-menu.is-open a:nth-child(2) { transition-delay: 0.13s; }
+  .mobile-menu.is-open a:nth-child(3) { transition-delay: 0.18s; }
+  .mobile-menu.is-open a:nth-child(4) { transition-delay: 0.23s; }
 
   @media (min-width: 900px) {
     .desktop-menu {
       display: flex;
     }
 
-    .mobile-back-link {
+    .mobile-menu-toggle,
+    .mobile-menu,
+    .menu-backdrop {
       display: none;
     }
   }
 </style>
+
+<script>
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const menuBackdrop = document.getElementById('menu-backdrop')
+
+  if (mobileMenuToggle && mobileMenu) {
+    const setMobileMenu = (open: boolean) => {
+      mobileMenuToggle.setAttribute('aria-expanded', String(open))
+      mobileMenuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu')
+      mobileMenu.classList.toggle('is-open', open)
+      mobileMenu.setAttribute('aria-hidden', String(!open))
+      mobileMenu.toggleAttribute('inert', !open)
+      menuBackdrop?.classList.toggle('is-open', open)
+      document.body.style.overflow = open ? 'hidden' : ''
+    }
+
+    menuBackdrop?.addEventListener('click', () => setMobileMenu(false))
+
+    mobileMenuToggle.addEventListener('click', () => {
+      setMobileMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true')
+    })
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMobileMenu(false))
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMobileMenu(false)
+    })
+  }
+</script>

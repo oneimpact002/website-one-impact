@@ -305,7 +305,7 @@ const faqSchema = {
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        padding: 5px 5px 5px 16px;
+        padding: 10px;
         border: 1px solid rgba(255, 255, 255, 0.58);
         border-radius: 9999px;
         background: rgba(247, 245, 253, 0.78);
@@ -336,7 +336,7 @@ const faqSchema = {
       }
 
       .brand-logo {
-        height: 32px;
+        height: 38px;
         width: auto;
         display: block;
       }
@@ -432,7 +432,7 @@ const faqSchema = {
 
       .mobile-menu-toggle > span {
         width: 18px;
-        height: 1.5px;
+        height: 2px;
         border-radius: 9999px;
         background: #130F26;
         transition: transform 0.25s ease, opacity 0.2s ease;
@@ -445,7 +445,7 @@ const faqSchema = {
       }
 
       .mobile-menu-toggle[aria-expanded='true'] > span:nth-child(1) {
-        transform: translateY(6.5px) rotate(45deg);
+        transform: translateY(7px) rotate(45deg);
       }
 
       .mobile-menu-toggle[aria-expanded='true'] > span:nth-child(2) {
@@ -453,7 +453,7 @@ const faqSchema = {
       }
 
       .mobile-menu-toggle[aria-expanded='true'] > span:nth-child(3) {
-        transform: translateY(-6.5px) rotate(-45deg);
+        transform: translateY(-7px) rotate(-45deg);
       }
 
       /* Drawer lateral — desliza da direita */
@@ -592,7 +592,8 @@ const faqSchema = {
         .floating-header {
           left: 50%;
           right: auto;
-          width: min(100% - 32px, 1140px);
+          width: min(100% - 32px, 840px);
+          padding: 10px;
           transform: translateX(-50%) translateY(-16px);
         }
 

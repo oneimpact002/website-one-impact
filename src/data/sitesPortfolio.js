@@ -18,7 +18,7 @@ export const siteProjects = [
     url: 'https://casa3.com.br/',
     desc: 'Site desenvolvido no modelo corporativo para apresentar os serviços dos arquitetos Ricardo Nunes e Sônia Acciaris. Eles precisavam de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
     chips: ['Site corporativo', 'Identidade visual + site', 'Reposicionamento de marca'],
-    slides: Array.from({ length: 10 }, (_, i) => `/sites/casa-tres-arquitetura/tela-${i + 1}.webp`),
+    slides: Array.from({ length: 9 }, (_, i) => `/sites/casa-tres-arquitetura/tela-${i + 2}.webp`),
   },
   {
     slug: 'jorge-fogaca',
@@ -27,7 +27,7 @@ export const siteProjects = [
     url: 'https://fogacasantos.com.br/',
     desc: 'Site desenvolvido no modelo corporativo para apresentar os serviços do advogado previdenciarista Jorge Fogaça. Ele precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
     chips: ['Site corporativo', 'Reposicionamento de marca'],
-    slides: Array.from({ length: 6 }, (_, i) => `/sites/jorge-fogaca/tela-${i + 1}.webp`),
+    slides: Array.from({ length: 5 }, (_, i) => `/sites/jorge-fogaca/tela-${i + 2}.webp`),
   },
   {
     slug: 'dra-karina-morgarbel',
@@ -36,7 +36,7 @@ export const siteProjects = [
     url: null,
     desc: 'Site desenvolvido no modelo de site médico para apresentar os serviços da dermatologista Dra. Karina Morgarbel. Ela precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
     chips: ['Site médico', 'Identidade visual + site'],
-    slides: Array.from({ length: 7 }, (_, i) => `/sites/dra-karina-morgarbel/tela-${i + 1}.webp`),
+    slides: Array.from({ length: 6 }, (_, i) => `/sites/dra-karina-morgarbel/tela-${i + 2}.webp`),
   },
   {
     slug: 'claudia-kaissar',
@@ -45,7 +45,15 @@ export const siteProjects = [
     url: null,
     desc: 'Site corporativo para a arquiteta Claudia Kaissar, profissional premiada e especialista em ambientes de luxo. Cada detalhe foi pensado para valorizar as imagens dos projetos e reforçar sua autoridade no mercado. Como seu público está em diferentes países, o site foi desenvolvido em inglês e português, garantindo alcance global.',
     chips: ['Site corporativo', 'Bilíngue (PT/EN)', 'Alcance internacional'],
-    slides: Array.from({ length: 7 }, (_, i) => `/sites/claudia-kaissar/tela-${i + 1}.webp`),
+    slides: [
+      '/sites/claudia-kaissar/tela-2.webp',
+      '/sites/claudia-kaissar/tela-2-2.webp',
+      '/sites/claudia-kaissar/tela-2-3.webp',
+      '/sites/claudia-kaissar/tela-4-2.webp',
+      '/sites/claudia-kaissar/tela-5-2.webp',
+      '/sites/claudia-kaissar/tela-6-2.webp',
+      '/sites/claudia-kaissar/tela-7.webp',
+    ],
   },
   {
     slug: 'dr-gabriel-braga',
@@ -54,7 +62,7 @@ export const siteProjects = [
     url: null,
     desc: 'Site desenvolvido no modelo de site médico para apresentar os serviços do cirurgião Dr. Gabriel Braga. Ele precisava de um site à altura do seu trabalho, que transmitisse acolhimento e credibilidade.',
     chips: ['Site médico'],
-    slides: Array.from({ length: 8 }, (_, i) => `/sites/dr-gabriel-braga/tela-${i + 1}.webp`),
+    slides: Array.from({ length: 7 }, (_, i) => `/sites/dr-gabriel-braga/tela-${i + 2}.webp`),
   },
   {
     slug: 'raquel-barros',
@@ -63,7 +71,7 @@ export const siteProjects = [
     url: null,
     desc: 'Landing page de captura para o evento de lançamento da especialista em micropigmentação Raquel Barros, referência na área que já formou centenas de alunos no Brasil e no mundo. Reformulamos suas páginas com um visual mais profissional e moderno, com design estratégico que preserva a imagem da especialista e organiza os elementos para aumentar as chances de conversão.',
     chips: ['Landing page de captura', 'Lançamento de evento', 'Foco em conversão'],
-    slides: Array.from({ length: 5 }, (_, i) => `/sites/raquel-barros/tela-${i + 1}.webp`),
+    slides: Array.from({ length: 4 }, (_, i) => `/sites/raquel-barros/tela-${i + 2}.webp`),
   },
   {
     slug: 'pett-capellato',
@@ -73,7 +81,6 @@ export const siteProjects = [
     desc: 'Hub que conecta arquitetos e designers de interiores a grandes fabricantes de mobiliário corporativo, atendendo projetos para marcas como Globo, Mercado Livre, Vale e Michelin. Construímos uma presença digital à altura dessas contas, evoluída mês a mês desde 2022.',
     chips: ['Cliente desde 2022', 'Acompanhamento mensal', 'Cases: Globo, Mercado Livre, Vale, Michelin'],
     slides: [
-      '/sites/pett-capellato/tela-1.webp',
       '/sites/pett-capellato/tela-2.jpg',
       '/sites/pett-capellato/tela-3.jpg',
       '/sites/pett-capellato/tela-4.jpg',
@@ -100,6 +107,13 @@ export const siteProjects = [
     url: null,
     desc: 'Um dos maiores especialistas em marketing e referência em funis de vendas no Brasil. Landing page de vendas estruturada estrategicamente, com conteúdo organizado e imagens que destacam a autoridade do especialista, aumentando as chances de conversão.',
     chips: ['Landing page de vendas', 'Funil de vendas', 'Foco em conversão'],
-    slides: Array.from({ length: 7 }, (_, i) => `/sites/mateus-dias/tela-${i + 1}.webp`),
+    slides: [
+      '/sites/mateus-dias/tela-2.webp',
+      '/sites/mateus-dias/tela-3-2.webp',
+      '/sites/mateus-dias/tela-4-2.webp',
+      '/sites/mateus-dias/tela-5-2.webp',
+      '/sites/mateus-dias/tela-6.webp',
+      '/sites/mateus-dias/tela-7.webp',
+    ],
   },
 ]
