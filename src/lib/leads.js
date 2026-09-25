@@ -1,16 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabaseConfig.js'
+import { rastrearLead } from './track.js'
 
 // Banco central de leads da One Impact, compartilhado com o LinkFlow e com a
 // landing do cupom da Hostinger. Todo formulário de qualquer frente grava na
-// mesma tabela `leads`, separado pela coluna `origem`.
-//
-// A chave abaixo é a chave pública (anon). Ela é pública por natureza, vai
-// dentro do JavaScript que qualquer visitante baixa. O que protege os dados é o
-// RLS no Supabase: essa chave só consegue inserir na tabela, nunca ler, editar
-// ou apagar. A leitura é feita pelo painel do Supabase.
-const SUPABASE_URL = 'https://avqoriulvndknmylowox.supabase.co'
-const SUPABASE_ANON_KEY =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2cW9yaXVsdm5ka25teWxvd294Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2NTg3ODEsImV4cCI6MjEwMjIzNDc4MX0.Y-5Rsg1tEK5_NDLhxVCqwZJKU_3EXzyDDlzRCLT2OME'
+// mesma tabela `leads`, separado pela coluna `origem`. A chave pública e a
+// explicação do RLS estão em supabaseConfig.js.
 
 let _supabase = null
 
@@ -84,5 +79,6 @@ export async function salvarLead({
     return { ok: false, error }
   }
 
+  rastrearLead(origem)
   return { ok: true }
 }

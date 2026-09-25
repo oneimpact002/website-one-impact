@@ -1,4 +1,5 @@
 ---
+import Rastreio from '../../components/Rastreio.astro';
 import { siteProjects } from '../../data/sitesPortfolio.js'
 import Header from '../../components/Header.astro'
 
@@ -311,5 +312,6 @@ const { project } = Astro.props
         requestAnimationFrame(raf)
       }
     </script>
+    <Rastreio />
   </body>
 </html>
