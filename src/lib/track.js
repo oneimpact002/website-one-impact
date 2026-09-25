@@ -14,9 +14,9 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabaseConfig.js'
 // Quais cliques são rastreados:
 //   1. Qualquer elemento com data-track="nome-do-botao" (e, se quiser, um nome
 //      legível em data-track-label="Falar no WhatsApp").
-//   2. Sem data-track, só links de saída (WhatsApp, Instagram, e-mail) e links
+//   2. Sem data-track, só links de saída (link curto de contato, Instagram, e-mail) e links
 //      para /contato. O código do botão vira "destino@posição", por exemplo
-//      "whatsapp@topo", para separar o botão do topo do botão do rodapé.
+//      "contato-via-link@topo", para separar o botão do topo do botão do rodapé.
 
 const SITE = 'one-impact'
 const ENDPOINT = `${SUPABASE_URL}/rest/v1/site_events`
@@ -25,7 +25,7 @@ const CHAVE_DESLIGADO = 'oi_notrack'
 
 // Links de destino conhecidos ganham um nome curto no relatório.
 const APELIDOS = {
-  'link.oneimpact.com.br/contato-agencia-one-impact': 'whatsapp',
+  'link.oneimpact.com.br/contato-agencia-one-impact': 'contato-via-link',
   'www.instagram.com/agenciaoneimpact': 'instagram',
 }
 
