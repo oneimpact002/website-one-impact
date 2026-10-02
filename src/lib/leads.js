@@ -22,6 +22,7 @@ function getSupabase() {
 export const ORIGENS = {
   contato: 'contato',
   diagnostico: 'diagnostico',
+  patrocinio: 'patrocinio',
 }
 
 export function getUTMParams() {
