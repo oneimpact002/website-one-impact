@@ -1,13 +1,22 @@
 ---
 import { getCollection } from 'astro:content'
+import Rastreio from '../../components/Rastreio.astro';
+import PostCard from '../../components/PostCard.astro';
+import { FERRAMENTAS } from '../../data/ferramentas.js';
+import { CANAL } from '../../data/canal.js';
 
 const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact';
 
 const posts = (await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true)))
   .sort((a, b) => b.data.datePublished.valueOf() - a.data.datePublished.valueOf())
 
-const fmtDate = (d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
-const readingTime = (body: string | undefined) => Math.max(1, Math.round((body ? body.split(/\s+/).length : 0) / 200))
+// Assuntos para o filtro do topo, com a quantidade de artigos de cada um.
+const categories = [...new Set(posts.map((p) => p.data.category))].map((name) => ({
+  name,
+  count: posts.filter((p) => p.data.category === name).length,
+}))
+
+const fmtDate =(d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
 
 const blogSchema = {
   '@context': 'https://schema.org',
@@ -428,6 +437,26 @@ const blogSchema = {
         box-shadow: 0 12px 30px rgba(115, 69, 253, 0.4);
       }
 
+      .final-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 14px 24px;
+        margin-top: 6px;
+      }
+
+      .final-link {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #C9BBFF;
+        text-decoration: none;
+      }
+
+      .final-link:hover {
+        text-decoration: underline;
+      }
+
       @media (min-width: 768px) {
         h1 {
           font-size: 42px;
@@ -581,6 +610,307 @@ const blogSchema = {
           gap: 32px;
         }
       }
+
+      /* Layout em duas colunas: artigos à esquerda, resumo e CTA à direita */
+      .container.wide {
+        max-width: 1160px;
+      }
+
+      .blog-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+      }
+
+      @media (min-width: 980px) {
+        .blog-layout {
+          grid-template-columns: minmax(0, 1fr) 320px;
+          gap: 36px;
+        }
+
+        /* Só o card de ferramentas acompanha a rolagem. A coluna inteira
+           grudava na base da tela porque os dois cards juntos são altos. */
+        .side-cta {
+          position: sticky;
+          top: 96px;
+        }
+      }
+
+      .topics {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 26px;
+      }
+
+      .topics-label {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(19, 15, 38, 0.55);
+      }
+
+      .topics-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .topic {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 9999px;
+        border: 1px solid rgba(19, 15, 38, 0.1);
+        background: #FFFFFF;
+        font-family: 'Sora', sans-serif;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: #130F26;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+      }
+
+      .topic span {
+        font-size: 11px;
+        color: rgba(19, 15, 38, 0.5);
+      }
+
+      .topic:hover {
+        border-color: rgba(115, 69, 253, 0.5);
+      }
+
+      .topic.is-active {
+        border-color: #7345FD;
+        background: #7345FD;
+        color: #FFFFFF;
+      }
+
+      .topic.is-active span {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .posts-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+      }
+
+      @media (min-width: 640px) {
+        .posts-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+
+      /* Coluna da direita */
+      .blog-side {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .side-card {
+        padding: 22px 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.06);
+      }
+
+      .side-title {
+        margin-bottom: 14px;
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(19, 15, 38, 0.55);
+      }
+
+      .about-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .about-head img {
+        width: 56px;
+        height: 56px;
+        border-radius: 9999px;
+        object-fit: cover;
+      }
+
+      .about-head strong {
+        display: block;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 14px;
+        color: #130F26;
+      }
+
+      .about-head span {
+        font-size: 12px;
+        color: rgba(19, 15, 38, 0.6);
+      }
+
+      .side-about p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      .about-links {
+        display: flex;
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .about-links a {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #4B2FBE;
+        text-decoration: none;
+      }
+
+      .about-links a:hover {
+        text-decoration: underline;
+      }
+
+      .side-cta {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 24px 22px 22px;
+        border: 1px solid rgba(115, 69, 253, 0.3);
+        background: linear-gradient(135deg, #130F26 0%, #2a1a66 65%, #4B2FBE 100%);
+        color: #F7F5FD;
+      }
+
+      .side-cta::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.14) 0.8px, transparent 0.8px);
+        background-size: 14px 14px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 100% 0%, black, transparent 75%);
+        mask-image: radial-gradient(ellipse 70% 60% at 100% 0%, black, transparent 75%);
+      }
+
+      .side-cta > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .cta-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #7345FD, #9b7bff);
+        color: #FFFFFF;
+        box-shadow: 0 8px 20px rgba(115, 69, 253, 0.45);
+      }
+
+      .side-cta-tag {
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #B9A4FF;
+      }
+
+      .side-cta h2 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 18px;
+        line-height: 1.3;
+        color: #FFFFFF;
+      }
+
+      .side-cta p {
+        font-size: 13px;
+        line-height: 1.65;
+        color: rgba(247, 245, 253, 0.82);
+      }
+
+      .tool-mini-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        list-style: none;
+      }
+
+      .tool-mini-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .tool-mini-icon {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: #7345FD;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+
+      .tool-mini-list strong {
+        display: block;
+        font-size: 13.5px;
+        color: #FFFFFF;
+      }
+
+      .tool-mini-list small {
+        font-size: 11.5px;
+        color: rgba(247, 245, 253, 0.7);
+      }
+
+      .side-cta .cta-button {
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 22px;
+        border-radius: 9999px;
+        background: #7345FD;
+        font-size: 13.5px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #FFFFFF;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .cta-button:hover {
+        background: #8a63ff;
+        transform: translateY(-2px);
+      }
     </style>
   </head>
   <body>
@@ -592,6 +922,7 @@ const blogSchema = {
         <a href="/">Início</a>
         <a href="/servicos">Serviços</a>
         <a href="/clientes-atendidos-sites">Portfólio</a>
+        <a href="/blog">Blog</a>
         <a href="/contato">Contato</a>
       </nav>
       <a class="back-link" href="/">← Voltar ao início</a>
@@ -602,43 +933,82 @@ const blogSchema = {
       <div class="hero-dots" aria-hidden="true"></div>
       <div class="container" data-reveal-scroll>
         <span class="badge reveal-fade">Blog One Impact</span>
-        <h1 class="reveal-fade">Conteúdo para o seu negócio <span class="hl">aparecer e vender mais</span></h1>
+        <h1 class="reveal-fade">Guias para criar seu site e <span class="hl">vender mais na internet</span></h1>
         <p class="hero-desc reveal-fade">
-          Guias práticos sobre criação de sites, posicionamento digital e presença online para advogados, médicos, arquitetos e outros profissionais.
+          Hospedagem, ferramentas e posicionamento digital explicados de forma direta, a partir do que usamos nos projetos da agência e no canal do YouTube.
         </p>
       </div>
     </section>
 
     <section class="posts-section">
-      <div class="container" data-reveal-scroll>
+      <div class="container wide" data-reveal-scroll>
         {posts.length === 0 && (
           <p class="posts-empty reveal-fade">Os primeiros artigos estão sendo preparados. Volte em breve!</p>
         )}
         {posts.length > 0 && (
-          <div class="posts-list reveal-fade">
-            {posts.map((post, i) => (
-              <a class="post-row" href={`/blog/${post.id}`}>
-                <div class="post-row-media">
-                  {post.data.cover ? (
-                    <img src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
-                  ) : (
-                    <span class="post-row-media-fallback"><span>One Impact</span></span>
-                  )}
-                </div>
-                <div class="post-row-body">
-                  <span class="post-meta-row">
-                    <span class="post-cat">{post.data.category}</span>
-                    <time datetime={post.data.datePublished.toISOString()}>{fmtDate(post.data.datePublished)}</time>
-                    <span>·</span>
-                    <span>{readingTime(post.body)} min de leitura</span>
-                  </span>
-                  <h2>{post.data.title}</h2>
-                  <p>{post.data.description}</p>
-                  <span class="read-link">Leia mais <span aria-hidden="true">→</span></span>
-                </div>
-              </a>
-            ))}
+          <>
+          <div class="topics reveal-fade" role="group" aria-label="Filtrar por assunto">
+            <span class="topics-label">Explore por assunto</span>
+            <div class="topics-list">
+              <button type="button" class="topic is-active" data-filter="todos" aria-pressed="true">Todos <span>{posts.length}</span></button>
+              {categories.map((c) => (
+                <button type="button" class="topic" data-filter={c.name} aria-pressed="false">{c.name} <span>{c.count}</span></button>
+              ))}
+            </div>
           </div>
+
+          <div class="blog-layout">
+            <div class="blog-main">
+              <div class="posts-grid reveal-fade">
+                {posts.map((post, i) => (
+                  <PostCard post={post} priority={i < 2} />))}
+              </div>
+            </div>
+
+            <aside class="blog-side">
+              <section class="side-card side-about">
+                <h2 class="side-title">Sobre</h2>
+                <div class="about-head">
+                  <img src="/equipe-karoline-christie.webp" alt="Foto de Karoline Christie" width="56" height="56" loading="lazy" />
+                  <div>
+                    <strong>Karoline Christie</strong>
+                    <span>Sócia da One Impact</span>
+                  </div>
+                </div>
+                <p>
+                  Crio sites, identidade visual e automações para profissionais que querem ser encontrados na internet. No blog e no canal do YouTube eu explico, sem termo técnico, como escolher hospedagem e ferramentas e como vender mais pela internet.
+                </p>
+                <div class="about-links">
+                  <a href="https://www.youtube.com/@karolchristie?sub_confirmation=1" target="_blank" rel="noopener" data-track="blog-lista-youtube" data-track-label="Canal no YouTube">YouTube</a>
+                  <a href="https://www.instagram.com/agenciaoneimpact" target="_blank" rel="noopener">Instagram</a>
+                </div>
+              </section>
+
+              <section class="side-card side-cta">
+                <div class="cta-top">
+                  <span class="cta-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>
+                  </span>
+                  <span class="side-cta-tag">Ferramentas</span>
+                </div>
+                <h2>Conheça as ferramentas que usamos e recomendamos</h2>
+                <p>O que faz parte da nossa rotina nos projetos da agência, com a nossa avaliação.</p>
+                <ul class="tool-mini-list">
+                  {FERRAMENTAS.slice(0, 3).map((f) => (
+                    <li>
+                      <span class="tool-mini-icon" aria-hidden="true">{f.nome[0]}</span>
+                      <div>
+                        <strong>{f.nome}</strong>
+                        <small>{f.categoria}</small>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <a class="cta-button" href="/ferramentas" data-track="blog-lista-ferramentas" data-track-label="Conheça as ferramentas">Ver as ferramentas <span aria-hidden="true">→</span></a>
+              </section>
+            </aside>
+          </div>
+          </>
         )}
       </div>
     </section>
@@ -646,12 +1016,13 @@ const blogSchema = {
     <section class="final-section">
       <div class="final-glow" aria-hidden="true"></div>
       <div class="container" data-reveal-scroll>
-        <span class="final-badge reveal-fade">Vamos conversar</span>
-        <h2 class="reveal-fade">Pronto para organizar o <span class="hl">caos</span> do seu digital?</h2>
-        <p class="final-desc reveal-fade">Vamos entender o momento do seu negócio e construir uma presença digital que represente a qualidade do seu trabalho.</p>
-        <a href={WHATSAPP} class="button reveal-fade" target="_blank" rel="noopener">
-          Solicitar proposta
-        </a>
+        <span class="final-badge reveal-fade">Canal no YouTube</span>
+        <h2 class="reveal-fade">Veja os guias em vídeo no <span class="hl">canal</span></h2>
+        <p class="final-desc reveal-fade">Todo artigo daqui acompanha um vídeo do canal {CANAL.nome}, com ferramentas e estratégias para criar seu site e vender mais na internet.</p>
+        <div class="final-actions reveal-fade">
+          <a href={CANAL.inscreverUrl} class="button" target="_blank" rel="noopener" data-track="blog-lista-inscrever" data-track-label="Inscrever-se no canal (fim da lista)">Inscrever-se no canal</a>
+          <a href="/ferramentas" class="final-link" data-track="blog-lista-final-ferramentas" data-track-label="Ver as ferramentas (fim da lista)">Ver as ferramentas que recomendamos →</a>
+        </div>
       </div>
     </section>
 
@@ -726,5 +1097,24 @@ const blogSchema = {
         requestAnimationFrame(raf)
       }
     </script>
+    <script is:inline>
+      // Filtro por assunto. Todos os artigos já estão no HTML, o filtro só esconde os outros.
+      var topics = document.querySelectorAll('.topic')
+      var cards = document.querySelectorAll('.post-card')
+      topics.forEach(function (topic) {
+        topic.addEventListener('click', function () {
+          var filter = topic.dataset.filter
+          topics.forEach(function (t) {
+            var on = t === topic
+            t.classList.toggle('is-active', on)
+            t.setAttribute('aria-pressed', on ? 'true' : 'false')
+          })
+          cards.forEach(function (card) {
+            card.hidden = filter !== 'todos' && card.dataset.category !== filter
+          })
+        })
+      })
+    </script>
+    <Rastreio />
   </body>
 </html>

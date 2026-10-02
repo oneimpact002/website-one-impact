@@ -1,5 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content'
+import Rastreio from '../../components/Rastreio.astro';
+import { AFILIADOS, linkAfiliado } from '../../data/afiliados.js';
+import { slugTag, tagsComPagina } from '../../lib/blog.js';
+import { CANAL } from '../../data/canal.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
@@ -9,6 +13,10 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { Content, headings } = await render(post)
 
+// Tag só vira link quando existe a página dela (2 ou mais artigos).
+const todosPosts = await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
+const paginasDeTag = tagsComPagina(todosPosts)
+
 const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact';
 
 const url = `https://agenciaoneimpact.com.br/blog/${post.id}`
@@ -16,6 +24,27 @@ const fmtDate = (d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long
 const toc = headings.filter((h) => h.depth === 2)
 const words = post.body ? post.body.split(/\s+/).length : 0
 const readingTime = Math.max(1, Math.round(words / 200))
+
+const video = post.data.video
+const videoThumb = video ? `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg` : null
+const afiliado = post.data.affiliate ? AFILIADOS[post.data.affiliate] : null
+const afiliadoUrl = post.data.affiliate ? linkAfiliado(post.data.affiliate, post.id) : null
+const ogImage = post.data.cover ? `https://agenciaoneimpact.com.br${post.data.cover}` : videoThumb
+
+const videoSchema = video
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: video.title,
+      description: post.data.description,
+      thumbnailUrl: [`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`, videoThumb],
+      uploadDate: video.uploadDate.toISOString(),
+      duration: video.duration,
+      embedUrl: `https://www.youtube.com/embed/${video.id}`,
+      contentUrl: `https://www.youtube.com/watch?v=${video.id}`,
+      publisher: { '@type': 'Organization', name: 'One Impact', url: 'https://agenciaoneimpact.com.br' },
+    }
+  : null
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -26,6 +55,8 @@ const articleSchema = {
   datePublished: post.data.datePublished.toISOString(),
   dateModified: (post.data.dateModified ?? post.data.datePublished).toISOString(),
   inLanguage: 'pt-BR',
+  articleSection: post.data.category,
+  ...(post.data.tags.length ? { keywords: post.data.tags.join(', ') } : {}),
   author: {
     '@type': 'Person',
     name: post.data.author,
@@ -40,7 +71,8 @@ const articleSchema = {
     name: 'One Impact',
     url: 'https://agenciaoneimpact.com.br',
   },
-  ...(post.data.cover ? { image: `https://agenciaoneimpact.com.br${post.data.cover}` } : {}),
+  ...(ogImage ? { image: ogImage } : {}),
+  ...(video ? { video: { '@type': 'VideoObject', name: video.title, embedUrl: `https://www.youtube.com/embed/${video.id}` } } : {}),
 }
 
 const breadcrumbSchema = {
@@ -79,7 +111,11 @@ const faqSchema = post.data.faq.length
     <meta property="og:description" content={post.data.description} />
     <meta property="og:type" content="article" />
     <meta property="og:url" content={url} />
-    {post.data.cover && <meta property="og:image" content={`https://agenciaoneimpact.com.br${post.data.cover}`} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {post.data.tags.length > 0 && <meta name="keywords" content={post.data.tags.join(', ')} />}
+    {post.data.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <meta property="article:section" content={post.data.category} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,6 +124,7 @@ const faqSchema = post.data.faq.length
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+    {videoSchema && <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />}
 
     <style>
       * {
@@ -570,6 +607,26 @@ const faqSchema = post.data.faq.length
         transition: transform 0.25s ease, box-shadow 0.25s ease;
       }
 
+      .final-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 14px 24px;
+        margin-top: 6px;
+      }
+
+      .final-link {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #C9BBFF;
+        text-decoration: none;
+      }
+
+      .final-link:hover {
+        text-decoration: underline;
+      }
+
       .button:hover {
         transform: translateY(-2px);
         box-shadow: 0 12px 30px rgba(115, 69, 253, 0.4);
@@ -705,6 +762,180 @@ const faqSchema = post.data.faq.length
           gap: 32px;
         }
       }
+
+      /* Aviso de afiliado, vídeo do canal e caixa de afiliado */
+      .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        list-style: none;
+      }
+
+      .post-tags li {
+        padding: 4px 10px;
+        border-radius: 9999px;
+        border: 1px solid rgba(19, 15, 38, 0.12);
+        background: #FFFFFF;
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(19, 15, 38, 0.7);
+      }
+
+      .affiliate-note {
+        max-width: 640px;
+        margin-top: 4px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid rgba(115, 69, 253, 0.2);
+        background: rgba(115, 69, 253, 0.06);
+        font-size: 12px;
+        line-height: 1.6;
+        color: rgba(19, 15, 38, 0.7);
+      }
+
+      .post-tags a {
+        color: #4B2FBE;
+        text-decoration: none;
+      }
+
+      .post-tags li:has(a):hover {
+        border-color: #7345FD;
+      }
+
+      .post-video {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 8px 20px 0;
+      }
+
+      .post-video-frame {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border-radius: 8px;
+        background: #130F26;
+        box-shadow: 0 14px 34px rgba(19, 15, 38, 0.18);
+      }
+
+      .post-video-frame img,
+      .post-video-frame iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        object-fit: cover;
+      }
+
+      .post-video-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 68px;
+        height: 68px;
+        border: 0;
+        border-radius: 9999px;
+        background: #7345FD;
+        color: #FFFFFF;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(115, 69, 253, 0.5);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .post-video-play:hover {
+        transform: translate(-50%, -50%) scale(1.06);
+        background: #5f33e0;
+      }
+
+      .post-video-caption {
+        margin-top: 12px;
+        font-size: 12.5px;
+        line-height: 1.7;
+        color: rgba(19, 15, 38, 0.65);
+      }
+
+      .post-video-caption a {
+        color: #4B2FBE;
+        font-weight: 600;
+      }
+
+      .affiliate-box {
+        margin: 40px 0 8px;
+        padding: 28px 24px;
+        border-radius: 10px;
+        border: 1px solid rgba(115, 69, 253, 0.25);
+        background: linear-gradient(135deg, #130F26, #2a1a66);
+        color: #F7F5FD;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .affiliate-box h2 {
+        margin: 0;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 20px;
+        line-height: 1.3;
+        color: #FFFFFF;
+      }
+
+      .affiliate-box p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.7;
+        color: rgba(247, 245, 253, 0.85);
+      }
+
+      .affiliate-box small {
+        font-size: 11.5px;
+        color: rgba(247, 245, 253, 0.6);
+      }
+
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 13px 24px;
+        border-radius: 9999px;
+        background: #7345FD;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #FFFFFF;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .cta-button:hover {
+        background: #8a63ff;
+        transform: translateY(-2px);
+      }
+
+      .post-content table {
+        width: 100%;
+        margin: 24px 0;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        display: block;
+        overflow-x: auto;
+      }
+
+      .post-content th,
+      .post-content td {
+        padding: 10px 12px;
+        border: 1px solid rgba(19, 15, 38, 0.12);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .post-content th {
+        background: rgba(115, 69, 253, 0.08);
+        font-weight: 600;
+        color: #130F26;
+      }
     </style>
   </head>
   <body>
@@ -716,6 +947,7 @@ const faqSchema = post.data.faq.length
         <a href="/">Início</a>
         <a href="/servicos">Serviços</a>
         <a href="/clientes-atendidos-sites">Portfólio</a>
+        <a href="/blog">Blog</a>
         <a href="/contato">Contato</a>
       </nav>
       <a class="back-link" href="/blog">← Voltar ao blog</a>
@@ -749,8 +981,38 @@ const faqSchema = post.data.faq.length
             <span>·</span>
             <span>{readingTime} min de leitura</span>
           </p>
+          {post.data.tags.length > 0 && (
+            <ul class="post-tags" aria-label="Tags do artigo">
+              {post.data.tags.map((tag) => (
+                <li>
+                  {paginasDeTag.has(slugTag(tag)) ? <a href={`/blog/tag/${slugTag(tag)}`}>{tag}</a> : tag}
+                </li>
+              ))}
+            </ul>
+          )}
+          {afiliado && (
+            <p class="affiliate-note">
+              Este artigo tem link de afiliado da {afiliado.nome}. Se você contratar por ele, a One Impact recebe uma comissão, sem custo extra para você. A recomendação segue a nossa experiência de uso.
+            </p>
+          )}
         </div>
       </header>
+
+      {video && (
+        <section class="post-video" aria-label="Vídeo do canal">
+          <div class="post-video-frame" data-video-id={video.id}>
+            <img src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={`Capa do vídeo: ${video.title}`} loading="lazy" width="480" height="360" />
+            <button type="button" class="post-video-play" aria-label={`Assistir ao vídeo: ${video.title}`} data-track="blog-video-play" data-track-label={video.title}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            </button>
+          </div>
+          <p class="post-video-caption">
+            Este artigo acompanha o vídeo
+            <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener" data-track="blog-video-youtube">{video.title}</a>
+            no canal Karol Christie. <a href="https://www.youtube.com/@karolchristie?sub_confirmation=1" target="_blank" rel="noopener" data-track="blog-inscrever">Inscreva-se no canal</a>.
+          </p>
+        </section>
+      )}
 
       {post.data.cover && (
         <div class="post-cover">
@@ -773,6 +1035,17 @@ const faqSchema = post.data.faq.length
         <div class="post-content">
           <Content />
         </div>
+
+        {afiliado && afiliadoUrl && (
+          <aside class="affiliate-box">
+            <h2>Quer contratar a {afiliado.nome}?</h2>
+            <p>Pelo nosso link você tem o desconto que está ativo na página da {afiliado.nome} e ajuda o canal a continuar produzindo conteúdo gratuito. Confira o plano e o preço na tela antes de finalizar.</p>
+            <a class="cta-button" href={afiliadoUrl} target="_blank" rel="sponsored noopener" data-track={`afiliado-${post.data.affiliate}`} data-track-label={`Ver planos da ${afiliado.nome} (${post.id})`}>
+              Ver os planos da {afiliado.nome}
+            </a>
+            <small>Link de afiliado. Preços e condições podem mudar, vale conferir na página da {afiliado.nome}.</small>
+          </aside>
+        )}
 
         {post.data.faq.length > 0 && (
           <section class="post-faq">
@@ -799,12 +1072,26 @@ const faqSchema = post.data.faq.length
     <section class="final-section">
       <div class="final-glow" aria-hidden="true"></div>
       <div class="container">
-        <span class="final-badge">Vamos conversar</span>
-        <h2>Pronto para organizar o <span class="hl">caos</span> do seu digital?</h2>
-        <p class="final-desc">Vamos entender o momento do seu negócio e construir uma presença digital que represente a qualidade do seu trabalho.</p>
-        <a href={WHATSAPP} class="button" target="_blank" rel="noopener">
-          Solicitar proposta
-        </a>
+        {afiliado ? (
+          <>
+            <span class="final-badge">Canal no YouTube</span>
+            <h2>Veja mais guias em vídeo no <span class="hl">canal</span></h2>
+            <p class="final-desc">Vídeos sobre criação de sites, hospedagem e estratégias para vender mais na internet, com a nossa experiência de uso.</p>
+            <div class="final-actions">
+              <a href={CANAL.inscreverUrl} class="button" target="_blank" rel="noopener" data-track="blog-artigo-inscrever" data-track-label={`Inscrever-se no canal (fim do artigo ${post.id})`}>Inscrever-se no canal</a>
+              <a href="/ferramentas" class="final-link" data-track="blog-artigo-final-ferramentas" data-track-label={`Ver as ferramentas (fim do artigo ${post.id})`}>Ver as ferramentas que recomendamos →</a>
+            </div>
+          </>
+        ) : (
+          <>
+            <span class="final-badge">Vamos conversar</span>
+            <h2>Pronto para organizar o <span class="hl">caos</span> do seu digital?</h2>
+            <p class="final-desc">Vamos entender o momento do seu negócio e construir uma presença digital que represente a qualidade do seu trabalho.</p>
+            <a href={WHATSAPP} class="button" target="_blank" rel="noopener">
+              Solicitar proposta
+            </a>
+          </>
+        )}
       </div>
     </section>
 
@@ -868,5 +1155,22 @@ const faqSchema = post.data.faq.length
         requestAnimationFrame(raf)
       }
     </script>
+    <script is:inline>
+      // Só carrega o player do YouTube quando a pessoa clica, para não pesar a página.
+      document.querySelectorAll('.post-video-frame').forEach(function (frame) {
+        var button = frame.querySelector('.post-video-play')
+        if (!button) return
+        button.addEventListener('click', function () {
+          var iframe = document.createElement('iframe')
+          iframe.src = 'https://www.youtube-nocookie.com/embed/' + frame.dataset.videoId + '?autoplay=1&rel=0'
+          iframe.title = 'Vídeo do canal Karol Christie'
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          iframe.allowFullscreen = true
+          frame.innerHTML = ''
+          frame.appendChild(iframe)
+        })
+      })
+    </script>
+    <Rastreio />
   </body>
 </html>

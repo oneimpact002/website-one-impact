@@ -1,0 +1,142 @@
+---
+import { fmtDate, readingTime } from '../lib/blog.js'
+
+// Card de artigo usado na lista do blog e nas páginas de tag.
+const { post, priority = false } = Astro.props
+const { data } = post
+---
+
+<a class="post-card" href={`/blog/${post.id}`} data-category={data.category}>
+  <div class="post-card-media">
+    {data.cover ? (
+      <img src={data.cover} alt={data.coverAlt ?? data.title} loading={priority ? 'eager' : 'lazy'} decoding="async" />
+    ) : data.video ? (
+      <img src={`https://i.ytimg.com/vi/${data.video.id}/hqdefault.jpg`} alt={`Capa do vídeo: ${data.video.title}`} loading={priority ? 'eager' : 'lazy'} decoding="async" />
+    ) : (
+      <span class="post-card-media-fallback"><span>One Impact</span></span>
+    )}
+    {data.video && <span class="post-card-badge">Com vídeo</span>}
+  </div>
+  <div class="post-card-body">
+    <span class="post-cat">{data.category}</span>
+    <h2>{data.title}</h2>
+    <p>{data.description}</p>
+    <span class="post-card-meta">
+      <time datetime={data.datePublished.toISOString()}>{fmtDate(data.datePublished)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{readingTime(post.body)} min de leitura</span>
+    </span>
+  </div>
+</a>
+
+<style>
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(19, 15, 38, 0.08);
+    background: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(19, 15, 38, 0.06);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .post-card[hidden] {
+    display: none;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(115, 69, 253, 0.14);
+  }
+
+  .post-card-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: linear-gradient(135deg, #130F26, #4B2FBE);
+  }
+
+  .post-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-card-media-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .post-card-media-fallback span {
+    font-family: 'Zalando Sans Expanded', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: rgba(247, 245, 253, 0.9);
+  }
+
+  .post-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: rgba(19, 15, 38, 0.82);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #FFFFFF;
+  }
+
+  .post-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 18px 20px;
+  }
+
+  .post-cat {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: rgba(115, 69, 253, 0.1);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4B2FBE;
+  }
+
+  .post-card-body h2 {
+    font-family: 'Zalando Sans Expanded', sans-serif;
+    font-size: 16px;
+    line-height: 1.35;
+    color: #130F26;
+  }
+
+  .post-card-body p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(19, 15, 38, 0.68);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    font-size: 11.5px;
+    color: rgba(19, 15, 38, 0.55);
+  }
+</style>
