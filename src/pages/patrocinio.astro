@@ -1,0 +1,763 @@
+---
+import Rastreio from '../components/Rastreio.astro';
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import FormPatrocinio from '../components/FormPatrocinio.astro'
+import { CANAL, ROTULOS_NUMEROS, ROTULOS_PUBLICO } from '../data/canal.js'
+
+// Media kit do canal: apresenta o canal, convida marcas para patrocinar e recebe
+// as propostas por formulário. Números e perfil do público vêm de src/data/canal.js
+// e só aparecem quando preenchidos.
+const url = 'https://agenciaoneimpact.com.br/patrocinio'
+const titulo = 'Patrocine o canal Karol Christie | Media kit e proposta'
+const descricao =
+  'Conheça o canal Karol Christie, sobre criação de sites, hospedagem e ferramentas para vender mais na internet, e envie a sua proposta de patrocínio ou parceria.'
+
+const numeros = Object.entries(CANAL.numeros).filter(([, v]) => v)
+const publico = Object.entries(CANAL.publico).filter(([, v]) => v)
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: titulo,
+  description: descricao,
+  url,
+  inLanguage: 'pt-BR',
+  about: { '@type': 'Person', name: CANAL.nome, sameAs: [CANAL.url] },
+  publisher: { '@type': 'Organization', name: 'One Impact', url: 'https://agenciaoneimpact.com.br' },
+}
+
+const FORMATOS = [
+  {
+    nome: 'Menção em vídeo',
+    texto: 'A marca ou o produto é citado de forma natural dentro de um vídeo sobre o tema.',
+  },
+  {
+    nome: 'Integração em vídeo',
+    texto: 'Um trecho do vídeo mostra, na prática, como usamos o produto ou serviço.',
+  },
+  {
+    nome: 'Vídeo dedicado',
+    texto: 'Um vídeo inteiro com a nossa avaliação do produto, a partir da experiência de uso.',
+  },
+  {
+    nome: 'Artigo no blog',
+    texto: 'Texto no blog da One Impact, otimizado para o Google e para as buscas com IA, publicado junto com o vídeo.',
+  },
+]
+
+const COMO_TRABALHAMOS = [
+  'Só fazemos parceria com produtos e serviços que testamos e que fazem sentido para quem assiste.',
+  'Todo conteúdo patrocinado é sinalizado como publicidade.',
+  'A opinião sobre o produto é nossa. A marca não aprova o que a gente diz sobre ele.',
+  'O link na descrição e no artigo tem rastreio de cliques.',
+]
+
+const PASSOS = [
+  { n: '1', titulo: 'Envie a proposta', texto: 'Preencha o formulário desta página com os dados da marca e o que vocês querem divulgar.' },
+  { n: '2', titulo: 'Avaliamos', texto: 'Vemos se o produto combina com o canal e com quem assiste.' },
+  { n: '3', titulo: 'Retorno', texto: 'Se fizer sentido, entramos em contato pelo e-mail ou WhatsApp que você informou.' },
+]
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={`https://i.ytimg.com/vi/${CANAL.videosDestaque[0].id}/hqdefault.jpg`} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: #F7F5FD;
+        font-family: 'Sora', sans-serif;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      section {
+        padding: 0 20px;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 148px 20px 28px;
+      }
+
+      .hero-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 45% 55% at 85% 10%, rgba(115, 69, 253, 0.14), transparent 70%);
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .badge {
+        display: inline-flex;
+        padding: 5px 12px;
+        border-radius: 9999px;
+        border: 1px solid rgba(115, 69, 253, 0.35);
+        background: rgba(115, 69, 253, 0.08);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #4B2FBE;
+      }
+
+      h1 {
+        max-width: 720px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #130F26;
+      }
+
+      h1 .hl {
+        color: #7345FD;
+      }
+
+      .hero-desc {
+        max-width: 620px;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.75;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 20px;
+        margin-top: 4px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 26px;
+        border-radius: 9999px;
+        background: #7345FD;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #FFFFFF;
+        box-shadow: 0 10px 26px rgba(115, 69, 253, 0.35);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .btn:hover {
+        background: #8a63ff;
+        transform: translateY(-2px);
+      }
+
+      .link-sec {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #4B2FBE;
+        text-decoration: none;
+      }
+
+      .link-sec:hover {
+        text-decoration: underline;
+      }
+
+      /* Aviso de segurança */
+      .aviso {
+        padding: 12px 20px 8px;
+      }
+
+      .aviso-box {
+        display: flex;
+        gap: 14px;
+        padding: 18px 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(217, 119, 6, 0.35);
+        border-left: 5px solid #d97706;
+        background: rgba(251, 191, 36, 0.12);
+      }
+
+      .aviso-icone {
+        flex-shrink: 0;
+        color: #b45309;
+      }
+
+      .aviso-box strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+        color: #130F26;
+      }
+
+      .aviso-box p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: rgba(19, 15, 38, 0.8);
+      }
+
+      .bloco {
+        padding: 44px 20px 0;
+      }
+
+      .sec-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #4B2FBE;
+      }
+
+      h2 {
+        margin-bottom: 14px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 24px;
+        line-height: 1.25;
+        color: #130F26;
+      }
+
+      .texto {
+        max-width: 680px;
+        font-size: 14.5px;
+        line-height: 1.8;
+        color: rgba(19, 15, 38, 0.75);
+      }
+
+      .texto + .texto {
+        margin-top: 12px;
+      }
+
+      /* Números */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 18px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(115, 69, 253, 0.14);
+        background: #FFFFFF;
+      }
+
+      .stat strong {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 22px;
+        color: #4B2FBE;
+      }
+
+      .stat span {
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(19, 15, 38, 0.62);
+      }
+
+      .stats-data {
+        margin-top: 10px;
+        font-size: 11.5px;
+        color: rgba(19, 15, 38, 0.5);
+      }
+
+      /* Vídeo mais visto */
+      .top-video {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        overflow: hidden;
+        margin-top: 22px;
+        border-radius: 14px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+        box-shadow: 0 14px 40px rgba(19, 15, 38, 0.08);
+      }
+
+      @media (min-width: 720px) {
+        .top-video {
+          grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        }
+      }
+
+      .top-thumb {
+        position: relative;
+        display: block;
+        min-height: 220px;
+        overflow: hidden;
+        background: #130F26;
+      }
+
+      .top-thumb img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .top-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 24px 22px;
+      }
+
+      .top-views {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 30px;
+        line-height: 1;
+        color: #4B2FBE;
+      }
+
+      .top-views small {
+        font-family: 'Sora', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(19, 15, 38, 0.6);
+      }
+
+      .top-info strong {
+        font-size: 14.5px;
+        line-height: 1.5;
+        color: #130F26;
+      }
+
+      .top-info p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      /* Vídeos */
+      .videos {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      @media (min-width: 720px) {
+        .videos {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .video-card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 12px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+        box-shadow: 0 8px 24px rgba(19, 15, 38, 0.06);
+      }
+
+      .video-thumb {
+        position: relative;
+        display: block;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: #130F26;
+      }
+
+      .video-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .video-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        transform: translate(-50%, -50%);
+        border-radius: 9999px;
+        background: rgba(115, 69, 253, 0.95);
+        color: #FFFFFF;
+        box-shadow: 0 8px 22px rgba(115, 69, 253, 0.5);
+      }
+
+      .video-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 14px 16px 16px;
+      }
+
+      .video-info strong {
+        font-size: 13.5px;
+        line-height: 1.5;
+        color: #130F26;
+      }
+
+      .video-info a {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #4B2FBE;
+        text-decoration: none;
+      }
+
+      .video-info a:hover {
+        text-decoration: underline;
+      }
+
+      /* Formatos */
+      .cards {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      @media (min-width: 720px) {
+        .cards {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 20px 20px 22px;
+        border-radius: 12px;
+        border: 1px solid rgba(19, 15, 38, 0.08);
+        background: #FFFFFF;
+      }
+
+      .card strong {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 15px;
+        color: #130F26;
+      }
+
+      .card p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      /* Como trabalhamos e passos */
+      .checks {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+        max-width: 680px;
+      }
+
+      .checks li {
+        position: relative;
+        padding-left: 32px;
+        font-size: 14px;
+        line-height: 1.65;
+        color: rgba(19, 15, 38, 0.8);
+      }
+
+      .checks li::before {
+        content: '✓';
+        position: absolute;
+        top: 1px;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 9999px;
+        background: rgba(115, 69, 253, 0.12);
+        font-size: 12px;
+        font-weight: 700;
+        color: #7345FD;
+      }
+
+      .passos {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      @media (min-width: 720px) {
+        .passos {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      .passo {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 20px;
+        border-radius: 12px;
+        background: rgba(115, 69, 253, 0.06);
+        border: 1px solid rgba(115, 69, 253, 0.12);
+      }
+
+      .passo-n {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 9999px;
+        background: #7345FD;
+        font-size: 13px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+
+      .passo strong {
+        font-size: 14.5px;
+        color: #130F26;
+      }
+
+      .passo p {
+        font-size: 13px;
+        line-height: 1.65;
+        color: rgba(19, 15, 38, 0.72);
+      }
+
+      .form-bloco {
+        padding: 44px 20px 80px;
+      }
+
+      .form-bloco .container {
+        max-width: 760px;
+      }
+
+      .form-bloco .texto {
+        margin-bottom: 22px;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container">
+        <span class="badge">Media kit</span>
+        <h1>Patrocine o canal <span class="hl">{CANAL.nome}</span></h1>
+        <p class="hero-desc">
+          Conteúdo sobre criação de sites, hospedagem e ferramentas para quem quer vender mais na internet. Conheça o canal e envie a sua proposta.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#proposta" data-track="patrocinio-enviar-proposta" data-track-label="Enviar proposta (topo)">Enviar proposta <span aria-hidden="true">→</span></a>
+          <a class="link-sec" href={CANAL.url} target="_blank" rel="noopener" data-track="patrocinio-ver-canal" data-track-label="Ver o canal">Ver o canal no YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="aviso">
+      <div class="container">
+        <div class="aviso-box" role="note">
+          <svg class="aviso-icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
+          <div>
+            <strong>Propostas só pelo formulário</strong>
+            <p>
+              Não respondemos mensagens enviadas por e-mail. Esse é um dos caminhos mais usados em golpes de phishing com falsas propostas de patrocínio, e por segurança avaliamos apenas as propostas enviadas pelo formulário desta página.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <div class="container">
+        <span class="sec-label">O canal</span>
+        <h2>Ferramentas e estratégia para vender na internet</h2>
+        <p class="texto">
+          No canal {CANAL.nome}, a gente avalia ferramentas e ensina a criar sites e a divulgar o negócio na internet, a partir do que usamos nos projetos da One Impact, uma agência de criação de sites, identidade visual e automações.
+        </p>
+        <p class="texto">
+          O público do canal é formado por quem está decidindo como criar ou melhorar o próprio site e quer entender qual ferramenta escolher. É a hora em que uma recomendação confiável faz diferença.
+        </p>
+
+        {numeros.length > 0 && (
+          <>
+            <div class="stats">
+              {numeros.map(([chave, valor]) => (
+                <div class="stat">
+                  <strong>{valor}</strong>
+                  <span>{ROTULOS_NUMEROS[chave]}</span>
+                </div>
+              ))}
+            </div>
+            {CANAL.numerosAtualizadosEm && <p class="stats-data">Dados do YouTube Studio, atualizados em {CANAL.numerosAtualizadosEm}.</p>}
+          </>
+        )}
+
+        {publico.length > 0 && (
+          <div class="stats">
+            {publico.map(([chave, valor]) => (
+              <div class="stat">
+                <strong>{valor}</strong>
+                <span>{ROTULOS_PUBLICO[chave]}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    {CANAL.destaqueMaisVisto && (
+      <section class="bloco">
+        <div class="container">
+          <span class="sec-label">Vídeo mais visto</span>
+          <h2>O vídeo que mais alcançou o público</h2>
+          <article class="top-video">
+            <a class="top-thumb" href={`https://www.youtube.com/watch?v=${CANAL.destaqueMaisVisto.id}`} target="_blank" rel="noopener" data-track="patrocinio-video-mais-visto" data-track-label={CANAL.destaqueMaisVisto.titulo} aria-label={`Assistir: ${CANAL.destaqueMaisVisto.titulo}`}>
+              <img src={`https://i.ytimg.com/vi/${CANAL.destaqueMaisVisto.id}/hqdefault.jpg`} alt={`Capa do vídeo: ${CANAL.destaqueMaisVisto.titulo}`} loading="lazy" width="480" height="360" />
+              <span class="video-play" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              </span>
+            </a>
+            <div class="top-info">
+              <span class="top-views">{CANAL.destaqueMaisVisto.visualizacoes} <small>visualizações</small></span>
+              <strong>{CANAL.destaqueMaisVisto.titulo}</strong>
+              <p>Vídeo de {CANAL.destaqueMaisVisto.duracao}, publicado em {CANAL.destaqueMaisVisto.publicadoEm}, sobre como escolher a plataforma para criar o próprio site. É o tipo de conteúdo que atrai quem está prestes a decidir qual ferramenta usar.</p>
+              <a class="link-sec" href={`https://www.youtube.com/watch?v=${CANAL.destaqueMaisVisto.id}`} target="_blank" rel="noopener" data-track="patrocinio-video-mais-visto-link" data-track-label="Assistir no YouTube">Assistir no YouTube →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    )}
+
+    <section class="bloco">
+      <div class="container">
+        <span class="sec-label">Vídeos em destaque</span>
+        <h2>Como uma parceria aparece no canal</h2>
+        <p class="texto">
+          Cada vídeo sobre uma ferramenta ganha um artigo no blog, com o link rastreado. Veja dois exemplos recentes.
+        </p>
+        <div class="videos">
+          {CANAL.videosDestaque.map((v) => (
+            <article class="video-card">
+              <a class="video-thumb" href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener" data-track="patrocinio-video" data-track-label={v.titulo} aria-label={`Assistir: ${v.titulo}`}>
+                <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={`Capa do vídeo: ${v.titulo}`} loading="lazy" width="480" height="360" />
+                <span class="video-play" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </a>
+              <div class="video-info">
+                <strong>{v.titulo}</strong>
+                <a href={v.artigo}>Ver o artigo do blog →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <div class="container">
+        <span class="sec-label">Formatos</span>
+        <h2>Formas de patrocinar o canal</h2>
+        <div class="cards">
+          {FORMATOS.map((f) => (
+            <div class="card">
+              <strong>{f.nome}</strong>
+              <p>{f.texto}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <div class="container">
+        <span class="sec-label">Como trabalhamos</span>
+        <h2>Parcerias que fazem sentido para quem assiste</h2>
+        <ul class="checks">
+          {COMO_TRABALHAMOS.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <div class="container">
+        <span class="sec-label">Como funciona</span>
+        <h2>Da proposta ao retorno</h2>
+        <div class="passos">
+          {PASSOS.map((p) => (
+            <div class="passo">
+              <span class="passo-n">{p.n}</span>
+              <strong>{p.titulo}</strong>
+              <p>{p.texto}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="form-bloco">
+      <div class="container">
+        <span class="sec-label">Proposta</span>
+        <h2>Envie a sua proposta</h2>
+        <p class="texto">Conte sobre a marca e o que vocês querem divulgar. Avaliamos todas as propostas recebidas por este formulário.</p>
+        <FormPatrocinio />
+      </div>
+    </section>
+
+    <Footer />
+    <Rastreio />
+  </body>
+</html>

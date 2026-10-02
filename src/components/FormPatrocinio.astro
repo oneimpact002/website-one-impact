@@ -1,0 +1,437 @@
+---
+// Formulário de proposta de patrocínio, em /patrocinio. Grava na tabela central
+// de leads com origem 'patrocinio'. Propostas só chegam por aqui: o e-mail não é
+// avaliado, por causa de phishing.
+//
+// Astro puro com script de módulo, como o FormContato: nenhuma página do site
+// carrega React.
+const TIPOS_PARCERIA = [
+  'Menção em vídeo',
+  'Integração em vídeo',
+  'Vídeo dedicado',
+  'Artigo no blog',
+  'Pacote com vídeo e artigo',
+  'Ainda não sei',
+]
+
+const INVESTIMENTO = [
+  'Prefiro conversar sobre isso',
+  'Até R$ 1.000',
+  'De R$ 1.000 a R$ 3.000',
+  'De R$ 3.000 a R$ 5.000',
+  'Acima de R$ 5.000',
+]
+---
+
+<div class="pf-wrap" id="proposta">
+  <form class="pf-form" id="form-patrocinio" novalidate>
+    <div class="pf-linha">
+      <div class="pf-campo">
+        <label for="pf-empresa">Marca ou empresa</label>
+        <input type="text" id="pf-empresa" name="empresa" autocomplete="organization" placeholder="Nome da marca" />
+        <span class="pf-erro" data-erro="empresa" aria-live="polite"></span>
+      </div>
+      <div class="pf-campo">
+        <label for="pf-site">Site ou Instagram da marca</label>
+        <input type="text" id="pf-site" name="site" placeholder="www.suamarca.com.br" />
+        <span class="pf-erro" data-erro="site" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="pf-linha">
+      <div class="pf-campo">
+        <label for="pf-nome">Seu nome</label>
+        <input type="text" id="pf-nome" name="nome" autocomplete="name" placeholder="Nome e sobrenome" />
+        <span class="pf-erro" data-erro="nome" aria-live="polite"></span>
+      </div>
+      <div class="pf-campo">
+        <label for="pf-cargo">Cargo <span class="pf-opcional">(opcional)</span></label>
+        <input type="text" id="pf-cargo" name="cargo" autocomplete="organization-title" placeholder="Ex: gerente de marketing" />
+      </div>
+    </div>
+
+    <div class="pf-linha">
+      <div class="pf-campo">
+        <label for="pf-email">E-mail</label>
+        <input type="email" id="pf-email" name="email" autocomplete="email" placeholder="voce@suamarca.com.br" />
+        <span class="pf-erro" data-erro="email" aria-live="polite"></span>
+      </div>
+      <div class="pf-campo">
+        <label for="pf-whatsapp">WhatsApp <span class="pf-opcional">(opcional)</span></label>
+        <input type="tel" id="pf-whatsapp" name="whatsapp" autocomplete="tel" inputmode="numeric" placeholder="(21) 90000-0000" />
+        <span class="pf-erro" data-erro="whatsapp" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="pf-linha">
+      <div class="pf-campo">
+        <label for="pf-tipo">Tipo de parceria</label>
+        <select id="pf-tipo" name="tipo">
+          <option value="">Escolha uma opção</option>
+          {TIPOS_PARCERIA.map((t) => <option value={t}>{t}</option>)}
+        </select>
+        <span class="pf-erro" data-erro="tipo" aria-live="polite"></span>
+      </div>
+      <div class="pf-campo">
+        <label for="pf-investimento">Faixa de investimento <span class="pf-opcional">(opcional)</span></label>
+        <select id="pf-investimento" name="investimento">
+          <option value="">Escolha uma opção</option>
+          {INVESTIMENTO.map((t) => <option value={t}>{t}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <div class="pf-campo">
+      <label for="pf-mensagem">O que você quer divulgar e qual o objetivo</label>
+      <textarea
+        id="pf-mensagem"
+        name="mensagem"
+        rows="5"
+        placeholder="Conte sobre o produto ou serviço, o público que vocês querem alcançar e o que esperam da parceria."
+      ></textarea>
+      <span class="pf-erro" data-erro="mensagem" aria-live="polite"></span>
+    </div>
+
+    <!-- Campo armadilha contra robôs. Pessoas não veem nem preenchem. -->
+    <div class="pf-armadilha" aria-hidden="true">
+      <label for="pf-confirmacao">Não preencha este campo</label>
+      <input type="text" id="pf-confirmacao" name="confirmacao" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="pf-campo pf-aceite">
+      <label class="pf-check">
+        <input type="checkbox" id="pf-aceite" name="aceite" />
+        <span>Concordo que a One Impact use esses dados para avaliar a minha proposta e entrar em contato.</span>
+      </label>
+      <span class="pf-erro" data-erro="aceite" aria-live="polite"></span>
+    </div>
+
+    <button type="submit" class="pf-enviar" data-enviar>Enviar proposta</button>
+    <p class="pf-falha" data-falha aria-live="assertive"></p>
+  </form>
+
+  <div class="pf-sucesso" id="pf-sucesso" hidden>
+    <h3>Proposta recebida</h3>
+    <p>Obrigada pelo interesse no canal. Vamos avaliar a sua proposta e, se fizer sentido para o canal, entramos em contato pelo e-mail ou WhatsApp que você informou.</p>
+    <p class="pf-sucesso-aviso">Lembrete: não respondemos propostas enviadas por e-mail. Avaliamos apenas as propostas enviadas pelo formulário.</p>
+  </div>
+</div>
+
+<style>
+  .pf-wrap {
+    width: 100%;
+    scroll-margin-top: 110px;
+  }
+
+  .pf-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px;
+    border: 1px solid rgba(19, 15, 38, 0.08);
+    border-radius: 14px;
+    background: #FFFFFF;
+    box-shadow: 0 14px 40px rgba(19, 15, 38, 0.08);
+  }
+
+  .pf-linha {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .pf-linha {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .pf-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .pf-campo label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(19, 15, 38, 0.8);
+  }
+
+  .pf-opcional {
+    font-weight: 400;
+    color: rgba(19, 15, 38, 0.45);
+  }
+
+  .pf-campo input[type='text'],
+  .pf-campo input[type='email'],
+  .pf-campo input[type='tel'],
+  .pf-campo select,
+  .pf-campo textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid rgba(19, 15, 38, 0.18);
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #130F26;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .pf-campo textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  .pf-campo input::placeholder,
+  .pf-campo textarea::placeholder {
+    color: rgba(19, 15, 38, 0.4);
+  }
+
+  .pf-campo input:focus,
+  .pf-campo select:focus,
+  .pf-campo textarea:focus {
+    outline: none;
+    border-color: #7345FD;
+    box-shadow: 0 0 0 3px rgba(115, 69, 253, 0.18);
+  }
+
+  .pf-campo select {
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23130F26' stroke-opacity='0.5' stroke-width='2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .pf-campo [aria-invalid='true'] {
+    border-color: #dc2626;
+  }
+
+  .pf-erro:empty {
+    display: none;
+  }
+
+  .pf-erro {
+    font-size: 12px;
+    color: #dc2626;
+  }
+
+  .pf-armadilha {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .pf-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: rgba(19, 15, 38, 0.7);
+  }
+
+  .pf-check input {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #7345FD;
+  }
+
+  .pf-enviar {
+    padding: 15px 24px;
+    border: 0;
+    border-radius: 9999px;
+    background: #7345FD;
+    color: #FFFFFF;
+    font-family: 'Sora', sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(115, 69, 253, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .pf-enviar:hover:not(:disabled) {
+    background: #8a63ff;
+    transform: translateY(-2px);
+  }
+
+  .pf-enviar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .pf-falha:empty {
+    display: none;
+  }
+
+  .pf-falha {
+    font-size: 13px;
+    color: #dc2626;
+    text-align: center;
+  }
+
+  .pf-sucesso {
+    padding: 40px 28px;
+    border: 1px solid rgba(19, 15, 38, 0.08);
+    border-radius: 14px;
+    background: #FFFFFF;
+    box-shadow: 0 14px 40px rgba(19, 15, 38, 0.08);
+    text-align: center;
+  }
+
+  .pf-sucesso h3 {
+    margin-bottom: 10px;
+    font-family: 'Zalando Sans Expanded', sans-serif;
+    font-size: 20px;
+    color: #130F26;
+  }
+
+  .pf-sucesso p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(19, 15, 38, 0.75);
+  }
+
+  .pf-sucesso-aviso {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(115, 69, 253, 0.06);
+    font-size: 12.5px !important;
+  }
+
+  @media (max-width: 640px) {
+    .pf-form {
+      padding: 22px 18px;
+    }
+  }
+</style>
+
+<script>
+  import { salvarLead, ORIGENS } from '../lib/leads.js'
+  import { validarNome, validarEmail, validarWhatsApp, formatarWhatsApp } from '../lib/validacao.js'
+
+  const form = document.getElementById('form-patrocinio') as HTMLFormElement | null
+  const sucesso = document.getElementById('pf-sucesso')
+
+  if (form && sucesso) {
+    const botao = form.querySelector('[data-enviar]') as HTMLButtonElement
+    const falha = form.querySelector('[data-falha]') as HTMLElement
+    let enviando = false
+
+    // Regra de cada campo obrigatório. A chave é o sufixo do id (pf-<chave>).
+    const REGRAS: Record<string, (v: string) => boolean> = {
+      empresa: (v) => v.trim().length >= 2,
+      site: (v) => v.trim().length >= 4,
+      nome: validarNome,
+      email: validarEmail,
+      // WhatsApp é opcional: vazio vale, preenchido precisa estar certo.
+      whatsapp: (v) => v.trim() === '' || validarWhatsApp(v),
+      tipo: (v) => !!v,
+      mensagem: (v) => v.trim().length >= 20,
+    }
+
+    const MENSAGENS: Record<string, string> = {
+      empresa: 'Diga o nome da marca.',
+      site: 'Informe o site ou o Instagram da marca.',
+      nome: 'Escreva seu nome e sobrenome.',
+      email: 'Confira o e-mail.',
+      whatsapp: 'Confira o número com DDD.',
+      tipo: 'Escolha uma opção.',
+      mensagem: 'Conte um pouco mais, com pelo menos 20 caracteres.',
+      aceite: 'Para enviar, precisamos da sua concordância.',
+    }
+
+    ;(form.querySelector('#pf-whatsapp') as HTMLInputElement).addEventListener('input', (e) => {
+      const alvo = e.target as HTMLInputElement
+      alvo.value = formatarWhatsApp(alvo.value)
+    })
+
+    function validar(): boolean {
+      let primeiro: HTMLElement | null = null
+
+      for (const [chave, ehValido] of Object.entries(REGRAS)) {
+        const campo = form!.querySelector('#pf-' + chave) as HTMLInputElement
+        const aviso = form!.querySelector('[data-erro="' + chave + '"]') as HTMLElement
+        const ok = ehValido(campo.value)
+        aviso.textContent = ok ? '' : MENSAGENS[chave]
+        campo.setAttribute('aria-invalid', String(!ok))
+        if (!ok && !primeiro) primeiro = campo
+      }
+
+      const aceite = form!.querySelector('#pf-aceite') as HTMLInputElement
+      const avisoAceite = form!.querySelector('[data-erro="aceite"]') as HTMLElement
+      avisoAceite.textContent = aceite.checked ? '' : MENSAGENS.aceite
+      if (!aceite.checked && !primeiro) primeiro = aceite
+
+      if (primeiro) {
+        primeiro.focus()
+        return false
+      }
+      return true
+    }
+
+    form.addEventListener('submit', async (evento) => {
+      evento.preventDefault()
+      if (enviando) return
+
+      // Robô preencheu o campo armadilha: finge que deu certo e não grava nada.
+      const armadilha = form.querySelector('#pf-confirmacao') as HTMLInputElement
+      if (armadilha.value.trim() !== '') {
+        form.hidden = true
+        sucesso.hidden = false
+        return
+      }
+
+      if (!validar()) return
+
+      const dados = Object.fromEntries(new FormData(form)) as Record<string, string>
+      enviando = true
+      botao.disabled = true
+      botao.textContent = 'Enviando...'
+      falha.textContent = ''
+
+      // O que é comum a todo lead vira coluna; o resto vai em extras, para a
+      // tabela central não precisar de coluna nova por causa deste formulário.
+      const resultado = await salvarLead({
+        origem: ORIGENS.patrocinio,
+        nome: dados.nome.trim(),
+        email: dados.email.trim(),
+        telefone: dados.whatsapp.trim() || null,
+        servico: dados.tipo,
+        mensagem: dados.mensagem.trim(),
+        extras: {
+          empresa: dados.empresa.trim(),
+          site_marca: dados.site.trim(),
+          cargo: dados.cargo.trim() || null,
+          faixa_investimento: dados.investimento || null,
+          aceitou_uso_dos_dados: true,
+        },
+      })
+
+      if (resultado.ok) {
+        form.hidden = true
+        sucesso.hidden = false
+        sucesso.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
+      }
+
+      // Não perde a proposta por falha de rede: o formulário volta ao normal.
+      enviando = false
+      botao.disabled = false
+      botao.textContent = 'Enviar proposta'
+      falha.textContent = 'Não conseguimos enviar agora. Tente de novo em instantes.'
+    })
+  }
+</script>
