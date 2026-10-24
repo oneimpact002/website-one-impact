@@ -5,7 +5,7 @@
 //      [Ver os planos da Hostinger](afiliado:hostinger)
 //      [Ver os planos da Hostinger](afiliado:hostinger/resumo)
 //
-//    O site troca pelo link verdadeiro (src/data/afiliados.js), com o parâmetro
+//    O site troca pelo link do artigo (o curto do LinkFlow em src/data/afiliados.js, ou o direto da Hostinger se o artigo não tiver curto), com o parâmetro
 //    "source" do artigo: blog-<nome-do-arquivo>-no-texto, ou
 //    blog-<nome-do-arquivo>-<posição> quando você escreve /posição (resumo,
 //    perfis...). Assim o painel de afiliados mostra quanto cada convite trouxe,
@@ -23,7 +23,7 @@
 // Produto que não existir em afiliados.js (ou sem cupom) trava o build, para um
 // erro de digitação não virar link quebrado no ar.
 import { basename } from 'node:path'
-import { AFILIADOS, linkAfiliado } from '../data/afiliados.js'
+import { AFILIADOS, linkBlog } from '../data/afiliados.js'
 
 function percorrer(no, fazer) {
   fazer(no)
@@ -71,7 +71,7 @@ export default function remarkLinkAfiliado() {
         throw new Error(`Link de afiliado com produto desconhecido ("${produto}") no artigo "${slug}".`)
       }
 
-      no.url = linkAfiliado(produto, `${slug}-${posicao || 'no-texto'}`)
+      no.url = linkBlog(produto, slug, posicao || 'no-texto')
       no.data = {
         ...(no.data || {}),
         hProperties: {
