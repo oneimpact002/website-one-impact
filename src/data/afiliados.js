@@ -7,6 +7,9 @@ export const AFILIADOS = {
   hostinger: {
     nome: 'Hostinger',
     base: 'https://www.hostg.xyz/aff_c?offer_id=6&aff_id=101846',
+    // Cupom que a pessoa cola no pagamento da Hostinger. É o mesmo da landing do cupom
+    // (lp.oneimpact.com.br/indicacao-hostinger). Se a Hostinger mudar o desconto, mude aqui.
+    cupom: { codigo: 'ONEIMPACT', desconto: '10%' },
   },
 }
 

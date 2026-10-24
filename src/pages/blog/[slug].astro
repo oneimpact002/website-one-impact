@@ -1,9 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content'
 import Rastreio from '../../components/Rastreio.astro';
+import Header from '../../components/Header.astro'
 import { AFILIADOS, linkAfiliado } from '../../data/afiliados.js';
 import { slugTag, tagsComPagina } from '../../lib/blog.js';
 import { CANAL } from '../../data/canal.js';
+import CupomChip from '../../components/CupomChip.astro';
+import CopiarCupom from '../../components/CopiarCupom.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
@@ -20,7 +23,7 @@ const paginasDeTag = tagsComPagina(todosPosts)
 const WHATSAPP = 'https://link.oneimpact.com.br/contato-agencia-one-impact';
 
 const url = `https://agenciaoneimpact.com.br/blog/${post.id}`
-const fmtDate = (d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
+const fmtDate = (d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(d)
 const toc = headings.filter((h) => h.depth === 2)
 const words = post.body ? post.body.split(/\s+/).length : 0
 const readingTime = Math.max(1, Math.round(words / 200))
@@ -141,82 +144,6 @@ const faqSchema = post.data.faq.length
       body {
         background-color: #F7F5FD;
         font-family: 'Sora', sans-serif;
-      }
-
-      .floating-header {
-        position: fixed;
-        top: 14px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 60;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        width: min(92%, 720px);
-        padding: 10px 16px;
-        border-radius: 9999px;
-        border: 1px solid rgba(19, 15, 38, 0.08);
-        background: rgba(255, 255, 255, 0.82);
-        box-shadow: 0 8px 28px rgba(19, 15, 38, 0.12);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        flex-shrink: 0;
-        text-decoration: none;
-        color: #130F26;
-      }
-
-      .brand-logo {
-        height: 26px;
-        width: auto;
-        display: block;
-      }
-
-      .desktop-menu {
-        display: none;
-        align-items: center;
-        gap: 2px;
-      }
-
-      .desktop-menu a {
-        padding: 8px 11px;
-        border-radius: 9999px;
-        font-family: 'Sora', sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        text-decoration: none;
-        color: #130F26;
-        transition: color 0.2s ease, background 0.2s ease;
-      }
-
-      .desktop-menu a:hover {
-        color: #7345FD;
-        background: rgba(115, 69, 253, 0.09);
-      }
-
-      .back-link {
-        font-family: 'Sora', sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        color: rgba(19, 15, 38, 0.7);
-        transition: color 0.2s ease;
-      }
-
-      .back-link:hover {
-        color: #7345FD;
-      }
-
-      @media (min-width: 900px) {
-        .desktop-menu {
-          display: flex;
-        }
       }
 
       .post-hero {
@@ -412,12 +339,18 @@ const faqSchema = post.data.faq.length
       .post-content :global(ol) {
         margin: 0 0 16px;
         padding-left: 22px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+      }
+
+      .post-content :global(ul) {
+        list-style: disc;
+      }
+
+      .post-content :global(ol) {
+        list-style: decimal;
       }
 
       .post-content :global(li) {
+        margin-bottom: 8px;
         font-size: 14.5px;
         font-weight: 300;
         line-height: 1.75;
@@ -936,22 +869,62 @@ const faqSchema = post.data.faq.length
         font-weight: 600;
         color: #130F26;
       }
+      /* Link de afiliado dentro do texto do artigo (ver src/lib/remark-link-afiliado.js) */
+      .post-content :global(a.cta-afiliado) {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 6px;
+        padding: 12px 24px;
+        border-radius: 9999px;
+        background: #7345FD;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #FFFFFF;
+        box-shadow: 0 10px 24px rgba(115, 69, 253, 0.3);
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .post-content :global(a.cta-afiliado:hover) {
+        background: #8a63ff;
+        transform: translateY(-2px);
+        text-decoration: none;
+      }
+
+      .post-content :global(a.cupom-copiar) {
+        display: inline-flex;
+        align-items: center;
+        margin: 6px 0 0 10px;
+        padding: 11px 22px;
+        border-radius: 9999px;
+        border: 1.5px dashed #7345FD;
+        background: #FFFFFF;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #4B2FBE;
+        cursor: pointer;
+      }
+
+      .post-content :global(a.cupom-copiar:hover) {
+        background: rgba(115, 69, 253, 0.08);
+        text-decoration: none;
+      }
+
+      .post-content :global(a.cupom-copiar.copiado) {
+        border-color: #16a34a;
+        background: #dcfce7;
+        color: #14532d;
+      }
+
+      .post-content :global(a.cta-afiliado::after) {
+        content: '\2192';
+        margin-left: 8px;
+      }
     </style>
   </head>
   <body>
-    <header class="floating-header">
-      <a class="brand" href="/" aria-label="One Impact — início">
-        <img src="/logo-one-impact-dark.svg" alt="One Impact" class="brand-logo" />
-      </a>
-      <nav class="desktop-menu" aria-label="Navegação principal">
-        <a href="/">Início</a>
-        <a href="/servicos">Serviços</a>
-        <a href="/clientes-atendidos-sites">Portfólio</a>
-        <a href="/blog">Blog</a>
-        <a href="/contato">Contato</a>
-      </nav>
-      <a class="back-link" href="/blog">← Voltar ao blog</a>
-    </header>
+    <Header />
 
     <article>
       <header class="post-hero">
@@ -992,7 +965,7 @@ const faqSchema = post.data.faq.length
           )}
           {afiliado && (
             <p class="affiliate-note">
-              Este artigo tem link de afiliado da {afiliado.nome}. Se você contratar por ele, a One Impact recebe uma comissão, sem custo extra para você. A recomendação segue a nossa experiência de uso.
+              Contratando a {afiliado.nome} pelo nosso link, você apoia o canal e ajuda a gente a continuar produzindo conteúdo gratuito. A recomendação segue a nossa experiência de uso.
             </p>
           )}
         </div>
@@ -1039,11 +1012,18 @@ const faqSchema = post.data.faq.length
         {afiliado && afiliadoUrl && (
           <aside class="affiliate-box">
             <h2>Quer contratar a {afiliado.nome}?</h2>
-            <p>Pelo nosso link você tem o desconto que está ativo na página da {afiliado.nome} e ajuda o canal a continuar produzindo conteúdo gratuito. Confira o plano e o preço na tela antes de finalizar.</p>
+            {afiliado.cupom ? (
+              <>
+                <p>Use o cupom {afiliado.cupom.codigo} no pagamento e ganhe {afiliado.cupom.desconto} de desconto. Contratando pelo nosso link, você também apoia o canal e ajuda a gente a continuar produzindo conteúdo gratuito. Confira o plano e o preço na tela antes de finalizar.</p>
+                <CupomChip cupom={afiliado.cupom} rastreio={'artigo-' + post.id} />
+              </>
+            ) : (
+              <p>Pelo nosso link você tem o desconto que está ativo na página da {afiliado.nome} e ajuda o canal a continuar produzindo conteúdo gratuito. Confira o plano e o preço na tela antes de finalizar.</p>
+            )}
             <a class="cta-button" href={afiliadoUrl} target="_blank" rel="sponsored noopener" data-track={`afiliado-${post.data.affiliate}`} data-track-label={`Ver planos da ${afiliado.nome} (${post.id})`}>
               Ver os planos da {afiliado.nome}
             </a>
-            <small>Link de afiliado. Preços e condições podem mudar, vale conferir na página da {afiliado.nome}.</small>
+            <small>Preços e condições podem mudar, vale conferir na página da {afiliado.nome}.</small>
           </aside>
         )}
 
@@ -1072,7 +1052,7 @@ const faqSchema = post.data.faq.length
     <section class="final-section">
       <div class="final-glow" aria-hidden="true"></div>
       <div class="container">
-        {afiliado ? (
+        {afiliado || post.data.cta === 'canal' ? (
           <>
             <span class="final-badge">Canal no YouTube</span>
             <h2>Veja mais guias em vídeo no <span class="hl">canal</span></h2>
@@ -1171,6 +1151,7 @@ const faqSchema = post.data.faq.length
         })
       })
     </script>
+    <CopiarCupom />
     <Rastreio />
   </body>
 </html>

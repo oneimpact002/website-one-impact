@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import Rastreio from '../../../components/Rastreio.astro';
+import AnimacaoRolagem from '../../../components/AnimacaoRolagem.astro'
 import Header from '../../../components/Header.astro'
 import Footer from '../../../components/Footer.astro'
 import PostCard from '../../../components/PostCard.astro'
@@ -110,6 +111,17 @@ const breadcrumb = {
         background: radial-gradient(ellipse 45% 55% at 85% 10%, rgba(115, 69, 253, 0.14), transparent 70%);
       }
 
+      .hero-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(75, 47, 190, 0.25) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 80% at 75% 20%, black, transparent 80%);
+        mask-image: radial-gradient(ellipse 65% 80% at 75% 20%, black, transparent 80%);
+      }
+
       .hero .container {
         position: relative;
         z-index: 1;
@@ -205,13 +217,15 @@ const breadcrumb = {
         text-decoration: underline;
       }
     </style>
+    <AnimacaoRolagem />
   </head>
   <body>
     <Header />
 
     <section class="hero">
       <div class="hero-glow" aria-hidden="true"></div>
-      <div class="container">
+      <div class="hero-dots" aria-hidden="true"></div>
+      <div class="container" data-reveal-scroll data-reveal-filhos>
         <nav class="breadcrumb" aria-label="Você está em">
           <a href="/">Início</a>
           <span aria-hidden="true">/</span>
@@ -228,7 +242,7 @@ const breadcrumb = {
     </section>
 
     <section class="posts-section">
-      <div class="container">
+      <div class="container" data-reveal-scroll data-reveal-filhos>
         <div class="posts-grid">
           {posts.map((post, i) => <PostCard post={post} priority={i < 3} />)}
         </div>

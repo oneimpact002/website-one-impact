@@ -24,6 +24,8 @@ faq:
     a: 'Dá. Muita gente começa em um plano menor e faz o upgrade quando o negócio cresce. O importante é começar, desde que o plano comporte o tamanho do seu site.'
   - q: 'A Hostinger tem garantia de reembolso?'
     a: 'A garantia padrão é de 30 dias. Confira as condições na página da Hostinger antes de contratar.'
+  - q: 'Tem cupom de desconto para a Hostinger?'
+    a: 'Sim. O cupom ONEIMPACT dá 10% de desconto no pagamento da Hostinger. Contratando pelo nosso link você também apoia o canal. Digite o cupom no campo de cupom de desconto da tela de pagamento e confira o valor com o desconto antes de finalizar.'
 draft: false
 ---
 
@@ -50,6 +52,10 @@ Os preços do contrato de 24 meses, conferidos em 25 de setembro de 2026, são e
 | Cloud Startup | R$ 44,99 | R$ 129,99 |
 
 Os preços mudam e as promoções também. Confira o valor na página da Hostinger antes de decidir. O plano Business deixou de existir, e o Unlimited atual é o antigo Business.
+
+> Sem tempo para comparar? A nossa indicação é o Unlimited e, se o orçamento apertar, o Premium. Use o cupom ONEIMPACT no pagamento e ganhe 10% de desconto. Contratando pelo nosso link, você também apoia o canal.
+>
+> [Ver os planos da Hostinger](afiliado:hostinger/resumo) [Copiar cupom ONEIMPACT](cupom:hostinger/resumo)
 
 ## Plano Single: serve para quê?
 
@@ -79,6 +85,12 @@ Ele atende bem site corporativo simples ou grande, landing page de campanha com 
 
 Se der para escolher só um plano, escolha este. Se não der, o Premium resolve a maior parte dos casos.
 
+Já escolheu o plano? Então é só contratar. A nossa recomendação é o contrato de 24 meses, pelo desconto, mas vale olhar o valor da renovação, que a tabela de preços acima mostra por mês. A Hostinger tem garantia de reembolso de 30 dias, e vale conferir as condições na página dela.
+
+> Pronto para contratar? Com o cupom ONEIMPACT você ganha 10% de desconto no pagamento, e pelo nosso link você também apoia o canal e ajuda a gente a continuar produzindo conteúdo gratuito. Confira o plano e o valor na tela antes de finalizar.
+>
+> [Ver os planos da Hostinger](afiliado:hostinger/unlimited) [Copiar cupom ONEIMPACT](cupom:hostinger/unlimited)
+
 ## Plano Cloud Startup: para projetos grandes
 
 O nome Cloud, aqui, é de hospedagem em nuvem. Não tem relação com inteligência artificial.
@@ -93,4 +105,4 @@ Comece pelo Single. Ter um lugar na internet com suas informações, seus depoim
 
 ## Como comparar a Hostinger com outras hospedagens
 
-Na hora de avaliar qualquer hospedagem, olhe quatro pontos: o painel, o suporte, a qualidade da entrega (velocidade, segurança e armazenamento) e o preço. Um comparativo da Hostinger com outras hospedagens está no vídeo [Hospedagem Hostinger ainda vale a pena para criar sites em 2026](https://www.youtube.com/watch?v=CK9_nYkOYZA).
+Na hora de avaliar qualquer hospedagem, olhe quatro pontos: o painel, o suporte, a qualidade da entrega (velocidade, segurança e armazenamento) e o preço. Um comparativo da Hostinger com outras hospedagens está no vídeo [Hospedagem Hostinger ainda vale a pena para criar sites em 2026](https://www.youtube.com/watch?v=CK9_nYkOYZA). Para comparar a Hostinger com a Turbo Cloud e a KingHost, veja [qual a melhor hospedagem para criar sites em 2026](/blog/qual-a-melhor-hospedagem-para-criar-sites).

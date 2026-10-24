@@ -128,10 +128,10 @@ const INVESTIMENTO = [
     flex-direction: column;
     gap: 16px;
     padding: 28px;
-    border: 1px solid rgba(19, 15, 38, 0.08);
+    border: 1px solid rgba(var(--tinta-rgb, 19, 15, 38), 0.08);
     border-radius: 14px;
-    background: #FFFFFF;
-    box-shadow: 0 14px 40px rgba(19, 15, 38, 0.08);
+    background: var(--superficie, #FFFFFF);
+    box-shadow: 0 14px 40px rgba(var(--tinta-rgb, 19, 15, 38), 0.08);
   }
 
   .pf-linha {
@@ -156,12 +156,12 @@ const INVESTIMENTO = [
   .pf-campo label {
     font-size: 13px;
     font-weight: 500;
-    color: rgba(19, 15, 38, 0.8);
+    color: rgba(var(--tinta-rgb, 19, 15, 38), 0.8);
   }
 
   .pf-opcional {
     font-weight: 400;
-    color: rgba(19, 15, 38, 0.45);
+    color: rgba(var(--tinta-rgb, 19, 15, 38), 0.45);
   }
 
   .pf-campo input[type='text'],
@@ -171,10 +171,10 @@ const INVESTIMENTO = [
   .pf-campo textarea {
     width: 100%;
     padding: 13px 14px;
-    border: 1px solid rgba(19, 15, 38, 0.18);
+    border: 1px solid rgba(var(--tinta-rgb, 19, 15, 38), 0.18);
     border-radius: 8px;
-    background: #FFFFFF;
-    color: #130F26;
+    background: var(--superficie, #FFFFFF);
+    color: var(--tinta, #130F26);
     font-family: 'Sora', sans-serif;
     font-size: 14px;
     transition: border-color 0.18s ease, box-shadow 0.18s ease;
@@ -188,7 +188,7 @@ const INVESTIMENTO = [
 
   .pf-campo input::placeholder,
   .pf-campo textarea::placeholder {
-    color: rgba(19, 15, 38, 0.4);
+    color: rgba(var(--tinta-rgb, 19, 15, 38), 0.4);
   }
 
   .pf-campo input:focus,
@@ -209,7 +209,7 @@ const INVESTIMENTO = [
   }
 
   .pf-campo [aria-invalid='true'] {
-    border-color: #dc2626;
+    border-color: var(--erro, #dc2626);
   }
 
   .pf-erro:empty {
@@ -218,7 +218,7 @@ const INVESTIMENTO = [
 
   .pf-erro {
     font-size: 12px;
-    color: #dc2626;
+    color: var(--erro, #dc2626);
   }
 
   .pf-armadilha {
@@ -236,7 +236,7 @@ const INVESTIMENTO = [
     cursor: pointer;
     font-size: 12.5px;
     line-height: 1.55;
-    color: rgba(19, 15, 38, 0.7);
+    color: rgba(var(--tinta-rgb, 19, 15, 38), 0.7);
   }
 
   .pf-check input {
@@ -277,16 +277,16 @@ const INVESTIMENTO = [
 
   .pf-falha {
     font-size: 13px;
-    color: #dc2626;
+    color: var(--erro, #dc2626);
     text-align: center;
   }
 
   .pf-sucesso {
     padding: 40px 28px;
-    border: 1px solid rgba(19, 15, 38, 0.08);
+    border: 1px solid rgba(var(--tinta-rgb, 19, 15, 38), 0.08);
     border-radius: 14px;
-    background: #FFFFFF;
-    box-shadow: 0 14px 40px rgba(19, 15, 38, 0.08);
+    background: var(--superficie, #FFFFFF);
+    box-shadow: 0 14px 40px rgba(var(--tinta-rgb, 19, 15, 38), 0.08);
     text-align: center;
   }
 
@@ -294,13 +294,13 @@ const INVESTIMENTO = [
     margin-bottom: 10px;
     font-family: 'Zalando Sans Expanded', sans-serif;
     font-size: 20px;
-    color: #130F26;
+    color: var(--tinta, #130F26);
   }
 
   .pf-sucesso p {
     font-size: 14px;
     line-height: 1.7;
-    color: rgba(19, 15, 38, 0.75);
+    color: rgba(var(--tinta-rgb, 19, 15, 38), 0.75);
   }
 
   .pf-sucesso-aviso {

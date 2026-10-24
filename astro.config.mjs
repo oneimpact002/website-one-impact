@@ -3,6 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 import react from '@astrojs/react';
+import remarkLinkAfiliado from './src/lib/remark-link-afiliado.js';
 
 export default defineConfig({
   // Endereço final do site. É obrigatório para o sitemap: sem ele o Astro não
@@ -21,6 +22,11 @@ export default defineConfig({
         !pagina.includes('/id-visual/'),
     }),
   ],
+
+  // Links de afiliado dentro dos artigos: [texto](afiliado:hostinger).
+  markdown: {
+    remarkPlugins: [remarkLinkAfiliado],
+  },
 
   output: 'static',
 });

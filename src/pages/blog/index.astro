@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import Rastreio from '../../components/Rastreio.astro';
+import Header from '../../components/Header.astro'
 import PostCard from '../../components/PostCard.astro';
 import { FERRAMENTAS } from '../../data/ferramentas.js';
 import { CANAL } from '../../data/canal.js';
@@ -16,7 +17,7 @@ const categories = [...new Set(posts.map((p) => p.data.category))].map((name) =>
   count: posts.filter((p) => p.data.category === name).length,
 }))
 
-const fmtDate =(d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
+const fmtDate =(d: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(d)
 
 const blogSchema = {
   '@context': 'https://schema.org',
@@ -80,82 +81,6 @@ const blogSchema = {
       .reveal-ready [data-reveal-scroll].is-visible .reveal-fade {
         opacity: 1;
         transform: translate3d(0, 0, 0);
-      }
-
-      .floating-header {
-        position: fixed;
-        top: 14px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 60;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        width: min(92%, 720px);
-        padding: 10px 16px;
-        border-radius: 9999px;
-        border: 1px solid rgba(19, 15, 38, 0.08);
-        background: rgba(255, 255, 255, 0.82);
-        box-shadow: 0 8px 28px rgba(19, 15, 38, 0.12);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        flex-shrink: 0;
-        text-decoration: none;
-        color: #130F26;
-      }
-
-      .brand-logo {
-        height: 26px;
-        width: auto;
-        display: block;
-      }
-
-      .desktop-menu {
-        display: none;
-        align-items: center;
-        gap: 2px;
-      }
-
-      .desktop-menu a {
-        padding: 8px 11px;
-        border-radius: 9999px;
-        font-family: 'Sora', sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        text-decoration: none;
-        color: #130F26;
-        transition: color 0.2s ease, background 0.2s ease;
-      }
-
-      .desktop-menu a:hover {
-        color: #7345FD;
-        background: rgba(115, 69, 253, 0.09);
-      }
-
-      .back-link {
-        font-family: 'Sora', sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        color: rgba(19, 15, 38, 0.7);
-        transition: color 0.2s ease;
-      }
-
-      .back-link:hover {
-        color: #7345FD;
-      }
-
-      @media (min-width: 900px) {
-        .desktop-menu {
-          display: flex;
-        }
       }
 
       .container {
@@ -914,24 +839,12 @@ const blogSchema = {
     </style>
   </head>
   <body>
-    <header class="floating-header">
-      <a class="brand" href="/" aria-label="One Impact — início">
-        <img src="/logo-one-impact-dark.svg" alt="One Impact" class="brand-logo" />
-      </a>
-      <nav class="desktop-menu" aria-label="Navegação principal">
-        <a href="/">Início</a>
-        <a href="/servicos">Serviços</a>
-        <a href="/clientes-atendidos-sites">Portfólio</a>
-        <a href="/blog">Blog</a>
-        <a href="/contato">Contato</a>
-      </nav>
-      <a class="back-link" href="/">← Voltar ao início</a>
-    </header>
+    <Header />
 
     <section class="hero">
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="hero-dots" aria-hidden="true"></div>
-      <div class="container" data-reveal-scroll>
+      <div class="container wide" data-reveal-scroll>
         <span class="badge reveal-fade">Blog One Impact</span>
         <h1 class="reveal-fade">Guias para criar seu site e <span class="hl">vender mais na internet</span></h1>
         <p class="hero-desc reveal-fade">

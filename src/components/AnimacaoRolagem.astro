@@ -1,0 +1,86 @@
+---
+// Animação de rolagem das páginas novas (ferramentas, patrocínio, ranking e tags).
+// É a mesma da lista do blog: os blocos aparecem subindo suavemente quando entram
+// na tela, e a rolagem é suave (Lenis). Fica desligada para quem pede menos
+// movimento no sistema.
+//
+// Como usar: coloque <AnimacaoRolagem /> dentro do <head> da página e, em cada
+// bloco que deve animar, marque o contêiner com:
+//   data-reveal-scroll data-reveal-filhos
+// Cada filho direto do contêiner aparece junto quando o bloco entra na tela.
+// Para animar só alguns filhos, use data-reveal-scroll no contêiner e a classe
+// reveal-fade nos filhos escolhidos.
+---
+
+<script is:inline>
+  // Cedo, no head, para o conteúdo não piscar antes de a animação ligar.
+  document.documentElement.classList.add('reveal-ready')
+</script>
+
+<style is:global>
+  .reveal-ready [data-reveal-scroll] .reveal-fade,
+  .reveal-ready [data-reveal-scroll][data-reveal-filhos] > * {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal-ready [data-reveal-scroll].is-visible .reveal-fade,
+  .reveal-ready [data-reveal-scroll][data-reveal-filhos].is-visible > * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-ready [data-reveal-scroll] .reveal-fade,
+    .reveal-ready [data-reveal-scroll][data-reveal-filhos] > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Recomendado pela biblioteca de rolagem suave para não brigar com scroll-behavior */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+</style>
+
+<script>
+  // 1) O efeito de aparecer ao rolar vem primeiro e não depende de mais nada.
+  const grupos = document.querySelectorAll('[data-reveal-scroll]')
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((entrada) => {
+        entrada.target.classList.toggle('is-visible', entrada.isIntersecting)
+      })
+    },
+    { threshold: 0.05 },
+  )
+  grupos.forEach((grupo) => observador.observe(grupo))
+
+  // 2) A rolagem suave é só um acabamento. Se a biblioteca não carregar, a página
+  // continua funcionando e os blocos continuam aparecendo.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    import('lenis')
+      .then(({ default: Lenis }) => {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        })
+
+        function raf(time: number) {
+          lenis.raf(time)
+          requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+      })
+      .catch(() => {})
+  }
+</script>

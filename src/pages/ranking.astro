@@ -1,0 +1,680 @@
+---
+import Rastreio from '../components/Rastreio.astro';
+import AnimacaoRolagem from '../components/AnimacaoRolagem.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import { CRITERIOS, HOSPEDAGENS, VIDEOS_GERAIS, ATUALIZADO_EM } from '../data/ranking.js'
+import { montarRanking, ultimosVideos } from '../lib/ranking.js'
+import { AFILIADOS, linkAfiliado } from '../data/afiliados.js'
+import CopiarCupom from '../components/CopiarCupom.astro'
+import CupomChip from '../components/CupomChip.astro'
+
+// Ranking de hospedagens avaliadas no canal, em tabela.
+// Dados em src/data/ranking.js. Em produção, só aparece nota confirmada.
+const { ranking, emAvaliacao } = montarRanking(HOSPEDAGENS, CRITERIOS, { producao: import.meta.env.PROD })
+const videos = ultimosVideos(HOSPEDAGENS, 3, VIDEOS_GERAIS)
+const temRascunho = ranking.some((h) => h.rascunho)
+
+const fmtData = (iso) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date(`${iso}T12:00:00`))
+const fmtNota = (n) => n.toFixed(1).replace('.', ',')
+const fmtReais = (n) => `R$ ${n.toFixed(2).replace('.', ',')}`
+
+const lista = ranking.map((h, i) => ({
+  ...h,
+  posicao: i + 1,
+  link: h.afiliado ? linkAfiliado(h.afiliado, h.id, 'ranking') : null,
+  cupom: h.afiliado ? AFILIADOS[h.afiliado].cupom : null,
+}))
+
+// Maior nota de cada critério, para destacar o melhor da coluna (só faz sentido com 2 ou mais).
+const melhores = Object.fromEntries(
+  CRITERIOS.map((c) => [c.id, lista.length >= 2 ? Math.max(...lista.map((h) => h.notas[c.id])) : null]),
+)
+
+// Menor preço por mês e menor renovação entre quem tem plano de referência (só destaca com 2 ou mais).
+const comMes = lista.filter((h) => h.plano && h.plano.porMes != null)
+const menorMes = comMes.length >= 2 ? Math.min(...comMes.map((h) => h.plano.porMes)) : null
+const comRenovacao = lista.filter((h) => h.plano && h.plano.renovacao != null)
+const menorRenovacao = comRenovacao.length >= 2 ? Math.min(...comRenovacao.map((h) => h.plano.renovacao)) : null
+
+// O que ainda não foi conferido aparece como traço. Texto curto do plano para o celular.
+const reais = (n) => (n == null ? '—' : fmtReais(n))
+const resumoPlano = (p) =>
+  [
+    p.nome + ': ' + (p.porMes != null ? fmtReais(p.porMes) + '/mês' : 'preço no site'),
+    p.renovacao != null ? 'renova por ' + fmtReais(p.renovacao) : null,
+    p.dominioGratis ? 'domínio grátis' : null,
+  ]
+    .filter(Boolean)
+    .join(', ')
+
+// Data de conferência dos preços: cada hospedagem tem a sua. Mostra uma data ou o período.
+const datasPrecos = [...new Set(lista.map((h) => h.plano && h.plano.conferidoEm).filter(Boolean))].sort()
+const fraseConferencia =
+  datasPrecos.length === 0
+    ? ''
+    : datasPrecos.length === 1
+      ? 'em ' + fmtData(datasPrecos[0])
+      : (() => {
+          const a = new Date(datasPrecos[0] + 'T12:00:00')
+          const b = new Date(datasPrecos[datasPrecos.length - 1] + 'T12:00:00')
+          const mesmoMes = a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear()
+          return 'de ' + (mesmoMes ? a.getDate() + ' a ' : fmtData(datasPrecos[0]) + ' a ') + fmtData(datasPrecos[datasPrecos.length - 1])
+        })()
+
+const url = 'https://agenciaoneimpact.com.br/ranking'
+const titulo = 'Ranking de hospedagens de sites | One Impact'
+const descricao =
+  'Ranking das hospedagens de sites avaliadas no canal Karol Christie, com nota em painel, suporte, qualidade de entrega e preço. Atualizado a cada vídeo.'
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Ranking de hospedagens de sites',
+  description: descricao,
+  url,
+  inLanguage: 'pt-BR',
+  itemListOrder: 'https://schema.org/ItemListOrderDescending',
+  itemListElement: lista.map((h) => ({
+    '@type': 'ListItem',
+    position: h.posicao,
+    name: h.nome,
+    description: `${h.nome}: nota ${fmtNota(h.nota)} de 10`,
+  })),
+}
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://agenciaoneimpact.com.br' },
+    { '@type': 'ListItem', position: 2, name: 'Ranking de hospedagens', item: url },
+  ],
+}
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    {lista.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
+      /* Paleta da marca One Impact. Claro por padrão; escuro segue o tema do navegador. */
+      :root {
+        color-scheme: light dark;
+        --roxo: #7345FD;
+        --roxo-escuro: #4B2FBE;
+        --roxo-texto: #4B2FBE;
+        --tinta: #130F26;
+        --linha: #e4dff3;
+        --fraco: rgba(19, 15, 38, 0.6);
+        --fundo: #F7F5FD;
+        --superficie: #FFFFFF;
+        --zebra: #faf9fe;
+        --destaque: #f1ecff;
+        --cabecalho: #130F26;
+        --apagado: #a39fb5;
+        --ok: #16a34a;
+        --ok-fundo: #dcfce7;
+        --ok-texto: #14532d;
+        --aviso-fundo: #fff7e0;
+        --aviso-borda: #e8c36a;
+        --aviso-texto: #6b4a00;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --roxo-texto: #B9A5FF;
+          --tinta: #EEEAFB;
+          --linha: #2f2858;
+          --fraco: rgba(238, 234, 251, 0.62);
+          --fundo: #0E0B1E;
+          --superficie: #17122F;
+          --zebra: #1b1536;
+          --destaque: #251c4d;
+          --cabecalho: #241c4a;
+          --apagado: #7d7899;
+          --ok: #4ade80;
+          --ok-fundo: #12361f;
+          --ok-texto: #bbf7d0;
+          --aviso-fundo: #2e2410;
+          --aviso-borda: #6b5319;
+          --aviso-texto: #f3d98a;
+        }
+
+      }
+
+      body {
+        position: relative;
+        background-color: var(--fundo);
+        font-family: 'Sora', sans-serif;
+        color: var(--tinta);
+      }
+
+      /* Mesmo fundo do blog: brilho roxo e pontilhado no topo */
+      .hero-glow,
+      .hero-dots {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 560px;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .hero-glow {
+        background: radial-gradient(ellipse 45% 55% at 85% 10%, rgba(115, 69, 253, 0.14), transparent 70%);
+      }
+
+      .hero-dots {
+        background-image: radial-gradient(rgba(75, 47, 190, 0.25) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 80% at 75% 20%, black, transparent 80%);
+        mask-image: radial-gradient(ellipse 65% 80% at 75% 20%, black, transparent 80%);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .hero-dots {
+          background-image: radial-gradient(rgba(185, 165, 255, 0.28) 0.8px, transparent 0.8px);
+        }
+
+        .hero-glow {
+          background: radial-gradient(ellipse 45% 55% at 85% 10%, rgba(115, 69, 253, 0.28), transparent 70%);
+        }
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 130px 20px 70px;
+      }
+
+      h1 {
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .sub {
+        margin: 10px 0 26px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--fraco);
+      }
+
+      .rascunho-aviso {
+        margin-bottom: 18px;
+        padding: 10px 14px;
+        border: 1px solid var(--aviso-borda);
+        background: var(--aviso-fundo);
+        font-size: 12px;
+        line-height: 1.55;
+        color: var(--aviso-texto);
+      }
+
+      /* Tabela */
+      .tabela-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--linha);
+        background: var(--superficie);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      thead th {
+        padding: 13px 12px;
+        background: var(--cabecalho);
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #FFFFFF;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      thead th.esq {
+        text-align: left;
+      }
+
+      tbody td {
+        padding: 14px 12px;
+        border-bottom: 1px solid var(--linha);
+        text-align: center;
+        vertical-align: middle;
+        font-variant-numeric: tabular-nums;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      tbody tr:nth-child(even) td {
+        background: var(--zebra);
+      }
+
+      td.pos {
+        width: 52px;
+        font-weight: 600;
+        color: var(--fraco);
+      }
+
+      tbody td.nome {
+        text-align: left;
+      }
+
+      .nome strong {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .nome small {
+        display: block;
+        margin-top: 2px;
+        font-size: 12px;
+        color: var(--fraco);
+      }
+
+      .nome a.contratar {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 12px;
+        border-radius: 6px;
+        background: var(--roxo);
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #FFFFFF;
+      }
+
+      .nome a.contratar:hover {
+        background: var(--roxo-escuro);
+      }
+
+      .nome a.analise {
+        display: block;
+        margin-top: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: underline;
+        color: var(--roxo-texto);
+      }
+
+      .nome a.analise:hover {
+        color: var(--roxo);
+      }
+
+      /* Barrinha embaixo da nota geral, para comparar de relance */
+      .barra-nota {
+        display: block;
+        width: 46px;
+        height: 4px;
+        margin: 6px auto 0;
+        border-radius: 9999px;
+        background: rgba(115, 69, 253, 0.15);
+        overflow: hidden;
+      }
+
+      .barra-nota i {
+        display: block;
+        height: 100%;
+        border-radius: 9999px;
+        background: var(--roxo);
+      }
+
+      /* Botão pequeno que copia o cupom, ao lado do Contratar */
+      .nome .cupom-mini {
+        display: inline-block;
+        margin: 8px 0 0;
+        padding: 4px 12px;
+        border-radius: 6px;
+        border: 1px dashed var(--roxo);
+        background: var(--superficie);
+        font-family: 'Sora', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--roxo-texto);
+        cursor: pointer;
+      }
+
+      .nome .cupom-mini:hover {
+        background: rgba(115, 69, 253, 0.08);
+      }
+
+      .nome .cupom-mini.copiado {
+        border-color: var(--ok);
+        background: var(--ok-fundo);
+        color: var(--ok-texto);
+      }
+
+      td.melhor {
+        font-weight: 700;
+        color: var(--roxo-texto);
+      }
+
+      td.total {
+        border-left: 1px solid var(--linha);
+        border-right: 1px solid var(--linha);
+        font-size: 17px;
+        font-weight: 700;
+      }
+
+      /* Cabeçalho em dois níveis: grupos em cima, colunas embaixo */
+      thead th.grupo {
+        padding: 9px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        font-size: 11.5px;
+        color: #C9BBFF;
+      }
+
+      thead th.ini-grupo {
+        border-left: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      tbody td.fato {
+        white-space: nowrap;
+      }
+
+      tbody td.ini-grupo {
+        border-left: 1px solid var(--linha);
+      }
+
+      .sim {
+        font-weight: 700;
+        color: var(--ok);
+      }
+
+      .nao {
+        color: var(--apagado);
+      }
+
+      .nome small.fato-mobile {
+        display: none;
+      }
+
+      /* Primeiro lugar */
+      tr.primeira td {
+        background: var(--destaque);
+      }
+
+      tr.primeira td.pos {
+        box-shadow: inset 3px 0 0 var(--roxo);
+        font-weight: 700;
+        color: var(--roxo-texto);
+      }
+
+      /* Ainda sem avaliação */
+      tr.aval td {
+        color: var(--apagado);
+      }
+
+      tr.aval .nome strong {
+        color: var(--tinta);
+      }
+
+      .nota-rodape {
+        margin-top: 14px;
+        font-size: 12px;
+        line-height: 1.7;
+        color: var(--fraco);
+      }
+
+      /* Vídeos */
+      h2 {
+        margin: 48px 0 14px;
+        font-family: 'Zalando Sans Expanded', sans-serif;
+        font-size: 17px;
+        line-height: 1.3;
+      }
+
+      .videos {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+      }
+
+      @media (min-width: 720px) {
+        .videos {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      .video {
+        display: block;
+        background: var(--superficie);
+        border: 1px solid var(--linha);
+        text-decoration: none;
+        color: var(--tinta);
+      }
+
+      .video:hover {
+        border-color: var(--roxo);
+      }
+
+      .video img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      .video span {
+        display: block;
+        padding: 10px 12px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      /* Celular: a mesma tabela, mais compacta */
+      @media (max-width: 719px) {
+        main {
+          padding-top: 120px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+
+        table {
+          font-size: 13px;
+        }
+
+        thead th,
+        tbody td {
+          padding: 11px 6px;
+        }
+
+        thead th {
+          font-size: 11.5px;
+        }
+
+        td.pos {
+          width: 34px;
+        }
+
+        .nome strong {
+          font-size: 14px;
+        }
+
+        td.total {
+          font-size: 15px;
+        }
+
+        .fato {
+          display: none;
+        }
+
+        .nome small.ideal {
+          display: none;
+        }
+
+        .nome small.fato-mobile {
+          display: block;
+        }
+      }
+    </style>
+    <AnimacaoRolagem />
+  </head>
+  <body>
+    <Header />
+
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-dots" aria-hidden="true"></div>
+
+    <main>
+      <div data-reveal-scroll data-reveal-filhos>
+      <h1>Ranking de hospedagens de sites</h1>
+      <p class="sub">Notas de 0 a 10 em quatro critérios, atualizadas a cada vídeo do canal. Atualizado em {fmtData(ATUALIZADO_EM)}.</p>
+
+      {temRascunho && !import.meta.env.PROD && (
+        <p class="rascunho-aviso">
+          <strong>Rascunho:</strong> notas ainda não confirmadas. Só aparecem aqui, no seu computador. Publicado, a hospedagem fica "em avaliação" até `notasConfirmadas` ser true em src/data/ranking.js.
+        </p>
+      )}
+
+      <div class="tabela-wrap">
+        <table>
+          <caption class="sr-only">Ranking de hospedagens de sites, da melhor para a pior nota</caption>
+          <thead>
+            <tr>
+              <th scope="col" rowspan="2">#</th>
+              <th scope="col" rowspan="2" class="esq">Hospedagem</th>
+              <th scope="col" rowspan="2">Nota</th>
+              <th scope="colgroup" colspan={CRITERIOS.length} class="grupo ini-grupo">Notas por critério</th>
+              <th scope="colgroup" colspan="3" class="grupo ini-grupo fato">Plano de referência</th>
+            </tr>
+            <tr>
+              {CRITERIOS.map((c, i) => <th scope="col" title={c.descricao} class:list={[{ 'ini-grupo': i === 0 }]}>{c.curto}</th>)}
+              <th scope="col" class="ini-grupo fato">Por mês</th>
+              <th scope="col" class="fato">Renovação</th>
+              <th scope="col" class="fato">Domínio grátis</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lista.map((h) => (
+              <tr class:list={[{ primeira: h.posicao === 1 }]}>
+                <td class="pos">{h.posicao}º</td>
+                <td class="nome">
+                  <strong>{h.nome}</strong>
+                  {h.idealPara && <small class="ideal">Ideal para {h.idealPara}</small>}
+                  {h.plano && <small class="fato-mobile">{resumoPlano(h.plano)}</small>}
+                  {h.link && (
+                    <a class="contratar" href={h.link} target="_blank" rel="sponsored noopener" data-track={`ranking-${h.id}`} data-track-label={`${h.botao} (ranking, posição ${h.posicao})`}>
+                      Contratar
+                    </a>
+                  )}
+                  {h.artigo && <a class="analise" href={h.artigo.href}>Ver a análise →</a>}
+                  {h.link && h.cupom && (
+                    <button type="button" class="cupom-mini" data-copiar={h.cupom.codigo} data-track={`cupom-copiar-ranking-${h.id}`} data-track-label={`Copiar cupom ${h.cupom.codigo} (ranking, ${h.nome})`}>
+                      Cupom {h.cupom.codigo}
+                    </button>
+                  )}
+                </td>
+                <td class="total">
+                  {fmtNota(h.nota)}
+                  <span class="barra-nota" aria-hidden="true"><i style={`width: ${h.nota * 10}%`}></i></span>
+                </td>
+                {CRITERIOS.map((c, i) => (
+                  <td class:list={[{ melhor: melhores[c.id] !== null && h.notas[c.id] === melhores[c.id], 'ini-grupo': i === 0 }]}>{fmtNota(h.notas[c.id])}</td>
+                ))}
+                <td class:list={['fato', 'ini-grupo', { melhor: menorMes !== null && h.plano && h.plano.porMes === menorMes }]}>{h.plano ? reais(h.plano.porMes) : '—'}</td>
+                <td class:list={['fato', { melhor: menorRenovacao !== null && h.plano && h.plano.renovacao === menorRenovacao }]}>{h.plano ? reais(h.plano.renovacao) : '—'}</td>
+                <td class="fato">
+                  {h.plano ? (h.plano.dominioGratis === true ? <span class="sim" aria-label="Sim">✓</span> : h.plano.dominioGratis === false ? <span class="nao" aria-label="Não">–</span> : '—') : '—'}
+                </td>
+              </tr>
+            ))}
+
+            {emAvaliacao.map((h) => (
+              <tr class="aval">
+                <td class="pos">–</td>
+                <td class="nome">
+                  <strong>{h.nome}</strong>
+                  <small>Em avaliação, análise em breve no canal</small>
+                </td>
+                <td class="total">—</td>
+                {CRITERIOS.map((c, i) => <td class:list={[{ 'ini-grupo': i === 0 }]}>—</td>)}
+                <td class="fato ini-grupo">—</td>
+                <td class="fato">—</td>
+                <td class="fato">—</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {lista.length === 0 && emAvaliacao.length === 0 && <p class="nota-rodape">As primeiras avaliações estão sendo preparadas.</p>}
+
+      <p class="nota-rodape">
+        Nota = média dos quatro critérios, todos com o mesmo peso. Nas notas, 10 é o melhor: no painel, 10 é muito fácil de usar e 0 é difícil.
+        Plano de referência: o de entrada que já inclui domínio e e-mail, no contrato mais longo, com valores conferidos {fraseConferencia}. Um traço significa que ainda não conferimos. Preços podem mudar. Domínio grátis vale para o primeiro ano.
+        {lista.some((h) => h.cupom) && ` Use o cupom ${lista.find((h) => h.cupom).cupom.codigo} no pagamento para ganhar ${lista.find((h) => h.cupom).cupom.desconto} de desconto na ${lista.find((h) => h.cupom).nome}.`}
+        {lista.some((h) => h.link) && ' Contratando pelo nosso link, você apoia o nosso canal e ajuda a gente a continuar produzindo conteúdo gratuito.'}
+      </p>
+
+      </div>
+
+      {videos.length > 0 && (
+        <div data-reveal-scroll data-reveal-filhos>
+          <h2>Últimos vídeos sobre hospedagem</h2>
+          <div class="videos">
+            {videos.map((v) => (
+              <a class="video" href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener" data-track="ranking-video" data-track-label={v.titulo}>
+                <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={`Capa do vídeo: ${v.titulo}`} loading="lazy" width="480" height="360" />
+                <span>{v.titulo}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </main>
+
+    <Footer />
+    <CopiarCupom />
+    <Rastreio />
+  </body>
+</html>

@@ -25,6 +25,9 @@ const blog = defineCollection({
       .optional(),
     // Quando presente, o artigo mostra o aviso de afiliado e os botões. Valor = produto (ex.: 'hostinger').
     affiliate: z.enum(['hostinger']).optional(),
+    // Convite do fim do artigo. Artigos com afiliado já levam ao canal; 'canal' faz o mesmo
+    // em artigos sem afiliado. Sem nenhum dos dois, o fim leva à proposta da agência.
+    cta: z.enum(['canal']).optional(),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     draft: z.boolean().default(false),
   }),

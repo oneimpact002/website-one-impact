@@ -1,6 +1,6 @@
 // Funções compartilhadas do blog (lista, páginas de tag e artigos).
 
-export const fmtDate = (d) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(d)
+export const fmtDate = (d) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(d)
 
 export const readingTime = (body) =>
   Math.max(1, Math.round((body ? body.split(/\s+/).length : 0) / 200))

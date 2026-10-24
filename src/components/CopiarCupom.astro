@@ -1,0 +1,53 @@
+---
+// Faz funcionar qualquer botão ou link com data-copiar="CODIGO": ao clicar, copia o
+// código e troca o texto por "Cupom copiado!" por 2 segundos. Coloque este componente
+// uma vez em cada página que tenha botão de cupom. O clique continua sendo medido no
+// SiteLens pelo data-track do próprio botão.
+---
+
+<script>
+  async function copiarTexto(texto: string): Promise<boolean> {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(texto)
+        return true
+      }
+    } catch {
+      // segue para o plano B
+    }
+
+    try {
+      const area = document.createElement('textarea')
+      area.value = texto
+      area.setAttribute('readonly', '')
+      area.style.position = 'fixed'
+      area.style.opacity = '0'
+      document.body.appendChild(area)
+      area.select()
+      const ok = document.execCommand('copy')
+      document.body.removeChild(area)
+      return ok
+    } catch {
+      return false
+    }
+  }
+
+  document.addEventListener('click', async (evento) => {
+    const alvo = evento.target instanceof Element ? evento.target.closest<HTMLElement>('[data-copiar]') : null
+    if (!alvo) return
+
+    evento.preventDefault()
+    const codigo = alvo.dataset.copiar ?? ''
+    const original = alvo.dataset.rotuloOriginal ?? alvo.textContent ?? ''
+    alvo.dataset.rotuloOriginal = original
+
+    const ok = await copiarTexto(codigo)
+    alvo.textContent = ok ? 'Cupom copiado!' : `Cupom: ${codigo}`
+    alvo.classList.toggle('copiado', ok)
+
+    window.setTimeout(() => {
+      alvo.textContent = original
+      alvo.classList.remove('copiado')
+    }, 2200)
+  })
+</script>

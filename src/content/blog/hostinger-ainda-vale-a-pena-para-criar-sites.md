@@ -24,12 +24,18 @@ faq:
     a: 'Dá. Você pode conectar um domínio que registrou em outra plataforma, como o Registro.br, ou comprar o domínio direto pelo painel da Hostinger.'
   - q: 'A Hostinger serve para quem vai anunciar?'
     a: 'Serve, desde que o plano comporte o tráfego. O Single tem menos capacidade para muitos acessos ao mesmo tempo. Para anúncios, a nossa indicação é o Premium ou o Unlimited. A comparação completa está no artigo sobre qual plano escolher.'
+  - q: 'Tem cupom de desconto para a Hostinger?'
+    a: 'Sim. O cupom ONEIMPACT dá 10% de desconto no pagamento da Hostinger. Contratando pelo nosso link você também apoia o canal. Digite o cupom no campo de cupom de desconto da tela de pagamento e confira o valor com o desconto antes de finalizar.'
 draft: false
 ---
 
 Na nossa experiência, a Hostinger ainda vale a pena em 2026 para criar sites. A One Impact usa a Hostinger desde 2023 como base de infraestrutura dos projetos da agência e da maioria dos projetos de clientes, com sites em WordPress, sites feitos com inteligência artificial, domínios e até o n8n, uma ferramenta de automação.
 
 Este artigo segue o vídeo do canal e mostra os quatro critérios que usamos para avaliar qualquer hospedagem de sites, aplicados à Hostinger: painel, suporte, qualidade de entrega e preço.
+
+> Quer ir direto aos planos? Use o cupom ONEIMPACT no pagamento e ganhe 10% de desconto. Contratando pelo nosso link, você também apoia o canal e ajuda a gente a continuar produzindo conteúdo gratuito.
+>
+> [Ver os planos da Hostinger](afiliado:hostinger/resposta) [Copiar cupom ONEIMPACT](cupom:hostinger/resposta)
 
 ## Os 4 critérios para escolher uma hospedagem de sites
 
@@ -88,9 +94,15 @@ A Hostinger tem quatro planos, e a escolha depende do que você vai criar.
 
 Em resumo, a nossa recomendação é o Unlimited, e o Premium se o Unlimited não couber no orçamento. O Single é para quem está começando ou testando uma ideia. Os valores, o que cada plano inclui e para qual tipo de site cada um serve estão no artigo [Qual plano da Hostinger escolher para criar um site em 2026](/blog/qual-plano-da-hostinger-para-criar-site).
 
+Para um site corporativo, uma landing page ou um blog, o Premium ou o Unlimited resolvem na maior parte dos casos. O preço promocional vale pelo período contratado e sobe na renovação, então vale olhar o valor da renovação, e não só o de entrada. A Hostinger tem garantia de reembolso de 30 dias, e vale conferir as condições na página dela.
+
+> Já decidiu? Com o cupom ONEIMPACT você ganha 10% de desconto no pagamento, e pelo nosso link você também apoia o canal. Confira o plano e o valor na tela antes de finalizar.
+>
+> [Ver os planos da Hostinger](afiliado:hostinger/precos) [Copiar cupom ONEIMPACT](cupom:hostinger/precos)
+
 ## Comparativo com outras hospedagens
 
-No vídeo mostramos um comparativo de preço da Hostinger com outras hospedagens de nível parecido. A comparação vale como referência para você avaliar as opções do mercado, porque cada hospedagem tem pontos fortes diferentes. Assista ao [vídeo completo no canal](https://www.youtube.com/watch?v=CK9_nYkOYZA) para ver a tabela.
+No vídeo mostramos um comparativo de preço da Hostinger com outras hospedagens de nível parecido. A comparação vale como referência para você avaliar as opções do mercado, porque cada hospedagem tem pontos fortes diferentes. Assista ao [vídeo completo no canal](https://www.youtube.com/watch?v=CK9_nYkOYZA) para ver a tabela. Para comparar a Hostinger com a Turbo Cloud e a KingHost, veja [qual a melhor hospedagem para criar sites em 2026](/blog/qual-a-melhor-hospedagem-para-criar-sites).
 
 ## Então vale a pena?
 

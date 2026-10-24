@@ -1,0 +1,104 @@
+---
+// Faixa com o cupom de desconto e o botão de copiar. Precisa do <CopiarCupom />
+// na mesma página para o botão funcionar.
+//   variante: 'escuro' para usar sobre fundo escuro, 'claro' sobre fundo claro.
+//   rastreio: de onde veio o clique no SiteLens (ex.: "artigo-nome-do-artigo").
+const { cupom, rastreio = 'cupom', variante = 'escuro' } = Astro.props
+---
+
+<div class:list={['cupom-chip', variante]}>
+  <span class="cupom-info">
+    <small>Cupom</small>
+    <strong>{cupom.codigo}</strong>
+    <em>{cupom.desconto} de desconto no pagamento</em>
+  </span>
+  <button
+    type="button"
+    class="cupom-botao"
+    data-copiar={cupom.codigo}
+    data-track={`cupom-copiar-${rastreio}`}
+    data-track-label={`Copiar cupom ${cupom.codigo} (${rastreio})`}
+  >
+    Copiar cupom
+  </button>
+</div>
+
+<style>
+  .cupom-chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .cupom-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+  }
+
+  .cupom-info small {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .cupom-info strong {
+    font-family: 'Zalando Sans Expanded', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+  }
+
+  .cupom-info em {
+    font-size: 12px;
+    font-style: normal;
+    opacity: 0.8;
+  }
+
+  .cupom-botao {
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 9999px;
+    background: #FFFFFF;
+    color: #4B2FBE;
+    font-family: 'Sora', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .cupom-botao:hover {
+    transform: translateY(-1px);
+  }
+
+  .cupom-botao.copiado {
+    background: #bbf7d0;
+    color: #14532d;
+  }
+
+  /* Sobre fundo claro */
+  .cupom-chip.claro {
+    border-color: rgba(115, 69, 253, 0.45);
+    background: rgba(115, 69, 253, 0.06);
+    color: #130F26;
+  }
+
+  .cupom-chip.claro .cupom-botao {
+    background: #7345FD;
+    color: #FFFFFF;
+  }
+
+  .cupom-chip.claro .cupom-botao.copiado {
+    background: #16a34a;
+    color: #FFFFFF;
+  }
+</style>

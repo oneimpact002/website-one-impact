@@ -1,5 +1,8 @@
 ---
 import Rastreio from '../components/Rastreio.astro';
+import AnimacaoRolagem from '../components/AnimacaoRolagem.astro'
+import CupomChip from '../components/CupomChip.astro'
+import CopiarCupom from '../components/CopiarCupom.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import { FERRAMENTAS } from '../data/ferramentas.js'
@@ -42,6 +45,7 @@ const ferramentas = FERRAMENTAS.map((f) => ({
   ...f,
   link: f.afiliado ? linkAfiliado(f.afiliado, f.id, 'ferramentas') : null,
   nomeAfiliado: f.afiliado ? AFILIADOS[f.afiliado].nome : null,
+  cupom: f.afiliado ? AFILIADOS[f.afiliado].cupom : null,
 }))
 ---
 
@@ -104,6 +108,17 @@ const ferramentas = FERRAMENTAS.map((f) => ({
         z-index: 0;
         pointer-events: none;
         background: radial-gradient(ellipse 45% 55% at 85% 10%, rgba(115, 69, 253, 0.14), transparent 70%);
+      }
+
+      .hero-dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(75, 47, 190, 0.25) 0.8px, transparent 0.8px);
+        background-size: 12px 12px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 80% at 75% 20%, black, transparent 80%);
+        mask-image: radial-gradient(ellipse 65% 80% at 75% 20%, black, transparent 80%);
       }
 
       .hero .container {
@@ -241,6 +256,11 @@ const ferramentas = FERRAMENTAS.map((f) => ({
         color: #4B2FBE;
         box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      /* No topo escuro o botão ficava esticado na largura toda do card */
+      .tool-top > .cta-button {
+        align-self: flex-start;
       }
 
       .cta-button:hover {
@@ -493,13 +513,15 @@ const ferramentas = FERRAMENTAS.map((f) => ({
         font-weight: 600;
       }
     </style>
+    <AnimacaoRolagem />
   </head>
   <body>
     <Header />
 
     <section class="hero">
       <div class="hero-glow" aria-hidden="true"></div>
-      <div class="container">
+      <div class="hero-dots" aria-hidden="true"></div>
+      <div class="container" data-reveal-scroll data-reveal-filhos>
         <a class="back-button" href="/blog" data-track="ferramentas-voltar-blog" data-track-label="Voltar ao blog">← Voltar ao blog</a>
         <span class="badge">Ferramentas</span>
         <h1>Ferramentas que usamos e <span class="hl">recomendamos</span></h1>
@@ -510,7 +532,7 @@ const ferramentas = FERRAMENTAS.map((f) => ({
     </section>
 
     <section class="tools-section">
-      <div class="container">
+      <div class="container" data-reveal-scroll data-reveal-filhos>
         <div class="tools-list">
           {ferramentas.map((f) => (
             <article class="tool-card" id={f.id}>
@@ -523,6 +545,7 @@ const ferramentas = FERRAMENTAS.map((f) => ({
                     {f.botao} <span aria-hidden="true">→</span>
                   </a>
                 )}
+                {f.cupom && f.link && <CupomChip cupom={f.cupom} rastreio={`ferramentas-${f.id}`} />}
               </div>
 
               <div class="tool-body">
@@ -569,6 +592,7 @@ const ferramentas = FERRAMENTAS.map((f) => ({
 
                 {f.link && (
                   <div class="tool-final">
+                    {f.cupom && <CupomChip cupom={f.cupom} rastreio={`ferramentas-${f.id}-fim`} variante="claro" />}
                     <a class="cta-button solid" href={f.link} target="_blank" rel="sponsored noopener" data-track={`ferramenta-${f.id}-fim`} data-track-label={`${f.botao} (fim do card)`}>
                       {f.botao} <span aria-hidden="true">→</span>
                     </a>
@@ -587,6 +611,7 @@ const ferramentas = FERRAMENTAS.map((f) => ({
     </section>
 
     <Footer />
+    <CopiarCupom />
     <Rastreio />
   </body>
 </html>

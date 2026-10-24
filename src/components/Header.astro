@@ -3,9 +3,21 @@ const navItems = [
   { label: 'Início', href: '/' },
   { label: 'Serviços', href: '/servicos' },
   { label: 'Portfólio', href: '/clientes-atendidos-sites' },
-  { label: 'Blog', href: '/blog' },
+  {
+    label: 'Canal',
+    children: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Ferramentas que recomendamos', href: '/ferramentas' },
+      { label: 'Ranking de hospedagens', href: '/ranking' },
+      { label: 'Patrocínio', href: '/patrocinio' },
+    ],
+  },
   { label: 'Contato', href: '/contato' },
 ]
+
+// Na rota atual, o grupo Canal fica marcado
+const caminho = Astro.url.pathname.replace(/\/$/, '') || '/'
+const noCanal = navItems.some((i) => i.children?.some((c) => caminho === c.href || caminho.startsWith(c.href + '/')))
 ---
 
 <header class="floating-header">
@@ -13,7 +25,23 @@ const navItems = [
     <img src="/logo-one-impact-dark.svg" alt="One Impact" class="brand-logo" />
   </a>
   <nav class="desktop-menu" aria-label="Navegação principal">
-    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    {navItems.map((item) =>
+      item.children ? (
+        <div class="menu-grupo">
+          <button type="button" class="menu-grupo-botao" aria-haspopup="true" aria-current={noCanal ? 'true' : undefined}>
+            {item.label}
+            <svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+          <div class="menu-sub">
+            {item.children.map((c) => (
+              <a href={c.href} aria-current={caminho === c.href || caminho.startsWith(c.href + '/') ? 'page' : undefined}>{c.label}</a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <a href={item.href}>{item.label}</a>
+      ),
+    )}
   </nav>
   <button
     class="mobile-menu-toggle"
@@ -32,9 +60,16 @@ const navItems = [
 <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true" inert>
-  {navItems.map((item, i) => (
-    <a href={item.href}><span class="menu-index">{String(i + 1).padStart(2, '0')}</span> {item.label}</a>
-  ))}
+  {navItems.map((item, i) =>
+    item.children ? (
+      <>
+        <span class="menu-titulo"><span class="menu-index">{String(i + 1).padStart(2, '0')}</span> {item.label}</span>
+        {item.children.map((c) => <a class="sub" href={c.href}>{c.label}</a>)}
+      </>
+    ) : (
+      <a href={item.href}><span class="menu-index">{String(i + 1).padStart(2, '0')}</span> {item.label}</a>
+    ),
+  )}
 </nav>
 
 <style>
@@ -92,6 +127,93 @@ const navItems = [
   }
 
   .desktop-menu a:hover {
+    color: #7345FD;
+    background: rgba(115, 69, 253, 0.09);
+  }
+
+  /* Grupo Canal: dropdown */
+  .menu-grupo {
+    position: relative;
+  }
+
+  .menu-grupo-botao {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 9px;
+    border: 0;
+    border-radius: 9999px;
+    background: transparent;
+    font-family: 'Sora', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #130F26;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+
+  .menu-grupo-botao svg {
+    transition: transform 0.2s ease;
+  }
+
+  .menu-grupo:hover .menu-grupo-botao,
+  .menu-grupo:focus-within .menu-grupo-botao,
+  .menu-grupo-botao[aria-current='true'] {
+    color: #7345FD;
+    background: rgba(115, 69, 253, 0.09);
+  }
+
+  .menu-grupo:hover .menu-grupo-botao svg,
+  .menu-grupo:focus-within .menu-grupo-botao svg {
+    transform: rotate(180deg);
+  }
+
+  .menu-sub {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    min-width: 240px;
+    padding-top: 12px;
+    transform: translate(-50%, 6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  }
+
+  .menu-sub::before {
+    content: '';
+    position: absolute;
+    inset: 12px 0 0;
+    z-index: -1;
+    border: 1px solid rgba(19, 15, 38, 0.08);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 14px 36px rgba(19, 15, 38, 0.16);
+  }
+
+  .menu-grupo:hover .menu-sub,
+  .menu-grupo:focus-within .menu-sub {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  .menu-sub a {
+    display: block;
+    margin: 4px;
+    padding: 9px 12px;
+    border-radius: 12px;
+  }
+
+  .menu-sub a:first-child {
+    margin-top: 8px;
+  }
+
+  .menu-sub a:last-child {
+    margin-bottom: 8px;
+  }
+
+  .menu-sub a[aria-current='page'] {
     color: #7345FD;
     background: rgba(115, 69, 253, 0.09);
   }
@@ -202,11 +324,39 @@ const navItems = [
     transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
   }
 
-  .mobile-menu a .menu-index {
+  .mobile-menu a .menu-index,
+  .mobile-menu .menu-titulo .menu-index {
     font-family: 'Sora', sans-serif;
     font-size: 10px;
     font-weight: 700;
     color: #9774FE;
+  }
+
+  /* Título do grupo e links dentro dele, no menu do celular */
+  .mobile-menu .menu-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 0 4px;
+    font-family: 'Zalando Sans Expanded', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: #FFFFFF;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .mobile-menu.is-open .menu-titulo {
+    opacity: 1;
+    transition-delay: 0.23s;
+  }
+
+  .mobile-menu a.sub {
+    padding: 9px 0 9px 30px;
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .mobile-menu a:hover,
@@ -224,6 +374,7 @@ const navItems = [
   .mobile-menu.is-open a:nth-child(2) { transition-delay: 0.13s; }
   .mobile-menu.is-open a:nth-child(3) { transition-delay: 0.18s; }
   .mobile-menu.is-open a:nth-child(4) { transition-delay: 0.23s; }
+  .mobile-menu.is-open a:nth-child(n + 5) { transition-delay: 0.28s; }
 
   @media (min-width: 900px) {
     .desktop-menu {
